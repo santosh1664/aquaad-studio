@@ -12,8 +12,8 @@ WaterOnUs gives people free water, paid for by brands. Each 500 ml bottle carrie
 - Always be honest about what is provisional (sizes, dieline).
 
 ## Messaging
-- Headline: Free water. Paid for by brands.
-- Supporting line: The billboard people carry.
+- Headline: The billboard people carry.
+- Supporting line: Free water, paid for by brands.
 - Statement: You can skip an ad. You can't skip being thirsty.
 - Audiences: brands (advertise), venues (distribute), manufacturers and water partners (partner), investors.
 - Calls to action: Design your bottle, Free for venues, Become a partner, Request investor information.
