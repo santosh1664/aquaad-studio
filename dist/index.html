@@ -736,6 +736,36 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     return drawMockup(c).then(function () { return new Promise(function (res) { c.toBlob(function (b) { res(b ? new File([b], 'aquaad-mockup.jpg', { type: 'image/jpeg' }) : null); }, 'image/jpeg', 0.9); }); });
   }
 
+  function rotateActive(deg, btn) {
+    var id = active, cur = images[id];
+    if (!cur) return;
+    $('artErr').textContent = '';
+    var img = new Image();
+    img.onload = function () {
+      var c = document.createElement('canvas'), q = Math.abs(deg) === 90;
+      c.width = q ? img.naturalHeight : img.naturalWidth; c.height = q ? img.naturalWidth : img.naturalHeight;
+      var x = c.getContext('2d'), type = cur.file.type;
+      if (type !== 'image/png') { x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); }
+      x.translate(c.width / 2, c.height / 2); x.rotate(deg * Math.PI / 180); x.drawImage(img, -img.naturalWidth / 2, -img.naturalHeight / 2);
+      function done(b, t) {
+        if (!b) { $('artErr').textContent = 'Could not rotate this image.'; return; }
+        if (b.size > MAX_FILE) { $('artErr').textContent = 'The rotated image is over 3 MB. Please rotate it in an image editor and upload again.'; return; }
+        var ext = t === 'image/png' ? '.png' : t === 'image/webp' ? '.webp' : '.jpg', base = cur.file.name.replace(/\.[^.]+$/, '');
+        var file = new File([b], base + ext, { type: t });
+        try { URL.revokeObjectURL(cur.url); } catch (e) {}
+        images[id] = { file: file, url: URL.createObjectURL(file) };
+        spin = false; refresh();
+      }
+      c.toBlob(function (b) {
+        if (b && b.size > MAX_FILE && type === 'image/png') {
+          var f2 = document.createElement('canvas'); f2.width = c.width; f2.height = c.height; var y = f2.getContext('2d'); y.fillStyle = '#fff'; y.fillRect(0, 0, c.width, c.height); y.drawImage(c, 0, 0);
+          f2.toBlob(function (jb) { done(jb, 'image/jpeg'); }, 'image/jpeg', 0.92);
+        } else done(b, type);
+      }, type, 0.92);
+    };
+    img.onerror = function () { $('artErr').textContent = 'Could not rotate this image.'; };
+    img.src = cur.url;
+  }
   var chipsEl = $('chips'), ddOpen = false;
   function paintUI() {
     var n = PANELS.filter(function (p) { return picked[p.id]; });
@@ -796,6 +826,13 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
         spin = false; angle = nearest(FACE_ANGLE[ap.face]); tilt = -12; inp.value = ''; refresh();
       };
       acts.append(h('label', { class: 'upl' }, images[active] ? 'Replace artwork' : 'Upload artwork', inp));
+      if (images[active]) {
+        [['Rotate left', -90, '↺'], ['Rotate right', 90, '↻']].forEach(function (r) {
+          var rb = h('button', { type: 'button', class: 'btn', 'aria-label': r[0] + ' 90 degrees', text: r[2] + ' ' + r[0] });
+          rb.onclick = function () { rotateActive(r[1], rb); };
+          acts.append(rb);
+        });
+      }
       if (images[active]) { var rm = h('button', { type: 'button', class: 'btn', text: 'Remove artwork' }); rm.onclick = function () { URL.revokeObjectURL(images[active].url); delete images[active]; refresh(); }; acts.append(rm); }
     } else { $('artHint').textContent = 'Add this panel from the list above to upload artwork. Panels you do not add keep AquaAd branding.'; }
     var withArt = n.filter(function (p) { return images[p.id]; }).length;
