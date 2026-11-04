@@ -2,8 +2,8 @@
 
 # aquaad
 
-**Advertising on 500 ml water bottles.**
-Pick your panels, preview your artwork in 3D and send it to the AquaAd team.
+**The billboard people carry.**
+Put your brand on 500 ml water bottles. See it on a real 3D bottle, then send it to the AquaAd team.
 
 [**Live site**](https://santosh1664.github.io/aquaad-studio/) &nbsp;·&nbsp;
 [Advertise](https://santosh1664.github.io/aquaad-studio/#sides) &nbsp;·&nbsp;
@@ -29,10 +29,10 @@ Pick your panels, preview your artwork in 3D and send it to the AquaAd team.
 
 ## What it does
 
-- **Design studio.** A 3D bottle (73 mm wide, label area 73 × 170 mm) with seven ad panels for sale: upper and lower on the front, right and left, plus the upper back. Take a single panel or a whole side. The lower back is reserved for AquaAd company information.
-- **Artwork tools.** Upload JPG, PNG or WEBP (max 3 MB), rotate it, see the exact artwork size and bleed for each panel, and preview a four-sided mockup.
-- **Send to AquaAd.** The enquiry, the artwork files and the generated mockup go to the admin inbox.
-- **Distribute, partner and invest.** Venues apply to distribute; manufacturers and water partners and investors open a pop-up form.
+- **Design studio.** A real-time WebGL bottle you can drag to turn (73 mm wide, label area 73 × 170 mm) with seven ad panels for sale: upper and lower on the front, right and left, plus the upper back. Take a single panel or a whole side. The lower back is reserved for AquaAd company information.
+- **Artwork tools.** Upload JPG, PNG or WEBP (max 3 MB), rotate it, see the exact artwork size and bleed for each panel, and preview a four-sided render of the bottle.
+- **Send to AquaAd.** The enquiry, the artwork files and the four-sided render go to the admin inbox.
+- **Distribute, partner and invest.** Venues, manufacturers, water partners and investors each open a pop-up form.
 - **Kept for 24 hours.** Panels, artwork and typed details stay in the visitor's own browser, so a refresh does not lose them.
 - **Admin switch.** The admin page can bring back the older gable-top carton model for visitors.
 
@@ -47,7 +47,7 @@ flowchart LR
   S -->|GET /api/settings| F
 ```
 
-- **Frontend:** one plain HTML/CSS/JS file, no build step. CSS 3D for the bottle, canvas for the mockup, `localStorage` and IndexedDB for the 24-hour saving.
+- **Frontend:** plain HTML/CSS/JS, no build step. Three.js (from jsDelivr) renders the bottle, with a CSS 3D bottle as the fallback. `localStorage` and IndexedDB handle the 24-hour saving.
 - **Backend:** one Neon Function (Node 24) with a Postgres database. Public: `POST /api/enquiry`, `GET /api/settings`, `GET /api/health`. Admin (Bearer password): `/api/admin/list`, `artwork`, `update`, `delete`, `settings`.
 
 ## Project structure
@@ -56,6 +56,7 @@ flowchart LR
 .
 ├── dist/
 │   ├── index.html          the website (deployed to GitHub Pages)
+│   ├── bottle3d.js         the WebGL bottle: geometry, materials, render snapshots
 │   └── prototype.html      the original Three.js carton prototype
 ├── server-function.mjs     backend + admin page (Neon Function source)
 ├── docs/                   brand guidelines and design notes
@@ -92,7 +93,7 @@ A new deployment replaces the environment, so always pass `ADMIN_PASSWORD` again
 
 ## Design
 
-Palette, type and voice are written down in [`docs/brand-guidelines.md`](docs/brand-guidelines.md). The CSS uses three token layers (primitive, semantic, component) at the top of `dist/index.html`. Plus Jakarta Sans, navy `#0F172A`, blue `#0369A1`, 44 px touch targets, visible focus rings, reduced-motion support.
+Palette, type and voice are written down in [`docs/brand-guidelines.md`](docs/brand-guidelines.md): abyss `#04141C`, signal orange `#FF5A1F`, Bricolage Grotesque with Instrument Serif and Geist. 44 px touch targets, visible focus rings, reduced-motion support.
 
 ## Status and open items
 

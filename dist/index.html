@@ -3,392 +3,508 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AquaAd Studio — Advertise on water bottles</title>
-<meta name="description" content="Put your artwork on AquaAd 500 ml water bottles, preview it in 3D and send it to our team. Distributors, manufacturing partners and investors welcome.">
-<meta name="theme-color" content="#0F172A">
+<title>AquaAd — The billboard people carry</title>
+<meta name="description" content="AquaAd puts your brand on 500 ml water bottles. Choose your panels, see your artwork on a real 3D bottle and send it to our team.">
+<meta name="theme-color" content="#04141C">
+<meta property="og:title" content="AquaAd — The billboard people carry">
+<meta property="og:description" content="Put your brand on 500 ml water bottles. See it in 3D before you commit.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2304141C'/%3E%3Cpath d='M16 6c4 5 7.5 9 7.5 13a7.5 7.5 0 0 1-15 0C8.5 15 12 11 16 6z' fill='%23FF5A1F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <style>
 :root{
-/* 1. primitive tokens (raw values) */
---navy-900:#0F172A;--navy-700:#334155;--slate-600:#475569;--slate-300:#CBD5E1;--slate-200:#E2E8F0;--slate-50:#F8FAFC;--blue-700:#0369A1;--blue-800:#075985;--sky-100:#E0F2FE;--sky-400:#38BDF8;--white:#fff;
---radius-md:12px;--radius-lg:16px;--radius-xl:20px;--shadow-md:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06);
-/* 2. semantic tokens (purpose) */
---ink:var(--navy-900);--sec:var(--navy-700);--mut:var(--slate-600);--line:var(--slate-200);--bg:var(--slate-50);--acc:var(--blue-700);--acc-d:var(--blue-800);--sky:var(--sky-100);--sky2:var(--sky-400);--r:var(--radius-lg);--sh:var(--shadow-md);
-/* 3. component tokens */
---btn-bg:var(--acc);--btn-bg-hover:var(--acc-d);--btn-radius:var(--radius-md);--card-bg:var(--white);--card-border:var(--line);--card-radius:var(--r);--input-border:var(--slate-300);--input-radius:10px;--focus-ring:var(--acc)}
+/* primitive */
+--abyss:#04141C;--deep:#0A2530;--deep-2:#113441;--ice:#EDF3F2;--paper:#F8FAF9;--white:#fff;--signal:#FF5A1F;--signal-d:#E8480F;--sea:#7FD4E6;
+--on-dark:#F2F7F6;--on-dark-mut:#A3B8BF;--on-light-mut:#4A5F67;--hair-dark:rgba(242,247,246,.16);--hair-light:rgba(4,20,28,.14);
+/* semantic */
+--ink:var(--abyss);--mut:var(--on-light-mut);--acc:var(--signal);--line:var(--hair-light);
+--display:'Bricolage Grotesque',system-ui,sans-serif;--body:'Geist',system-ui,-apple-system,'Segoe UI',sans-serif;--mono:'Geist Mono',ui-monospace,Menlo,monospace;--serif:'Instrument Serif',Georgia,serif;
+--gutter:clamp(20px,4vw,56px);--ease:cubic-bezier(.2,.7,.1,1);
+/* component */
+--btn-h:56px;--field-h:52px;--field-r:12px;--card-r:24px}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:88px}
-body{margin:0;font:400 17px/1.65 'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{font-family:inherit;margin:0;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
-p{margin:0}
-a{color:var(--acc);text-underline-offset:3px}a:hover{color:var(--acc-d)}
+html{scroll-behavior:smooth;scroll-padding-top:104px;background:var(--abyss)}
+body{margin:0;font:400 17px/1.55 var(--body);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:700;letter-spacing:-.035em;line-height:.98;font-optical-sizing:auto}
+p{margin:0}em.s{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.02em}
+a{color:inherit}
 button,input,textarea,select{font:inherit;color:inherit}
 button{cursor:pointer}
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible,.upl:focus-within{outline:3px solid var(--focus-ring);outline-offset:3px;border-radius:8px}
-.skip{position:absolute;left:12px;top:-80px;background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;font-weight:700;z-index:100;text-decoration:none}.skip:focus{top:12px;color:#fff}
-.wrap{max-width:1168px;margin:0 auto}
-section{padding:96px 40px}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--acc)}
-.h2{font-size:40px;font-weight:800;line-height:1.12}
-.lead{font-size:19px;color:var(--sec);max-width:640px}
-.head{max-width:720px;margin:0 auto 48px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border-radius:var(--btn-radius);border:1.5px solid var(--line);background:#fff;color:var(--ink);font-weight:700;font-size:15px;text-decoration:none;transition:background-color .18s,border-color .18s,box-shadow .18s,color .18s}
-.btn:hover{border-color:#94A3B8;color:var(--ink);box-shadow:var(--sh)}
-.btn.p,.btn.sky{background:var(--btn-bg);border-color:var(--btn-bg);color:#fff}.btn.p:hover,.btn.sky:hover{background:var(--btn-bg-hover);border-color:var(--btn-bg-hover);color:#fff}
-.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}.btn.dark:hover{background:#1E293B;color:#fff}
-.btn.lg{min-height:56px;padding:0 30px;font-size:16px}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-/* header */
-header.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:24px;padding:0 40px;min-height:72px;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;font-size:24px;letter-spacing:-.03em}.logo b{color:var(--acc);font-weight:800}.logo:hover{color:var(--ink)}
-.nav nav{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;flex:1;justify-content:flex-end}
-.nav nav a:not(.btn){color:var(--sec);text-decoration:none;font-weight:600;font-size:15px;padding:10px 12px;border-radius:10px;min-height:44px;display:inline-flex;align-items:center}
-.nav nav a:not(.btn):hover{color:var(--ink);background:var(--bg)}
-.nav nav .btn{margin-left:8px;min-height:44px}
-/* hero */
-.hero{background:radial-gradient(900px 420px at 85% 0%,#E0F2FE 0%,rgba(224,242,254,0) 70%),linear-gradient(180deg,#F8FAFC 0%,#fff 100%);padding:0;border-bottom:1px solid var(--line)}
-.hero .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:56px;padding:88px 40px 96px}
-.hero .copy{flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:24px;align-items:flex-start}
-.hero h1{font-size:60px;font-weight:800;line-height:1.05;letter-spacing:-.035em}
-.hero h1 em{font-style:normal;color:var(--acc)}
-.hero .sub{font-size:20px;color:var(--sec);max-width:520px}
-.ticks{display:flex;flex-wrap:wrap;gap:10px 24px;list-style:none;margin:6px 0 0;padding:0;color:var(--sec);font-size:15px;font-weight:600}
-.ticks li{display:flex;align-items:center;gap:8px}
-.ticks svg{flex:none}
-.hero .art{flex:1 1 400px;min-width:0}
-.hero .art .card-art{background:#fff;border:1px solid var(--line);border-radius:28px;padding:28px 20px 12px;box-shadow:var(--sh)}
-.hero .art svg{display:block;width:100%;height:auto}
-/* proof */
-.proof{padding:0 40px;background:#fff}
-.proof .wrap{display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:20px;margin-top:-1px;transform:translateY(-36px);background:#fff;box-shadow:var(--sh)}
-.proof .stat{flex:1 1 240px;padding:26px 30px;display:flex;flex-direction:column;gap:2px;border-right:1px solid var(--line)}
-.proof .stat:last-child{border-right:0}
-.proof .stat strong{font-size:38px;font-weight:800;letter-spacing:-.03em;color:var(--acc);line-height:1.1}
-.proof .stat span{color:var(--sec);font-size:15px;font-weight:500}
-/* overview */
-.alt{background:var(--bg)}
-.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.fcard{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--card-radius);padding:28px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .2s,transform .2s}
-.fcard:hover{box-shadow:var(--sh);transform:translateY(-2px)}
-.fcard .ic{width:48px;height:48px;border-radius:12px;background:var(--sky);display:flex;align-items:center;justify-content:center}
-.fcard h3{font-size:20px;font-weight:700}.fcard p{color:var(--sec);font-size:16px}
-.step{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;display:flex;flex-direction:column;gap:10px}
-.step .n{width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
-.step h3{font-size:20px}.step p{color:var(--sec);font-size:16px}
-.note-line{margin:28px auto 0;max-width:720px;text-align:center;color:var(--mut);font-size:15px}
-/* 3D preview */
-.preview{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
-.stage-col{flex:1 1 460px;min-width:0;display:flex;flex-direction:column;gap:16px}
-.stage{position:relative;height:520px;background:linear-gradient(180deg,#E2E8F0 0%,#F1F5F9 100%);border:1px solid var(--line);border-radius:24px;overflow:hidden;perspective:1100px;display:flex;align-items:center;justify-content:center}
 [hidden]{display:none!important}
-.dd{width:100%;border:1.5px solid #CBD5E1;border-radius:12px;background:#fff}
-.dd summary{min-height:52px;display:flex;align-items:center;padding:0 16px;font-weight:700;cursor:pointer;list-style:none}
-.dd summary::-webkit-details-marker{display:none}
-.dd summary::after{content:'';margin-left:auto;width:9px;height:9px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg) translateY(-2px)}
-.dd[open] summary::after{transform:rotate(225deg)}
-.ddlist{border-top:1px solid var(--line);padding:8px 8px 12px;display:flex;flex-direction:column;gap:2px}
-.ddq{display:flex;gap:18px;padding:6px 10px 10px}
-.ddlink{background:none;border:0;padding:6px 0;font:inherit;font-weight:700;color:var(--acc);text-decoration:underline;cursor:pointer;min-height:32px}
-.ddg{font-size:12px;font-weight:700;color:var(--mut);padding:10px 10px 4px;text-transform:uppercase;letter-spacing:.07em}
-.ddi{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 10px;border-radius:10px;font-weight:600;cursor:pointer}
-.ddi:hover{background:var(--bg)}.ddi.off{opacity:.5;cursor:not-allowed}
-.ddi input{width:20px;height:20px;accent-color:var(--acc)}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px;border-radius:6px}
+.dark :focus-visible{outline-color:var(--sea)}
+.skip{position:absolute;left:12px;top:-80px;background:var(--signal);color:var(--abyss);padding:12px 20px;border-radius:10px;font-weight:600;z-index:200;text-decoration:none}.skip:focus{top:12px}
+.g{padding-inline:var(--gutter);max-width:1560px;margin-inline:auto}
+.tag{font:500 12px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:0 24px;border-radius:999px;border:1.5px solid currentColor;background:transparent;color:inherit;font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;transition:background-color .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease)}
+.btn:hover{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.dark .btn:hover{background:var(--on-dark);border-color:var(--on-dark);color:var(--abyss)}
+.btn:active{transform:scale(.98)}
+.btn.p,.btn.sky{background:var(--signal);border-color:var(--signal);color:var(--abyss);font-weight:600}
+.btn.p:hover,.btn.sky:hover,.dark .btn.p:hover{background:var(--on-dark);border-color:var(--on-dark);color:var(--abyss)}
+.btn.lg{min-height:var(--btn-h);padding:0 30px;font-size:16px}
+.btn .ar{transition:transform .3s var(--ease)}.btn:hover .ar{transform:translateX(4px)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.round{width:48px;height:48px;padding:0}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.mut{color:var(--mut)}
+.err{color:#B42318;font-weight:500}.ok{color:#0B6B46;font-weight:600}
+.lnk{background:none;border:0;padding:4px 0;font:inherit;font-weight:500;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+/* nav */
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:60;width:min(calc(100% - 28px),1180px);display:flex;align-items:center;gap:8px;padding:8px 8px 8px 22px;border-radius:999px;background:rgba(4,20,28,.9);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border:1px solid rgba(242,247,246,.12);color:var(--on-dark)}
+.logo{display:inline-flex;align-items:baseline;font:700 23px/1 var(--display);letter-spacing:-.045em;text-decoration:none;color:inherit;min-height:44px;align-items:center}.logo b{color:var(--signal);font-weight:700}
+.nav nav{display:flex;flex:1;justify-content:center;gap:2px}
+.nav nav a{padding:10px 14px;min-height:44px;display:inline-flex;align-items:center;border-radius:999px;text-decoration:none;font-size:14.5px;color:var(--on-dark-mut);transition:color .2s,background-color .2s}
+.nav nav a:hover{color:var(--on-dark);background:rgba(242,247,246,.09)}
+.nav .btn{min-height:44px;padding:0 20px;font-size:14.5px}
+.menu-btn{display:none}
+
+/* hero */
+.hero.dark{position:relative;background:radial-gradient(46% 72% at 80% 52%,#14566B 0%,rgba(20,86,107,0) 74%),radial-gradient(30% 34% at 80% 100%,rgba(127,212,230,.2) 0%,rgba(127,212,230,0) 72%),var(--abyss);color:var(--on-dark);min-height:max(100svh,720px);overflow:hidden;display:flex;flex-direction:column}
+.hero .g{position:relative;width:100%;flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding-top:120px;padding-bottom:32px;z-index:2;pointer-events:none}
+.hero .g>*{pointer-events:auto}
+.hero h1{font-size:clamp(58px,10vw,186px);font-weight:700;line-height:.88;letter-spacing:-.04em;pointer-events:none}
+.hero h1 span{display:block}
+.hero h1 em.s{color:var(--sea);letter-spacing:-.035em}
+.hero-low{display:flex;flex-wrap:wrap;gap:24px 56px;align-items:flex-end;justify-content:flex-start;margin-top:clamp(24px,3.4vw,48px)}
+.hero-copy{flex:0 1 480px;font-size:clamp(17px,1.35vw,20px);line-height:1.45;color:#D5E2E3;display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+.hero-spec{display:flex;gap:28px;color:var(--on-dark-mut);align-items:center}
+@media (max-width:1320px){.hero-spec{display:none}}
+.hero-spec span b{display:block;color:var(--on-dark);font-weight:500;font-size:14px;letter-spacing:0;text-transform:none;margin-top:3px}
+#heroGL{position:absolute;right:max(-5vw,-70px);top:76px;width:min(56vw,900px);height:calc(100% - 76px);z-index:1;display:block}
+.fall{position:absolute;right:9vw;bottom:0;height:88%;z-index:1}
+.motion{position:absolute;right:var(--gutter);bottom:24px;z-index:3;background:rgba(4,20,28,.5);border:1px solid var(--hair-dark);color:var(--on-dark-mut);border-radius:999px;min-height:36px;padding:0 14px;font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.motion:hover{color:var(--on-dark)}
+
+/* statement */
+.state{background:var(--paper);padding-block:clamp(96px,14vw,220px)}
+.state h2{font-size:clamp(46px,8.4vw,150px);font-weight:700;line-height:.96;letter-spacing:-.04em;max-width:15ch}
+.state h2 i{font-style:normal;transition:color .35s linear;color:#C4D0CF}
+.state h2 i.on{color:var(--ink)}
+.state h2 em.s{color:var(--signal-d)}
+.state-foot{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;margin-top:clamp(40px,6vw,88px)}
+.state-foot p{grid-column:7/-1;font-size:clamp(18px,1.6vw,23px);line-height:1.4;color:var(--mut);max-width:30em}
+
+/* why rows */
+.rows{border-top:1px solid var(--line)}
+.rowi{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;padding-block:clamp(24px,3vw,44px);border-bottom:1px solid var(--line);align-items:baseline}
+.rowi .tag{grid-column:1/3;color:var(--mut)}
+.rowi h3{grid-column:3/8;font-size:clamp(30px,3.6vw,60px);font-weight:600}
+.rowi p{grid-column:8/-1;color:var(--mut);max-width:30em}
+
+/* anatomy */
+.dark{background:var(--abyss);color:var(--on-dark);--ink:var(--on-dark);--mut:var(--on-dark-mut);--line:var(--hair-dark)}
+.anat{padding-block:clamp(88px,10vw,168px)}
+.anat-head{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+.anat-head h2{grid-column:1/9;font-size:clamp(44px,6.8vw,120px);letter-spacing:-.04em;line-height:.92}
+.anat-head h2 em.s{color:var(--sea)}
+.anat-head p{grid-column:9/-1;color:var(--mut);font-size:17px}
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair-dark);border:1px solid var(--hair-dark);border-radius:var(--card-r);overflow:hidden}
+.map .col-h{background:var(--abyss);padding:16px 20px;color:var(--on-dark-mut)}
+.map .cell{background:var(--deep);min-height:clamp(150px,17vw,250px);padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;transition:background-color .3s var(--ease),color .3s var(--ease)}
+.map .cell b{font:600 clamp(19px,1.7vw,26px)/1.05 var(--display);letter-spacing:-.025em}
+.map .cell small{font:500 12px var(--mono);color:var(--on-dark-mut);transition:color .3s var(--ease)}
+.map .cell:not(.res):hover{background:var(--signal);color:var(--abyss)}.map .cell:not(.res):hover small{color:var(--abyss)}
+.map .cell.res{background:repeating-linear-gradient(135deg,var(--abyss) 0 9px,var(--deep) 9px 11px);color:var(--on-dark-mut)}
+.map-foot{display:flex;flex-wrap:wrap;gap:16px 40px;justify-content:space-between;align-items:center;margin-top:28px;color:var(--mut)}
+
+/* steps */
+.steps{background:var(--ice);padding-block:clamp(88px,10vw,160px)}
+.sec-h{font-size:clamp(44px,6.8vw,120px);letter-spacing:-.04em;line-height:.92}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,48px);margin-top:clamp(40px,6vw,88px);border-top:1px solid var(--line);padding-top:28px}
+.step .n{font:500 clamp(70px,9vw,150px)/.9 var(--display);letter-spacing:-.06em;color:var(--signal-d);display:block;margin-bottom:22px}
+.step h3{font-size:clamp(25px,2.3vw,34px);font-weight:600;letter-spacing:-.03em;margin-bottom:12px}
+.step p{color:var(--mut);max-width:26em}
+
+/* studio */
+.studio{background:var(--paper);padding-block:clamp(88px,10vw,150px)}
+.studio-head{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:end;margin-bottom:clamp(32px,4vw,56px)}
+.studio-head .l{grid-column:1/9;display:flex;flex-direction:column;gap:18px}
+.studio-head h2{font-size:clamp(44px,6.8vw,120px);letter-spacing:-.04em;line-height:.92}
+.studio-head p{grid-column:9/-1;color:var(--mut)}
+.preview{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(320px,1fr);gap:20px;align-items:start}
+.stage-col{min-width:0;display:flex;flex-direction:column;gap:14px;position:sticky;top:96px}
+.stage.dark{position:relative;height:min(76vh,760px);min-height:480px;border-radius:var(--card-r);overflow:hidden;background:radial-gradient(55% 60% at 50% 52%,#17566A 0%,rgba(23,86,106,0) 78%),var(--abyss);perspective:1100px;display:flex;align-items:center;justify-content:center;color:var(--on-dark)}
+#bottleGL{position:absolute;inset:0;width:100%;height:100%;display:block}
+.stage-cue{position:absolute;left:18px;top:16px;color:var(--on-dark-mut);pointer-events:none}
+.stage-ctl{position:absolute;left:14px;right:14px;bottom:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;color:var(--on-dark)}
+.stage-ctl .btn{background:rgba(4,20,28,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-color:var(--hair-dark);min-height:44px;font-size:14px;padding:0 16px}
+.stage-ctl .round{width:44px;padding:0}
+.stage-ctl .btn:hover{background:var(--on-dark);color:var(--abyss)}
 .carton{position:relative;width:0;height:0;transform-style:preserve-3d}
 .face{position:absolute;left:50%;top:50%;box-sizing:border-box;backface-visibility:hidden;display:flex;flex-direction:column;overflow:hidden}
-.zone{min-height:0;display:flex;align-items:center;justify-content:center;text-align:center;white-space:pre-line;font:700 10px/1.3 'Plus Jakarta Sans',sans-serif}
-.round{width:48px;height:48px;padding:0;border-radius:50%}
-.ctrl-col{flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:24px}
+.zone{min-height:0;display:flex;align-items:center;justify-content:center;text-align:center;white-space:pre-line;font:700 10px/1.3 var(--body);color:var(--abyss)}
+.ctrl-col{min-width:0;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--card-r);padding:clamp(20px,2vw,28px);display:flex;flex-direction:column;gap:14px}
+.card h3{font-size:24px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
+.cardhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 14px}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{min-height:48px;padding:0 18px;border-radius:12px;font-size:15px;font-weight:700;background:#fff;color:var(--ink);border:1.5px solid #CBD5E1}
-.chip[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff}
-.chip.active{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--ink)}
-.box{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:12px}
-.upl{position:relative;display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;font-size:15px;cursor:pointer;transition:background-color .18s}.upl:hover{background:var(--acc-d)}
+.chip{min-height:48px;padding:0 18px;border-radius:999px;font-size:15px;font-weight:500;background:transparent;color:inherit;border:1.5px solid var(--line)}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.dd{width:100%;border:1.5px solid var(--line);border-radius:16px;background:var(--white);overflow:hidden}
+.dd summary{min-height:56px;display:flex;align-items:center;padding:0 18px;font-weight:600;cursor:pointer;list-style:none}
+.dd summary::-webkit-details-marker{display:none}
+.dd summary::after{content:'';margin-left:auto;width:9px;height:9px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg) translateY(-2px);transition:transform .25s var(--ease)}
+.dd[open] summary::after{transform:rotate(225deg)}
+.ddlist{border-top:1px solid var(--line);padding:8px 8px 12px;display:flex;flex-direction:column;gap:1px}
+.ddq{display:flex;gap:18px;padding:6px 10px 8px}
+.ddlink{background:none;border:0;padding:6px 0;font:inherit;font-size:15px;font-weight:500;text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:32px}
+.ddg{font:500 11px var(--mono);color:var(--mut);padding:12px 10px 5px;text-transform:uppercase;letter-spacing:.08em}
+.ddi{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 10px;border-radius:10px;font-weight:500;cursor:pointer;transition:background-color .15s}
+.ddi:hover{background:var(--ice)}.ddi.off{opacity:.45;cursor:not-allowed}
+.ddi input{width:20px;height:20px;accent-color:var(--signal-d);margin:0}
+.upl{position:relative;display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border-radius:999px;background:var(--signal);color:var(--abyss);font-weight:600;font-size:15px;cursor:pointer;transition:background-color .2s}.upl:hover{background:var(--signal-d)}
+.upl:focus-within{outline:3px solid var(--abyss);outline-offset:3px}
 .upl input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
-.err{color:#B42318;font-weight:600}.ok{color:#0A6B3D;font-weight:700}
-.mut{color:var(--mut)}
-/* forms */
-form.f{display:flex;flex-direction:column;gap:14px}
-.f .two{display:flex;flex-wrap:wrap;gap:14px}.f .two>label{flex:1 1 220px;min-width:0}
-.f label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px;color:var(--ink)}
-.f input[type=text],.f input[type=tel],.f input[type=email],.f textarea,.f select{width:100%;min-height:48px;padding:10px 14px;border:1.5px solid var(--input-border);border-radius:var(--input-radius);background:#fff;font-weight:400;transition:border-color .18s,box-shadow .18s}
-.f input:hover,.f textarea:hover,.f select:hover{border-color:#94A3B8}
-.f input:focus,.f textarea:focus,.f select:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(3,105,161,.18);outline:none}
-.f .consent{flex-direction:row;align-items:flex-start;gap:10px;font-weight:400;font-size:14px;color:var(--sec)}
-.f .consent input{width:22px;height:22px;margin-top:2px;flex:none;accent-color:var(--acc)}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.panelbox{background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:16px;box-shadow:var(--sh)}
-.panelbox h3{font-size:22px}
-.panelbox.left{text-align:left;width:100%;align-items:stretch}
+.field{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:500}
+.field select,.f input[type=text],.f input[type=tel],.f input[type=email],.f textarea,.f select{width:100%;min-height:var(--field-h);padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--field-r);background:var(--white);font-weight:400;transition:border-color .2s,box-shadow .2s}
+.f input:hover,.f textarea:hover,.f select:hover{border-color:#7F9198}
+.f input:focus,.f textarea:focus,.f select:focus{border-color:var(--abyss);box-shadow:0 0 0 3px rgba(255,90,31,.28);outline:none}
 .tblwrap{overflow-x:auto}
 .tbl{width:100%;border-collapse:collapse;font-size:15px}
-.tbl th,.tbl td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}
-.tbl th{font-weight:700;background:var(--bg);white-space:nowrap;color:var(--sec);font-size:13px;letter-spacing:.04em;text-transform:uppercase}
-.tbl td.res{color:var(--mut)}
-.notes{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--mut)}
+.tbl th,.tbl td{text-align:left;padding:13px 14px 13px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl th{font:500 11px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:var(--mut)}
+.tbl td:first-child{font-weight:500;white-space:normal;min-width:150px}
+.tbl td.res{color:var(--mut);font-family:var(--mono);font-size:13px}
+.notes{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--mut)}
+.studio-low{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;margin-top:20px;align-items:start}
+#mockCanvas{width:100%;border-radius:16px;background:var(--abyss)}
+
+/* forms */
+form.f{display:flex;flex-direction:column;gap:14px}
+.f .two{display:flex;flex-wrap:wrap;gap:14px}.f .two>label{flex:1 1 200px;min-width:0}
+.f label{display:flex;flex-direction:column;gap:6px;font-weight:500;font-size:14px}
+.f .consent{flex-direction:row;align-items:flex-start;gap:10px;font-weight:400;font-size:14px;color:var(--mut)}
+.f .consent input{width:22px;height:22px;margin:1px 0 0;flex:none;accent-color:var(--signal-d)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
 /* distribute */
-.dhead{max-width:720px;margin:0 auto 40px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
-.vcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1100px;margin:0 auto 40px}
-.vcard{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:22px 24px;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:120px;transition:border-color .18s,box-shadow .18s}
-.vcard:hover{border-color:#94A3B8;box-shadow:var(--sh)}
-.vcard strong{font-size:18px;font-weight:700}.vcard span{color:var(--mut);font-size:15px}
-.vcard[aria-pressed=true]{border-color:var(--acc);box-shadow:0 0 0 3px rgba(3,105,161,.18);background:#F0F9FF}
-.dform{max-width:760px;margin:0 auto}
-/* split sections */
-.split{display:flex;flex-wrap:wrap}
-.split>.pane{flex:1 1 50%;min-width:min(100%,420px);padding:96px 6%;display:flex;flex-direction:column;justify-content:center;align-items:center}
-section.split{padding:0}
-.pane.pale{background:var(--sky)}.pane.gray{background:var(--bg)}.pane.white{background:#fff}
-.pane .inner{width:100%;max-width:560px;display:flex;flex-direction:column;gap:20px;align-items:flex-start}
-.pane h2{font-size:36px;font-weight:800;line-height:1.12}.pane p{font-size:18px;color:var(--sec)}
-.seg{display:flex;flex-wrap:wrap;gap:10px}
-.seg button{min-height:48px;padding:0 20px;border-radius:12px;font-size:15px;font-weight:700;background:#fff;color:var(--ink);border:1.5px solid #CBD5E1}
-.seg button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
-.note{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 24px;width:100%}.note h3{font-size:19px;margin-bottom:4px}
-.steps2{align-items:stretch!important}
-.steps2>h3{font-size:26px;margin-bottom:4px}
-.steps2>div{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:22px 26px;display:flex;flex-direction:column;gap:4px}
-.steps2>div span:last-child{color:var(--sec);font-size:16px}
-.num{font-weight:800;font-size:14px;color:var(--acc);letter-spacing:.05em}
-/* contact band */
-.band{background:var(--ink);color:#fff;padding:96px 40px}
-.band>.bandin{display:flex;flex-wrap:wrap;gap:48px;max-width:1168px;margin:0 auto;align-items:flex-start}
-.bandtext{flex:1 1 340px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
-.bandtext h2{font-size:42px;font-weight:800;color:#fff}.bandtext p{font-size:19px;color:#CBD5E1}
-.bandform{flex:1 1 440px;min-width:0;background:#fff;color:var(--ink);border-radius:20px;padding:32px}
-.band .btn.dark{background:#fff;border-color:#fff;color:var(--ink)}.band .btn.dark:hover{background:var(--sky)}
-/* dialogs */
-dialog{border:0;border-radius:20px;padding:0;width:calc(100% - 32px);max-width:640px;max-height:90vh;overflow:auto;box-shadow:0 24px 64px rgba(15,23,42,.35);color:var(--ink)}
-dialog::backdrop{background:rgba(15,23,42,.62);backdrop-filter:blur(2px)}
-.dlg{padding:28px;display:flex;flex-direction:column;gap:14px}
-.dlghead{display:flex;align-items:center;justify-content:space-between;gap:16px}.dlghead h3{font-size:24px}
-.dlgx{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:#fff;display:inline-flex;align-items:center;justify-content:center;flex:none}.dlgx:hover{background:var(--bg)}
+.dist{background:var(--ice);padding-block:clamp(88px,10vw,160px)}
+.dist-head{display:grid;grid-template-columns:repeat(12,1fr);gap:24px;align-items:end;margin-bottom:clamp(32px,4vw,64px)}
+.dist-head h2{grid-column:1/9}
+.dist-head p{grid-column:9/-1;color:var(--mut)}
+.vcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.vcard{background:transparent;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(20px,2.4vw,34px);text-align:left;display:flex;flex-direction:column;gap:8px;min-height:clamp(130px,13vw,190px);justify-content:space-between;transition:background-color .25s var(--ease),color .25s var(--ease)}
+.vcard strong{font:600 clamp(21px,2vw,29px)/1.05 var(--display);letter-spacing:-.03em}
+.vcard span{color:var(--mut);font-size:15px;transition:color .25s var(--ease)}
+.vcard:hover,.vcard[aria-pressed=true]{background:var(--abyss);color:var(--on-dark)}.vcard:hover span,.vcard[aria-pressed=true] span{color:var(--on-dark-mut)}
+
+/* partners, investors */
+.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.pane{padding:clamp(64px,8vw,128px) var(--gutter);display:flex;flex-direction:column;gap:clamp(22px,2.4vw,34px);align-items:flex-start;min-width:0}
+.pane h2{font-size:clamp(40px,5.2vw,92px);letter-spacing:-.04em;line-height:.94}
+.pane h2 em.s{color:var(--sea)}
+.pane>p{color:var(--mut);font-size:clamp(17px,1.4vw,20px);max-width:32em}
+.pane.signal{background:var(--signal);color:var(--abyss);--line:rgba(4,20,28,.28);--mut:#27160F}
+.pane.signal .btn.p{background:var(--abyss);border-color:var(--abyss);color:var(--on-dark)}
+.pane.signal .btn.p:hover{background:var(--paper);border-color:var(--paper);color:var(--abyss)}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{min-height:44px;padding:0 18px;border-radius:999px;font-size:15px;font-weight:500;background:transparent;color:inherit;border:1.5px solid var(--hair-dark);transition:background-color .2s,color .2s,border-color .2s}
+.seg button:hover,.seg button[aria-pressed=true]{background:var(--on-dark);color:var(--abyss);border-color:var(--on-dark)}
+.note{padding-left:18px;border-left:2px solid var(--signal);max-width:34em}.note h3{font-size:21px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px;line-height:1.15}.note p{color:var(--mut);font-size:16px}
+.mini{list-style:none;margin:0;padding:0;width:100%;border-top:1px solid var(--line)}
+.mini li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 12px;padding:15px 0;border-bottom:1px solid var(--line)}
+.mini .tag{padding-top:5px}
+.mini b{font:600 20px/1.2 var(--display);letter-spacing:-.02em}
+.mini span:last-child{grid-column:2;color:var(--mut);font-size:15.5px}
+
 /* faq */
-.faq-item{background:#fff;border:1px solid var(--line);border-radius:var(--r)}
-.faq-item button{width:100%;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;background:transparent;border:0;text-align:left;font-size:18px;font-weight:700;border-radius:var(--r)}
-.faq-item p{padding:0 24px 24px;color:var(--sec)}
+.faq{background:var(--paper);padding-block:clamp(88px,9vw,140px)}
+.faq-g{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.faq-g h2{grid-column:1/6;font-size:clamp(40px,5.2vw,92px);letter-spacing:-.04em;line-height:.94}
+#faqList{grid-column:6/-1;border-top:1px solid var(--line)}
+.faq-item{border-bottom:1px solid var(--line)}
+.faq-item button{width:100%;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;background:transparent;border:0;text-align:left;font:600 clamp(19px,1.6vw,24px)/1.2 var(--display);letter-spacing:-.02em}
+.faq-item p{padding:0 40px 24px 0;color:var(--mut)}
+
+/* contact */
+.contact{padding-block:clamp(88px,9vw,150px)}
+.contact-g{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(32px,5vw,88px);align-items:start}
+.contact h2{font-size:clamp(48px,7.6vw,136px);letter-spacing:-.055em;line-height:.9;margin-bottom:28px}
+.contact h2 em.s{color:var(--sea)}
+.contact .l>p{color:var(--on-dark-mut);font-size:clamp(17px,1.4vw,20px);max-width:28em;margin-bottom:26px}
+.formcard{background:var(--paper);color:var(--abyss);--ink:var(--abyss);--mut:var(--on-light-mut);--line:var(--hair-light);border-radius:var(--card-r);padding:clamp(22px,2.6vw,36px)}
+.formcard :focus-visible{outline-color:var(--signal)}
+
+/* dialogs */
+dialog{border:0;border-radius:var(--card-r);padding:0;width:calc(100% - 28px);max-width:620px;max-height:92vh;overflow:auto;background:var(--paper);color:var(--abyss);box-shadow:0 40px 120px rgba(0,0,0,.5)}
+dialog::backdrop{background:rgba(4,20,28,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+dialog[open]{animation:pop .35s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.dlg{padding:clamp(22px,3vw,34px);display:flex;flex-direction:column;gap:14px}
+.dlghead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.dlghead h3{font-size:clamp(28px,3vw,38px);letter-spacing:-.04em;line-height:1}
+.dlgx{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:transparent;display:inline-flex;align-items:center;justify-content:center;flex:none;transition:background-color .2s,color .2s}.dlgx:hover{background:var(--abyss);color:var(--paper)}
+#menuDialog{margin:0 0 0 auto;height:100%;max-height:100%;width:min(100%,440px);border-radius:0;background:var(--abyss);color:var(--on-dark);--line:var(--hair-dark)}
+#menuDialog .dlg{min-height:100%}
+#menuDialog a:not(.btn){display:block;font:600 40px/1.1 var(--display);letter-spacing:-.04em;text-decoration:none;padding:12px 0;border-bottom:1px solid var(--hair-dark)}
+
 /* footer */
-footer{background:var(--ink);color:#CBD5E1;padding:72px 40px 32px;font-size:15px}
-footer a{color:#E2E8F0;text-decoration:none;padding:8px 0;display:block;min-height:44px}footer a:hover{color:#fff;text-decoration:underline}
-footer .btn{display:inline-flex;padding:0 26px;color:#fff;min-height:48px}footer .btn:hover{text-decoration:none}
-.fcols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between}
-.fabout{flex:1 1 300px;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
-.flogo{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.03em}.flogo b{color:var(--sky2)}
-footer h4{margin:0 0 6px;font-weight:700;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:#94A3B8}
-footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-direction:column}
-.fbot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:48px;padding-top:22px;border-top:1px solid #1E293B;font-size:14px;color:#94A3B8}
-@media (max-width:1000px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:1fr}.vcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:720px){
-  section{padding:64px 20px}
-  header.nav{position:static;padding:12px 20px;flex-wrap:wrap}
-  .nav nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;width:100%;padding-bottom:4px;scrollbar-width:none}.nav nav::-webkit-scrollbar{display:none}.nav nav a{white-space:nowrap}
-  .hero .wrap{padding:56px 20px 72px;gap:36px}
-  .hero h1{font-size:40px}.hero .sub{font-size:18px}
-  .proof{padding:0 20px}.proof .stat{border-right:0;border-bottom:1px solid var(--line)}.proof .stat:last-child{border-bottom:0}
-  .h2{font-size:30px}.pane h2{font-size:30px}.bandtext h2{font-size:32px}
-  .grid4{grid-template-columns:1fr}
-  .split>.pane{padding:56px 24px}.band{padding:64px 20px}.bandform,.panelbox{padding:22px}
-  .stage{height:420px}
-  footer{padding:48px 20px 24px}
+footer{background:var(--abyss);color:var(--on-dark-mut);padding-top:clamp(40px,4vw,64px);overflow:hidden;border-top:1px solid var(--hair-dark)}
+.fcols{display:grid;grid-template-columns:repeat(12,1fr);gap:24px}
+.fcols .a{grid-column:1/7;max-width:24em;color:var(--on-dark);font-size:19px;line-height:1.35}
+.fcols nav{grid-column:7/10}.fcols .c{grid-column:10/-1}
+footer h4{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;color:var(--on-dark-mut)}
+footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-dark);text-decoration:none;font-size:15px}footer .fcols a:hover{color:var(--signal)}
+.fbot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;margin-top:40px;font-size:13px}
+.bigmark{font:700 clamp(96px,26vw,500px)/.74 var(--display);letter-spacing:-.05em;color:var(--on-dark);text-align:center;margin:26px 0 -.09em;white-space:nowrap;user-select:none}.bigmark b{color:var(--signal);font-weight:700}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+.js .hero h1 span{overflow:hidden;padding-bottom:.14em;margin-bottom:-.14em}
+.js .hero h1 span>u{display:block;text-decoration:none;transform:translateY(105%);animation:up 1.1s var(--ease) forwards}
+.js .hero h1 span:nth-child(2)>u{animation-delay:.09s}.js .hero h1 span:nth-child(3)>u{animation-delay:.18s}
+@keyframes up{to{transform:none}}
+.hero h1 span>u{text-decoration:none;display:block;padding-bottom:.09em;margin-bottom:-.09em}
+
+@media (max-width:1040px){
+  .nav nav,.nav .cta{display:none}.nav{justify-content:space-between}.menu-btn{display:inline-flex}
+  .preview,.studio-low{grid-template-columns:minmax(0,1fr)}
+  .stage-col{position:static}
+  .stage.dark{height:min(68vh,620px)}
+  .pair{grid-template-columns:minmax(0,1fr)}
+  .contact-g{grid-template-columns:minmax(0,1fr)}
 }
-@media (max-width:560px){.vcards{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}.fcard:hover{transform:none}}
+@media (max-width:820px){
+  #heroGL{position:relative;right:auto;top:auto;width:100%;height:clamp(340px,50svh,560px);margin-top:76px;flex:none}
+  .motion{bottom:auto;top:88px}
+  .hero.dark{background:radial-gradient(90% 40% at 50% 26%,#14566B 0%,rgba(20,86,107,0) 76%),var(--abyss)}
+  .hero h1{font-size:clamp(58px,16.8vw,140px)}
+  .hero .g{padding-top:8px;flex:none}
+  .anat-head h2,.anat-head p,.studio-head .l,.studio-head p,.dist-head h2,.dist-head p,.faq-g h2,#faqList{grid-column:1/-1}
+  .state-foot p{grid-column:1/-1}
+  .rowi .tag{grid-column:1/-1}.rowi h3,.rowi p{grid-column:1/-1}.rowi{gap:10px}
+  .steps-grid{grid-template-columns:minmax(0,1fr);gap:40px}
+  .vcards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fcols .a{grid-column:1/-1}.fcols nav{grid-column:1/7}.fcols .c{grid-column:7/-1}
+  .hero-spec{display:none}
+}
+@media (max-width:560px){
+  .map{grid-template-columns:repeat(2,1fr)}.map .col-h{display:none}
+  .map .cell{min-height:130px}
+  .vcards{grid-template-columns:minmax(0,1fr)}
+  .vcard{min-height:112px}
+  .stage-ctl{gap:6px;left:10px;right:10px;bottom:10px;flex-wrap:nowrap}.stage-ctl .btn{padding:0 11px;font-size:13px}.stage-ctl .round{flex:none;padding:0}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+  .js .rv{opacity:1;transform:none}.state h2 i{color:var(--ink)}
+}
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to main content</a>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-<symbol id="bt" viewBox="0 0 120 300">
-<ellipse cx="60" cy="293" rx="46" ry="6" fill="#0F172A" fill-opacity=".10"/>
-<rect x="42" y="2" width="36" height="18" rx="4" fill="#0369A1"/>
-<path d="M46 20h28v26l32 38v196a8 8 0 0 1-8 8H22a8 8 0 0 1-8-8V84l32-38z" fill="#F0F9FF" stroke="#0F172A" stroke-width="2.5" stroke-linejoin="round"/>
-<rect x="18" y="104" width="84" height="84" fill="var(--p1,#0369A1)"/>
-<rect x="18" y="190" width="84" height="84" fill="var(--p2,#E0F2FE)"/>
-</symbol></defs></svg>
 
 <header class="nav">
-  <a class="logo" href="#top"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg><span>aqua<b>ad</b></span></a>
-  <nav aria-label="Main"><a href="#sides">Advertise</a><a href="#distribute">Distribute</a><a href="#partners">Partners</a><a href="#investors">Investors</a><a href="#faq">FAQ</a><a class="btn p" href="#contact">Contact us</a></nav>
+  <a class="logo" href="#top" aria-label="AquaAd home">aqua<b>ad</b></a>
+  <nav aria-label="Main"><a href="#sides">Advertise</a><a href="#distribute">Distribute</a><a href="#partners">Partners</a><a href="#investors">Investors</a><a href="#faq">FAQ</a></nav>
+  <a class="btn p cta" href="#sides">Design your bottle</a>
+  <button type="button" class="btn menu-btn" id="openMenu" aria-haspopup="dialog">Menu</button>
 </header>
 
 <main id="main">
-<div id="top" class="hero">
-  <div class="wrap">
-    <div class="copy">
-      <span class="eyebrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg>Advertising on 500&nbsp;ml water bottles</span>
-      <h1>Your brand on every bottle, in every hand.</h1>
-      <p class="sub">Choose your panels, preview your artwork in 3D and send it to our team in a few minutes. Brands, distributors and manufacturing partners welcome.</p>
-      <div class="row"><a class="btn p lg" href="#sides">Design your bottle <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn lg" href="#distribute">Distribute with us</a></div>
-      <ul class="ticks">
-        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>3D preview</li>
-        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Artwork size guide</li>
-        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Our team reviews every request</li>
-      </ul>
+<div id="top" class="hero dark">
+  <canvas id="heroGL" role="img" aria-label="A water bottle turning slowly, wrapped in sample advertising artwork, with an orange cap"></canvas>
+  <button type="button" class="motion" id="heroMotion" hidden aria-pressed="false">Pause motion</button>
+  <div class="g">
+    <h1 aria-label="The billboard people carry."><span aria-hidden="true"><u>The</u></span><span aria-hidden="true"><u>billboard</u></span><span aria-hidden="true"><u>people <em class="s">carry.</em></u></span></h1>
+    <div class="hero-low rv">
+      <div class="hero-copy">
+        <p>Put your brand on 500&nbsp;ml water bottles that go where people actually go. Choose your panels, see your artwork on a real 3D bottle, and send it to us.</p>
+        <div class="row"><a class="btn p lg" href="#sides">Design your bottle <svg class="ar" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn lg" href="#distribute">Distribute with us</a></div>
+      </div>
+      <div class="hero-spec tag">
+        <span>Format<b>500 ml bottle</b></span>
+        <span>For sale<b>7 ad panels</b></span>
+        <span>Preview<b>Live 3D</b></span>
+      </div>
     </div>
-    <div class="art"><div class="card-art">
-      <svg viewBox="0 0 560 420" role="img" aria-label="An AquaAd bottle with its upper and lower panels marked, each 73 by 85 millimetres">
-        <use href="#bt" x="36" y="20" width="160" height="400" style="--p1:#0369A1;--p2:#38BDF8"/>
-        <g font-family="Plus Jakarta Sans,system-ui,sans-serif">
-          <circle cx="176" cy="171" r="5" fill="#0F172A"/><path d="M181 171h70" stroke="#0F172A" stroke-width="1.5" fill="none"/>
-          <rect x="256" y="132" width="288" height="78" rx="14" fill="#fff" stroke="#E2E8F0"/>
-          <text x="276" y="163" font-size="17" font-weight="800" fill="#0F172A">Upper panel</text>
-          <text x="276" y="188" font-size="14" fill="#475569">73 × 85 mm · your artwork here</text>
-          <circle cx="176" cy="271" r="5" fill="#0F172A"/><path d="M181 271h70" stroke="#0F172A" stroke-width="1.5" fill="none"/>
-          <rect x="256" y="232" width="288" height="78" rx="14" fill="#fff" stroke="#E2E8F0"/>
-          <text x="276" y="263" font-size="17" font-weight="800" fill="#0F172A">Lower panel</text>
-          <text x="276" y="288" font-size="14" fill="#475569">73 × 85 mm · your artwork here</text>
-          <rect x="256" y="332" width="288" height="56" rx="14" fill="#E0F2FE"/>
-          <text x="276" y="366" font-size="15" font-weight="700" fill="#075985">Or take a whole side · 73 × 170 mm</text>
-        </g>
-      </svg>
-    </div></div>
   </div>
 </div>
 
-<section class="proof" aria-label="At a glance">
-  <div class="wrap">
-    <div class="stat"><strong>7</strong><span>ad panels for sale on every bottle</span></div>
-    <div class="stat"><strong>4</strong><span>sides shown in the mockup we receive</span></div>
-    <div class="stat"><strong>3</strong><span>ways to join: advertise, distribute, manufacture</span></div>
-  </div>
-</section>
-
-<section style="padding-top:48px">
-  <div class="wrap">
-    <div class="head"><span class="eyebrow">What AquaAd does</span><h2 class="h2">Everyday water bottles, turned into a brand surface</h2><p class="lead">Brands pick the panels, partners make and distribute the bottles, and people see your message in daily life.</p></div>
-    <div class="grid4">
-      <div class="fcard"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><h3>Seven ad panels</h3><p>Upper and lower panels on each side, or a whole side in one design.</p></div>
-      <div class="fcard"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div><h3>Preview in 3D</h3><p>Rotate your artwork on the bottle before you commit.</p></div>
-      <div class="fcard"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div><h3>Send it to us</h3><p>Share your design and details. Our team reviews every request.</p></div>
-      <div class="fcard"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.6 0 4.5 1.7 4.5 4.5"/></svg></div><h3>Open to partners</h3><p>Distributors, manufacturers and investors are welcome.</p></div>
+<section class="state" aria-label="Why a bottle">
+  <div class="g">
+    <h2 id="stmt">You can skip an ad. You can't skip being <em class="s">thirsty.</em></h2>
+    <div class="state-foot"><p class="rv">A screen gets a glance. A bottle gets picked up, carried and put on the desk next to you. AquaAd turns that everyday object into media: brands pick the panels, partners make and distribute the bottles, and people live with the message.</p></div>
+    <div class="rows" style="margin-top:clamp(48px,7vw,104px)">
+      <div class="rowi rv"><span class="tag">01</span><h3>Held, not scrolled</h3><p>Your artwork sits in someone's hand instead of competing in a feed.</p></div>
+      <div class="rowi rv"><span class="tag">02</span><h3>Seen again and again</h3><p>A bottle stays around for as long as the water lasts, and everyone nearby sees it too.</p></div>
+      <div class="rowi rv"><span class="tag">03</span><h3>Goes where screens don't</h3><p>Gyms, events, campuses, offices, hotels. Real places, chosen with our distribution partners.</p></div>
     </div>
   </div>
 </section>
 
-<section class="alt">
-  <div class="wrap">
-    <div class="head"><span class="eyebrow">How it works</span><h2 class="h2">From artwork to bottle in three steps</h2></div>
-    <div class="grid3">
-      <div class="step"><span class="n" aria-hidden="true">1</span><h3>Pick your panels</h3><p>Choose any of the seven ad panels: the upper and lower panels on the front, right and left, and the upper back. Or take a whole side.</p></div>
-      <div class="step"><span class="n" aria-hidden="true">2</span><h3>Upload artwork</h3><p>Add a JPG, PNG or WEBP for each panel and rotate the bottle to check it. Our size guide tells you the exact dimensions.</p></div>
-      <div class="step"><span class="n" aria-hidden="true">3</span><h3>Send it to AquaAd</h3><p>Add your details and send. We receive your artwork and a four-sided mockup, review your design and get back to you.</p></div>
+<section class="anat dark" aria-labelledby="anatH">
+  <div class="g">
+    <div class="anat-head rv"><h2 id="anatH">Eight panels.<br>Seven are <em class="s">yours.</em></h2><p>Each side of the sleeve has an upper and a lower panel. Buy one, buy several, or run a single design down a whole side.</p></div>
+    <div class="map rv" role="img" aria-label="Sleeve layout. Front, right and left sides each have an upper and a lower panel for sale. The back has an upper panel for sale and a lower panel reserved for AquaAd.">
+      <div class="col-h tag">Front</div><div class="col-h tag">Right</div><div class="col-h tag">Back</div><div class="col-h tag">Left</div>
+      <div class="cell"><small>01</small><div><b>Front upper</b><br><small>73 × 85 mm</small></div></div>
+      <div class="cell"><small>03</small><div><b>Right upper</b><br><small>73 × 85 mm</small></div></div>
+      <div class="cell"><small>05</small><div><b>Back upper</b><br><small>73 × 85 mm</small></div></div>
+      <div class="cell"><small>06</small><div><b>Left upper</b><br><small>73 × 85 mm</small></div></div>
+      <div class="cell"><small>02</small><div><b>Front lower</b><br><small>73 × 85 mm</small></div></div>
+      <div class="cell"><small>04</small><div><b>Right lower</b><br><small>73 × 85 mm</small></div></div>
+      <div class="cell res"><small>Reserved</small><div><b>AquaAd info</b><br><small>Not for sale</small></div></div>
+      <div class="cell"><small>07</small><div><b>Left lower</b><br><small>73 × 85 mm</small></div></div>
     </div>
-    <p class="note-line">The lower back panel is reserved for AquaAd company information.</p>
+    <div class="map-foot"><span class="tag">Or take a whole side · 73 × 170 mm</span><a class="btn" href="#sides">Try it on the bottle</a></div>
   </div>
 </section>
 
-<section id="sides">
-  <div class="wrap" style="display:flex;flex-direction:column;gap:40px">
-    <div class="head" style="margin:0 auto"><span class="eyebrow">Design studio</span><h2 class="h2" id="modelTitle">3D bottle preview</h2><p class="lead" id="modelLead">Tick the panels you want, then upload artwork to each one. 7 of the 8 panels are for sale. The lower back holds AquaAd company information.</p></div>
+<section class="steps" aria-labelledby="stepsH">
+  <div class="g">
+    <h2 class="sec-h rv" id="stepsH">Three steps.<br>No media kit.</h2>
+    <div class="steps-grid">
+      <div class="step rv"><span class="n" aria-hidden="true">1</span><h3>Pick your panels</h3><p>Choose single panels or a whole side. Sizes are shown as you go, so your designer knows exactly what to make.</p></div>
+      <div class="step rv"><span class="n" aria-hidden="true">2</span><h3>Drop in your artwork</h3><p>Upload a JPG, PNG or WEBP, rotate it if you need to, and turn the bottle to see it from every side.</p></div>
+      <div class="step rv"><span class="n" aria-hidden="true">3</span><h3>Send it to us</h3><p>We receive your artwork and a four-sided render of your bottle, review it, and get back to you.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="sides" class="studio" aria-labelledby="modelTitle">
+  <div class="g">
+    <div class="studio-head">
+      <div class="l rv"><span class="tag" style="color:var(--signal-d)">The studio</span><h2 id="modelTitle">Put it on the bottle.</h2></div>
+      <p class="rv" id="modelLead">Tick the panels you want, then upload artwork to each one. 7 of the 8 panels are for sale. The lower back holds AquaAd company information.</p>
+    </div>
     <div class="preview">
       <div class="stage-col">
-        <div class="stage" id="stage"><div class="carton" id="carton" hidden></div><div class="carton" id="bottle"></div></div>
-        <div class="row" id="modelPick" hidden role="group" aria-label="Choose 3D model"></div>
-        <div class="row">
-          <button class="btn round" id="rotL" type="button" aria-label="Rotate left"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-          <button class="btn round" id="rotR" type="button" aria-label="Rotate right"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-          <button class="btn" id="spinBtn" type="button" aria-pressed="true">Pause rotation</button>
-          <button class="btn" id="resetBtn" type="button">Reset view</button>
+        <div class="stage dark" id="stage">
+          <canvas id="bottleGL" hidden role="img" aria-label="3D preview of your bottle with your selected panels and artwork. Drag to rotate."></canvas>
+          <div class="carton" id="carton" hidden></div><div class="carton" id="bottle"></div>
+          <span class="stage-cue tag">Drag to turn</span>
+          <div class="stage-ctl">
+            <button class="btn round" id="rotL" type="button" aria-label="Rotate left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="btn round" id="rotR" type="button" aria-label="Rotate right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+            <button class="btn" id="spinBtn" type="button" aria-pressed="true">Pause rotation</button>
+            <button class="btn" id="resetBtn" type="button">Reset view</button>
+          </div>
         </div>
+        <div class="row" id="modelPick" hidden role="group" aria-label="Choose 3D model"></div>
         <p class="mut" style="font-size:14px" id="modelNote"></p>
       </div>
       <div class="ctrl-col">
-        <div style="display:flex;flex-direction:column;gap:12px">
-          <div class="row" style="justify-content:space-between"><h3 style="font-size:20px">Choose ad panels</h3><span class="mut" style="font-size:14px" id="count" aria-live="polite"></span></div>
+        <div class="card">
+          <div class="cardhead"><h3>Choose ad panels</h3><span class="mut tag" id="count" aria-live="polite"></span></div>
           <div class="chips" id="chips" role="group" aria-label="Ad panels"></div>
         </div>
-        <div class="box" aria-live="polite">
-          <div class="row" style="justify-content:space-between"><h3 style="font-size:18px" id="artTitle"></h3><span class="mut" style="font-size:13px">JPG · PNG · WEBP · max 3 MB</span></div>
-          <label id="artForWrap" style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600">Upload artwork for<select id="artFor" style="min-height:48px;border-radius:10px;border:1.5px solid #CBD5E1;padding:0 14px;font:inherit;font-weight:600;background:#fff"></select></label>
+        <div class="card" aria-live="polite">
+          <div class="cardhead"><h3 id="artTitle"></h3><span class="mut tag">JPG · PNG · WEBP · 3 MB</span></div>
+          <label class="field" id="artForWrap">Upload artwork for<select id="artFor"></select></label>
           <div class="row" id="artActions"></div>
           <p class="mut" id="artHint" style="font-size:15px"></p>
-          <p id="artSize" style="font-size:15px;font-weight:600"></p>
+          <p id="artSize" style="font-size:15px;font-weight:500"></p>
           <p class="err" id="artErr" role="alert"></p>
+        </div>
+        <div class="card" id="sizeBox">
+          <h3>Artwork sizes</h3>
+          <p class="mut" style="font-size:15px"><b>These sizes are provisional</b> until the bottle supplier confirms the final print dimensions.</p>
+          <div class="tblwrap"><table class="tbl" id="sizeTable"></table></div>
+          <ul class="notes" id="sizeNotes"></ul>
         </div>
       </div>
     </div>
-    <div class="panelbox" id="sizeBox">
-      <div><h3>Artwork sizes</h3><p class="mut" style="margin-top:4px">Design each panel to the size below. <b>These sizes are provisional</b> until the bottle supplier confirms the final print dimensions.</p></div>
-      <div class="tblwrap"><table class="tbl" id="sizeTable"></table></div>
-      <ul class="notes" id="sizeNotes"></ul>
-    </div>
-    <div class="panelbox" id="sendBox">
-      <div><h3>Send your design to AquaAd</h3><p class="mut" id="sendSummary" style="margin-top:4px"></p></div>
-      <div id="mockWrap" style="display:flex;flex-direction:column;gap:10px">
-        <div class="row"><button class="btn" id="mockBtn" type="button">Preview my mockup</button><span class="mut" id="mockNote" style="font-size:14px">We receive a four-sided mockup of your artwork on the bottle with your enquiry.</span></div>
-        <canvas id="mockCanvas" width="1536" height="1024" hidden role="img" aria-label="Mockup of your artwork on the four sides of the bottle" style="width:100%;max-width:900px;border-radius:16px;background:#E2E8F0"></canvas>
+    <div class="studio-low">
+      <div class="card" id="mockWrap">
+        <h3>Your four-sided render</h3>
+        <p class="mut" id="mockNote" style="font-size:15px">We receive this render of your bottle with your enquiry.</p>
+        <canvas id="mockCanvas" width="1536" height="1024" hidden role="img" aria-label="Render of your artwork on the four sides of the bottle"></canvas>
+        <div class="row"><button class="btn" id="mockBtn" type="button">Preview my render</button></div>
       </div>
-      <p class="mut" style="font-size:13px">Your design and details are kept in this browser for 24 hours, so a refresh will not lose them. <button type="button" id="clearSaved" style="background:none;border:0;padding:6px 0;font:inherit;font-weight:700;color:#0369A1;text-decoration:underline;cursor:pointer;min-height:32px">Clear saved data</button></p>
-      <div id="sendFormHost"></div>
+      <div class="card" id="sendBox">
+        <h3 style="font-size:clamp(28px,3vw,42px);letter-spacing:-.04em;line-height:1">Send your design to AquaAd</h3>
+        <p class="mut" id="sendSummary"></p>
+        <p class="mut" style="font-size:13px">Your design and details are kept in this browser for 24 hours, so a refresh will not lose them. <button type="button" id="clearSaved" class="lnk">Clear saved data</button></p>
+        <div id="sendFormHost"></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="distribute" class="alt">
-  <div class="wrap">
-    <div class="dhead"><span class="eyebrow">For venues and event organisers</span><h2 class="h2">Distribute AquaAd bottles</h2><p class="lead">Put bottles in front of your visitors and customers. Pick the kind of place you run, then apply.</p></div>
-    <div class="vcards" id="vcards" role="group" aria-label="Venue type"></div>
-    <div class="panelbox dform"><h3>Apply to distribute</h3><p class="mut" id="vSel">Select your venue type above.</p><div id="distributeFormHost"></div></div>
+<section id="distribute" class="dist" aria-labelledby="distH">
+  <div class="g">
+    <div class="dist-head rv"><h2 class="sec-h" id="distH">Put bottles where your people are.</h2><p>For venues and event organisers. Pick the kind of place you run and tell us about it.</p></div>
+    <div class="vcards rv" id="vcards" role="group" aria-label="Venue type. Choosing one opens the application form."></div>
   </div>
 </section>
 
-<section id="partners" class="split">
-  <div class="pane pale"><div class="inner">
-    <span class="eyebrow">For manufacturers and water partners</span>
-    <h2>Make AquaAd bottles with us</h2>
+<div class="pair">
+  <section id="partners" class="pane dark" aria-labelledby="partH">
+    <span class="tag" style="color:var(--sea)">For manufacturers and water partners</span>
+    <h2 id="partH">Make the bottles <em class="s">with us.</em></h2>
     <p>Turn your production into added value. Join a network that helps your bottles do more for the brands and communities around you.</p>
-    <div class="seg" id="ptypes" role="group" aria-label="Partner type"></div>
-    <div class="note"><h3 id="pName"></h3><p id="pText" style="font-size:16px"></p></div>
-    <button type="button" class="btn p lg" id="openPartner" aria-haspopup="dialog">Become a partner</button>
-  </div></div>
-  <div class="pane white"><div class="inner steps2"><h3>How the network works</h3><div><span class="num">01</span><b>Brands bring the story</b><span>Share a campaign, launch or message you want people to remember.</span></div><div><span class="num">02</span><b>AquaAd places it</b><span>We turn the bottle into an intentional, on-the-go brand surface.</span></div><div><span class="num">03</span><b>Partners make and distribute</b><span>Manufacturers and water partners help put branded inventory into circulation.</span></div><div><span class="num">04</span><b>People see it</b><span>Your message travels through everyday moments, not just a screen.</span></div></div></div>
+    <div class="seg" id="ptypes" role="group" aria-label="Partner type. Choosing one opens the form."></div>
+    <div class="note"><h3 id="pName"></h3><p id="pText"></p></div>
+    <button type="button" class="btn p lg" id="openPartner" aria-haspopup="dialog">Become a partner <svg class="ar" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <ol class="mini" style="margin-top:12px">
+      <li><span class="tag">01</span><b>Brands bring the story</b><span>A campaign, launch or message people should remember.</span></li>
+      <li><span class="tag">02</span><b>AquaAd places it</b><span>We turn the bottle into an on-the-go brand surface.</span></li>
+      <li><span class="tag">03</span><b>Partners make and distribute</b><span>Manufacturers and water partners put inventory into circulation.</span></li>
+      <li><span class="tag">04</span><b>People see it</b><span>Your message travels through everyday moments.</span></li>
+    </ol>
+  </section>
+  <section id="investors" class="pane signal" aria-labelledby="invH">
+    <span class="tag">For investors</span>
+    <h2 id="invH">Back the next layer of physical media.</h2>
+    <p>A marketplace built around repeat consumption, repeatable inventory and city-by-city expansion.</p>
+    <button type="button" class="btn p lg" id="openInvestor" aria-haspopup="dialog">Request investor information <svg class="ar" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    <ol class="mini" style="margin-top:12px">
+      <li><span class="tag">01</span><b>Repeat consumption</b><span>Water is a familiar product with natural, recurring visibility.</span></li>
+      <li><span class="tag">02</span><b>Repeatable inventory</b><span>Standard bottle surfaces make the model easy to explain and reproduce.</span></li>
+      <li><span class="tag">03</span><b>City-by-city expansion</b><span>Local water partners create a practical path to growth.</span></li>
+      <li><span class="tag">04</span><b>Network effects</b><span>More partners attract more campaigns, and more campaigns create more value for partners.</span></li>
+    </ol>
+  </section>
+</div>
+
+<section id="faq" class="faq" aria-labelledby="faqH">
+  <div class="g faq-g"><h2 id="faqH" class="rv">Good to know.</h2><div id="faqList" class="rv"></div></div>
 </section>
 
-<section id="investors" class="split">
-  <div class="pane white"><div class="inner steps2"><h3>Why AquaAd</h3><div><span class="num">01</span><b>Repeat consumption</b><span>Water is a familiar product with natural opportunities for recurring visibility.</span></div><div><span class="num">02</span><b>Repeatable inventory</b><span>Standardised bottle surfaces make the model easier to explain and reproduce.</span></div><div><span class="num">03</span><b>City-by-city expansion</b><span>Local water partners can create a practical path to growing the network.</span></div><div><span class="num">04</span><b>Network effects</b><span>More partners attract more campaigns; more campaigns create more value for partners.</span></div></div></div>
-  <div class="pane gray"><div class="inner">
-    <span class="eyebrow">For investors</span>
-    <h2>Back the next layer of physical media</h2>
-    <p>Explore a marketplace built around repeat consumption, repeatable inventory and city-by-city expansion.</p>
-    <button type="button" class="btn p lg" id="openInvestor" aria-haspopup="dialog">Request investor information</button>
-  </div></div>
-</section>
-
-<section id="contact" class="band">
-  <div class="bandin"><div class="bandtext"><span class="eyebrow" style="color:#7DD3FC">Get in touch</span><h2>Join the AquaAd network</h2><p>Brands, partners and investors: tell us what you are looking for and our team will get back to you.</p><a class="btn dark lg" href="tel:+919191919191">Call +91 9191919191</a></div>
-  <div class="bandform"><div id="contactFormHost"></div></div></div>
-</section>
-
-<section id="faq">
-  <div class="wrap" style="max-width:800px;display:flex;flex-direction:column;gap:32px"><div class="head" style="margin:0 auto"><span class="eyebrow">FAQ</span><h2 class="h2">Good to know</h2></div><div id="faqList" style="display:flex;flex-direction:column;gap:12px"></div></div>
+<section id="contact" class="contact dark" aria-labelledby="conH">
+  <div class="g contact-g">
+    <div class="l rv"><h2 id="conH">Let's put you in people's <em class="s">hands.</em></h2><p>Brands, partners and investors: tell us what you are looking for and our team will get back to you.</p><a class="btn lg" href="tel:+919191919191">Call +91 9191919191</a></div>
+    <div class="formcard rv"><div id="contactFormHost"></div></div>
+  </div>
 </section>
 </main>
 
-
+<dialog id="distributeDialog" aria-labelledby="distDlgTitle"><div class="dlg">
+  <div class="dlghead"><h3 id="distDlgTitle">Apply to distribute</h3><button type="button" class="dlgx" data-close aria-label="Close form"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <p class="mut" id="vSel">Select your venue type above.</p>
+  <div id="distributeFormHost"></div>
+</div></dialog>
 <dialog id="partnerDialog" aria-labelledby="partnerDlgTitle"><div class="dlg">
-  <div class="dlghead"><h3 id="partnerDlgTitle">Partnership enquiry</h3><button type="button" class="dlgx" data-close aria-label="Close form"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="dlghead"><h3 id="partnerDlgTitle">Partnership enquiry</h3><button type="button" class="dlgx" data-close aria-label="Close form"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <p class="mut" id="partnerDlgSub"></p>
   <div id="partnerFormHost"></div>
 </div></dialog>
 <dialog id="investorDialog" aria-labelledby="investorDlgTitle"><div class="dlg">
-  <div class="dlghead"><h3 id="investorDlgTitle">Request investor information</h3><button type="button" class="dlgx" data-close aria-label="Close form"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="dlghead"><h3 id="investorDlgTitle">Request investor information</h3><button type="button" class="dlgx" data-close aria-label="Close form"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <p class="mut">Tell us a little about you and what you would like to know. Our team will get back to you.</p>
   <div id="investorFormHost"></div>
 </div></dialog>
+<dialog id="menuDialog" aria-label="Menu"><div class="dlg">
+  <div class="dlghead"><span class="logo">aqua<b>ad</b></span><button type="button" class="dlgx" data-close aria-label="Close menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <nav aria-label="Mobile"><a data-close href="#sides">Advertise</a><a data-close href="#distribute">Distribute</a><a data-close href="#partners">Partners</a><a data-close href="#investors">Investors</a><a data-close href="#faq">FAQ</a><a data-close href="#contact">Contact</a></nav>
+</div></dialog>
 
-<footer>
-  <div class="wrap">
+<footer class="dark">
+  <div class="g">
     <div class="fcols">
-      <div class="fabout"><span class="flogo">aqua<b>ad</b></span><p>Advertising on water bottles, for brands, partners and investors.</p><a class="btn sky" href="tel:+919191919191">Call +91 9191919191</a></div>
-      <nav aria-label="Footer"><h4>Quick links</h4><a href="#top">Home</a><a href="#sides">Advertise</a><a href="#distribute">Distribute</a><a href="#partners">Partners</a><a href="#investors">Investors</a><a href="#contact">Contact</a><a href="#faq">FAQ</a></nav>
-      <div><h4>Contact</h4><a href="tel:+919191919191">+91 9191919191</a><a href="mailto:hello@aquaad.com">hello@aquaad.com</a></div>
+      <p class="a">Advertising on water bottles, for brands, partners and investors.</p>
+      <nav aria-label="Footer"><h4>Explore</h4><a href="#sides">Advertise</a><a href="#distribute">Distribute</a><a href="#partners">Partners</a><a href="#investors">Investors</a><a href="#faq">FAQ</a></nav>
+      <div class="c"><h4>Contact</h4><a href="tel:+919191919191">+91 9191919191</a><a href="mailto:hello@aquaad.com">hello@aquaad.com</a></div>
     </div>
     <div class="fbot"><span>© AquaAd Studio</span><span>The bottle shape is an illustrative concept, not a manufacturer-approved design.</span></div>
   </div>
+  <div class="bigmark" aria-hidden="true">aqua<b>ad</b></div>
 </footer>
 
 <script>
@@ -485,7 +601,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     var tmr = null;
     function keep() { clearTimeout(tmr); tmr = setTimeout(function () { lsSet(fkey, snapshot()); }, 300); }
     f.addEventListener('input', keep); f.addEventListener('change', keep);
-    var clr = h('button', { type: 'button', style: 'background:none;border:0;padding:0;font:inherit;color:#0B6E8A;text-decoration:underline;cursor:pointer', text: 'Clear saved details' });
+    var clr = h('button', { type: 'button', class: 'lnk', text: 'Clear saved details' });
     clr.onclick = function () { lsDel(fkey); f.reset(); say('Saved details cleared.', 'mut'); };
     f.insertBefore(h('p', { class: 'mut', style: 'font-size:13px' }, 'What you type is kept in this browser for 24 hours so a refresh will not lose it. ', clr), status.parentNode ? status : null);
     function say(text, cls) { status.className = cls || ''; status.textContent = text; }
@@ -552,7 +668,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var picked = { bFrontUp: true }, images = {}, active = 'bFrontUp';
   var spin = !reduce, angle = 25, tilt = -14, animate = false;
-  var carton = $('carton'), bottleEl = $('bottle');
+  var carton = $('carton'), bottleEl = $('bottle'), gl3d = null, glCanvas = $('bottleGL'), artCache = {};
 
   function mkFace(t, w, ht, base, clip) {
     var f = h('div', { class: 'face' });
@@ -612,6 +728,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     else if (on) { z.style.background = '#fff'; z.style.color = '#0B2A3C'; z.textContent = 'Upload\nartwork'; z.style.boxShadow = 'inset 0 0 0 2px #0B6E8A'; }
   }
   function paintCarton() {
+    if (MODEL === 'bottle' && gl3d) { gl3d.updateLabels(drawSide); gl3d.setRotation(angle, tilt); return; }
     if (MODEL === 'bottle') {
       PANELS.forEach(function (p) { if (!p.whole) paintZone(bz[p.face][p.pos], p.id); });
       PANELS.forEach(function (p) {
@@ -629,8 +746,8 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     el.style.transition = spin ? 'none' : 'transform .6s ease';
     el.style.transform = 'scale(' + scaleNow() + ') rotateX(' + tilt + 'deg) rotateY(' + angle.toFixed(2) + 'deg)';
   }
-  function nearest(t) { return angle + (((t - angle + 540) % 360) - 180); }
-  function loop() { if (spin) { angle = (angle + 0.35) % 360; activeEl().style.transform = 'scale(' + scaleNow() + ') rotateX(' + tilt + 'deg) rotateY(' + angle.toFixed(2) + 'deg)'; } requestAnimationFrame(loop); }
+  function nearest(t) { return angle + ((((t - angle + 180) % 360) + 360) % 360) - 180; }
+  function loop() { if (spin) { angle = angle + 0.3; if (MODEL === 'bottle' && gl3d) gl3d.setRotation(angle, tilt); else activeEl().style.transform = 'scale(' + scaleNow() + ') rotateX(' + tilt + 'deg) rotateY(' + angle.toFixed(2) + 'deg)'; } requestAnimationFrame(loop); }
 
 
   /* ---------- artwork sizes (PROVISIONAL: confirm with the bottle supplier) ---------- */
@@ -725,6 +842,17 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     return Promise.all(ids.map(function (p) { return loadImg(images[p.id].url).then(function (img) { return [p.id, img]; }); })).then(function (list) {
       var imgs = {}; list.forEach(function (x) { if (x[1]) imgs[x[0]] = x[1]; });
       var g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#ECEDEF'); g.addColorStop(1, '#D8DADD'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      if (MODEL === 'bottle' && gl3d) {
+        var bg = ctx.createRadialGradient(W / 2, H * .55, 60, W / 2, H * .55, W * .7); bg.addColorStop(0, '#17566A'); bg.addColorStop(1, '#04141C'); ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+        Object.keys(imgs).forEach(function (id) { artCache[images[id].url] = imgs[id]; });
+        gl3d.updateLabels(drawSide);
+        [['front', 'Front'], ['right', 'Right'], ['back', 'Back'], ['left', 'Left']].forEach(function (f, i) {
+          var x = 48 + i * 360;
+          gl3d.snapshot(ctx, x, 24, 360, 900, FACE_ANGLE[f[0]]);
+          ctx.fillStyle = '#F2F7F6'; ctx.font = '600 32px "Bricolage Grotesque", Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillText(f[1], x + 180, 982);
+        });
+        return;
+      }
       if (MODEL === 'bottle') {
         [['front', 'Front Side', 'bFrontUp', 'bFrontLow', 'bFront'], ['right', 'Right Side', 'bRightUp', 'bRightLow', 'bRight'], ['back', 'Back Side', 'bBackUp', 'bBackLow'], ['left', 'Left Side', 'bLeftUp', 'bLeftLow', 'bLeft']].forEach(function (f, i) { drawBottleFace(ctx, f, imgs, 96 + 336 * i + 168); });
         return;
@@ -787,7 +915,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     var dd = h('details', { class: 'dd' });
     if (ddOpen) dd.setAttribute('open', '');
     dd.addEventListener('toggle', function () { ddOpen = dd.open; });
-    dd.append(h('summary', { text: 'Choose ad panels · ' + units + ' of ' + total + ' selected' }));
+    dd.append(h('summary', { text: units ? 'Change panels' : 'Select panels' }));
     var panel = h('div', { class: 'ddlist' });
     var qa = h('div', { class: 'ddq' });
     var bAll = h('button', { type: 'button', class: 'ddlink', text: 'Select all ' + total }), bNone = h('button', { type: 'button', class: 'ddlink', text: 'Clear selection' });
@@ -875,9 +1003,9 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   $('resetBtn').onclick = function () { spin = !reduce; tilt = -14; angle = nearest(25); refresh(); };
   function setModel(m) {
     MODEL = m; PANELS = m === 'bottle' ? BOTTLE_PANELS : CARTON_PANELS;
-    bottleEl.hidden = m !== 'bottle'; carton.hidden = m === 'bottle';
+    bottleEl.hidden = m !== 'bottle' || !!gl3d; carton.hidden = m === 'bottle'; glCanvas.hidden = m !== 'bottle' || !gl3d; document.querySelector('.stage-cue').hidden = !(m === 'bottle' && gl3d);
     picked = {}; active = PANELS[0].id; picked[active] = true; spin = !reduce; tilt = -14; angle = 25;
-    $('modelTitle').textContent = m === 'bottle' ? '3D bottle preview' : '3D carton preview';
+    $('modelTitle').textContent = m === 'bottle' ? 'Put it on the bottle.' : 'Put it on the carton.';
     $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want, then upload artwork to each one. 7 of the 8 panels are for sale. The lower back holds AquaAd company information.' : 'Open the list and tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for AquaAd branding and company information.';
     $('modelNote').textContent = m === 'bottle' ? 'Illustrative tall PET bottle, 73 mm wide with a 28 mm neck. The label area (73 × 170 mm, two panels per side) is a provisional size.' : 'Illustrative 500 ml gable-top concept, not a manufacturer-approved print dieline.';
     $('rotL').setAttribute('aria-label', 'Rotate left'); $('mockCanvas').hidden = true;
@@ -900,9 +1028,9 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   fetch(API + '/api/settings').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.show_carton) { showCarton = true; paintPick(); if (savedDesign && savedDesign.model === 'carton') { ready = false; setModel('carton'); restoreFor(savedDesign).then(function () { ready = true; }); } } }).catch(function () {});
   $('mockBtn').onclick = function () {
     var any = PANELS.some(function (p) { return picked[p.id] && images[p.id]; });
-    if (!any) { $('mockNote').textContent = 'Upload artwork to a selected panel first, then preview your mockup.'; return; }
-    var c = $('mockCanvas'); c.hidden = false; $('mockNote').textContent = 'Drawing your mockup…';
-    drawMockup(c).then(function () { $('mockNote').textContent = 'This mockup image is sent to us with your enquiry.'; });
+    if (!any) { $('mockNote').textContent = 'Upload artwork to a selected panel first, then preview your render.'; return; }
+    var c = $('mockCanvas'); c.hidden = false; $('mockNote').textContent = 'Rendering your bottle…';
+    drawMockup(c).then(function () { $('mockNote').textContent = 'This render is sent to us with your enquiry.'; });
   };
 
   buildForm($('sendFormHost'), {
@@ -924,12 +1052,13 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     document.body.style.overflow = 'hidden';
     var first = d.querySelector('input[name=name]'); if (first) setTimeout(function () { first.focus(); }, 30);
   }
-  ['partnerDialog', 'investorDialog'].forEach(function (id) {
+  ['partnerDialog', 'investorDialog', 'distributeDialog', 'menuDialog'].forEach(function (id) {
     var d = $(id);
     d.addEventListener('click', function (e) { if (e.target === d || e.target.closest('[data-close]')) { if (d.close) d.close(); else d.removeAttribute('open'); } });
-    d.addEventListener('close', function () { document.body.style.overflow = ''; });
+    d.addEventListener('close', function () { document.body.style.overflow = ''; var back = id === 'distributeDialog' ? $('vcards') : id === 'partnerDialog' ? $('ptypes') : null, b = back && back.querySelector('[aria-pressed=true]'); if (b && !d.dataset.cta) b.focus(); });
   });
   $('openPartner').onclick = function () { openDlg('partnerDialog'); };
+  $('openMenu').onclick = function () { openDlg('menuDialog'); };
   $('openInvestor').onclick = function () { openDlg('investorDialog'); };
   var PT = [
     { id: 'carton', label: 'Bottle manufacturer', text: 'Produce AquaAd bottles to the shape, label area and print-safe specifications we confirm together.' },
@@ -957,7 +1086,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     var box = $('vcards'); box.replaceChildren();
     VENUES.forEach(function (v) {
       var b = h('button', { type: 'button', class: 'vcard', 'aria-pressed': venue === v[0] ? 'true' : 'false' }, h('strong', { text: v[0] }), h('span', { text: v[1] }));
-      b.onclick = function () { venue = venue === v[0] ? '' : v[0]; paintVenues(); };
+      b.onclick = function () { venue = v[0]; paintVenues(); openDlg('distributeDialog'); };
       box.append(b);
     });
     $('vSel').textContent = venue ? 'Venue type: ' + venue : 'Select your venue type above.';
@@ -974,7 +1103,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       { key: 'loading_dock', label: 'We have a loading dock to receive deliveries.', type: 'checkbox' }
     ],
     detailsExtra: function () { return { venue_type: venue }; },
-    beforeSend: function () { if (!venue) return { error: 'Please select your venue type above.' }; return {}; }
+    beforeSend: function () { if (!venue) return { error: 'Please close this form and choose your venue type.' }; return {}; }
   });
 
   /* ---------- FAQ ---------- */
@@ -988,12 +1117,134 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   function paintFaq() {
     list.replaceChildren();
     FAQ.forEach(function (q, i) {
-      var open = openFaq === i, b = h('button', { type: 'button', 'aria-expanded': open ? 'true' : 'false' }, h('span', { text: q[0] }), h('span', { 'aria-hidden': 'true', style: 'font-size:24px;color:#0369A1', text: open ? '−' : '+' }));
+      var open = openFaq === i, b = h('button', { type: 'button', 'aria-expanded': open ? 'true' : 'false' }, h('span', { text: q[0] }), h('span', { 'aria-hidden': 'true', style: 'font-size:26px;font-weight:400;line-height:1;flex:none', text: open ? '−' : '+' }));
       b.onclick = function () { openFaq = open ? -1 : i; paintFaq(); };
       list.append(h('div', { class: 'faq-item' }, b, open ? h('p', { text: q[1] }) : null));
     });
   }
   paintFaq();
+
+  /* ---------- sleeve artwork for the 3D bottle ---------- */
+  var SIDE_IDS = { front: ['bFrontUp', 'bFrontLow', 'bFront'], right: ['bRightUp', 'bRightLow', 'bRight'], back: ['bBackUp', 'bBackLow', null], left: ['bLeftUp', 'bLeftLow', 'bLeft'] };
+  var F_D = '"Bricolage Grotesque", Arial, sans-serif', F_M = '"Geist Mono", Menlo, monospace';
+  function artLoad(url) {
+    var i = artCache[url];
+    if (i) return i.complete && i.naturalWidth ? i : null;
+    i = new Image(); i.onload = function () { if (gl3d && MODEL === 'bottle') gl3d.updateLabels(drawSide); }; i.src = url; artCache[url] = i;
+    return null;
+  }
+  function wordmark(ctx, cx, cy, size, c1, c2) {
+    ctx.font = '700 ' + size + 'px ' + F_D; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+    try { ctx.letterSpacing = (-size * .045) + 'px'; } catch (e) {}
+    var a = ctx.measureText('aqua').width, b = ctx.measureText('ad').width, x = cx - (a + b) / 2;
+    ctx.fillStyle = c1; ctx.fillText('aqua', x, cy); ctx.fillStyle = c2; ctx.fillText('ad', x + a, cy);
+    try { ctx.letterSpacing = '0px'; } catch (e) {}
+  }
+  function drawZone(ctx, id, x, y, w, ht, sz) {
+    if (id === 'bBackLow') {
+      ctx.fillStyle = '#EDF3F2'; ctx.fillRect(x, y, w, ht);
+      wordmark(ctx, x + w / 2, y + ht * .36, 104, '#04141C', '#E8480F');
+      ctx.fillStyle = '#04141C'; ctx.textAlign = 'center'; ctx.font = '500 30px ' + F_M; ctx.textBaseline = 'middle';
+      ctx.fillText('Ad enquiries', x + w / 2, y + ht * .58); ctx.fillText('+91 9191919191', x + w / 2, y + ht * .65);
+      return;
+    }
+    var on = !!picked[id], im = on && images[id] ? artLoad(images[id].url) : null;
+    if (im) { ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, ht); ctx.clip(); cover(ctx, im, x, y, w, ht); ctx.restore(); return; }
+    if (on) {
+      ctx.fillStyle = '#F8FAF9'; ctx.fillRect(x, y, w, ht);
+      ctx.strokeStyle = '#FF5A1F'; ctx.lineWidth = 7; ctx.setLineDash([26, 18]); ctx.strokeRect(x + 44, y + 44, w - 88, ht - 88); ctx.setLineDash([]);
+      ctx.fillStyle = '#04141C'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '700 84px ' + F_D; ctx.fillText('Your', x + w / 2, y + ht / 2 - 62); ctx.fillText('artwork', x + w / 2, y + ht / 2 + 22);
+      ctx.font = '500 30px ' + F_M; ctx.fillStyle = '#4A5F67'; ctx.fillText(sz, x + w / 2, y + ht / 2 + 94);
+      return;
+    }
+    ctx.fillStyle = '#0A2530'; ctx.fillRect(x, y, w, ht);
+    wordmark(ctx, x + w / 2, y + ht / 2, 92, '#F2F7F6', '#FF5A1F');
+  }
+  function drawSide(side, ctx, W, H) {
+    var s = SIDE_IDS[side];
+    ctx.clearRect(0, 0, W, H);
+    if (s[2] && picked[s[2]]) { drawZone(ctx, s[2], 0, 0, W, H, '73 × 170 mm'); return; }
+    drawZone(ctx, s[0], 0, 0, W, H / 2, '73 × 85 mm');
+    drawZone(ctx, s[1], 0, H / 2, W, H / 2, '73 × 85 mm');
+    ctx.fillStyle = 'rgba(4,20,28,.45)'; ctx.fillRect(0, H / 2 - 2, W, 4);
+  }
+
+  /* sample campaign shown on the hero bottle */
+  function heroSide(side, ctx, W, H) {
+    function big(lines, size, color, x, y, lh) { ctx.fillStyle = color; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.font = '700 ' + size + 'px ' + F_D; try { ctx.letterSpacing = (-size * .05) + 'px'; } catch (e) {} lines.forEach(function (t, i) { ctx.fillText(t, x, y + i * lh); }); try { ctx.letterSpacing = '0px'; } catch (e) {} }
+    function mono(t, color, x, y) { ctx.fillStyle = color; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.font = '500 26px ' + F_M; ctx.fillText(t, x, y); }
+    if (side === 'front') {
+      ctx.fillStyle = '#FF5A1F'; ctx.fillRect(0, 0, W, H);
+      big(['Your', 'brand', 'here.'], 232, '#04141C', 46, 330, 206);
+      ctx.fillStyle = '#04141C'; ctx.beginPath(); ctx.arc(W / 2, 1180, 250, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#FF5A1F'; ctx.beginPath(); ctx.arc(W / 2 + 74, 1110, 92, 0, Math.PI * 2); ctx.fill();
+      wordmark(ctx, W / 2, H - 150, 84, '#04141C', '#F2F7F6');
+    } else if (side === 'right') {
+      ctx.fillStyle = '#04141C'; ctx.fillRect(0, 0, W, H);
+      big(['7'], 900, '#7FD4E6', 120, 820, 0);
+      big(['panels.', 'your', 'call.'], 150, '#F2F7F6', 50, 1140, 140);
+      wordmark(ctx, W / 2, H - 150, 84, '#F2F7F6', '#FF5A1F');
+    } else if (side === 'back') {
+      ctx.fillStyle = '#7FD4E6'; ctx.fillRect(0, 0, W, H / 2);
+      big(['Held,', 'not', 'scrolled.'], 158, '#04141C', 46, 330, 158);
+      ctx.fillStyle = '#EDF3F2'; ctx.fillRect(0, H / 2, W, H / 2);
+      wordmark(ctx, W / 2, H * .68, 112, '#04141C', '#E8480F');
+      ctx.fillStyle = '#04141C'; ctx.textAlign = 'center'; ctx.font = '500 30px ' + F_M; ctx.fillText('Ad enquiries', W / 2, H * .78); ctx.fillText('+91 9191919191', W / 2, H * .815);
+    } else {
+      ctx.fillStyle = '#EDF3F2'; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#FF5A1F'; ctx.beginPath(); ctx.arc(W / 2, 480, 300, 0, Math.PI * 2); ctx.fill();
+      big(['Goes', 'where', 'screens', 'don\'t.'], 168, '#04141C', 44, 1000, 158);
+      wordmark(ctx, W / 2, H - 110, 76, '#04141C', '#E8480F');
+    }
+  }
+
+  /* ---------- real 3D, with the CSS bottle as a fallback ---------- */
+  var webgl = (function () { try { var c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } })();
+  function noHero() { var c = $('heroGL'); if (c) c.hidden = true; }
+  if (webgl) {
+    import('./bottle3d.js').then(function (m) {
+      if (MODEL === 'bottle') { glCanvas.hidden = false; bottleEl.hidden = true; }
+      gl3d = m.createBottle(glCanvas, {
+        fill: .86, reduced: reduce,
+        onDrag: function (dx, dy) {
+          if (spin) { spin = false; paintUI(); }
+          angle += dx * .55; tilt = Math.max(-40, Math.min(30, tilt - dy * .25));
+          gl3d.setRotation(angle, tilt);
+        }
+      });
+      gl3d.jump(angle, tilt); refresh();
+
+      var hero = m.createBottle($('heroGL'), { fill: .9, reduced: reduce, shadow: .62 });
+      hero.updateLabels(heroSide);
+      var hA = 24, hT = -5, mx = 0, my = 0, run = !reduce, mb = $('heroMotion');
+      hero.jump(hA, hT);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { hero.updateLabels(heroSide); if (MODEL === 'bottle') gl3d.updateLabels(drawSide); });
+      if (!reduce) {
+        mb.hidden = false;
+        mb.onclick = function () { run = !run; mb.textContent = run ? 'Pause motion' : 'Play motion'; mb.setAttribute('aria-pressed', run ? 'false' : 'true'); };
+        window.addEventListener('pointermove', function (e) { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5; }, { passive: true });
+        (function spinHero() { if (run) hA += .16; hero.setRotation(hA + mx * 16, hT - my * 6); requestAnimationFrame(spinHero); })();
+      }
+    }).catch(function () { noHero(); glCanvas.hidden = true; if (MODEL === 'bottle') bottleEl.hidden = false; refresh(); });
+  } else noHero();
+
+  /* ---------- page motion ---------- */
+  (function () {
+    var els = [].slice.call(document.querySelectorAll('.rv'));
+    if (reduce || !('IntersectionObserver' in window)) els.forEach(function (e) { e.classList.add('in'); });
+    else { var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' }); els.forEach(function (e) { io.observe(e); }); }
+    var st = $('stmt'), nodes = [].slice.call(st.childNodes); st.textContent = '';
+    nodes.forEach(function (n) {
+      if (n.nodeType === 3) n.textContent.split(/(\s+)/).forEach(function (w) { if (!w) return; if (/^\s+$/.test(w)) st.append(' '); else st.append(h('i', { text: w })); });
+      else { var i = document.createElement('i'); i.append(n); st.append(i); }
+    });
+    var words = [].slice.call(st.querySelectorAll('i'));
+    if (reduce) { words.forEach(function (w) { w.classList.add('on'); }); return; }
+    var queued = false;
+    function upd() { queued = false; var r = st.getBoundingClientRect(), vh = innerHeight, p = (vh * .82 - r.top) / (r.height + vh * .3); words.forEach(function (w, i) { w.classList.toggle('on', (i + .5) / words.length < p); }); }
+    window.addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(upd); } }, { passive: true }); upd();
+  })();
 })();
 </script>
 </body>
