@@ -319,7 +319,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       </div>
     </div>
     <div class="panelbox" id="sizeBox">
-      <div><h3 style="font-size:24px">Artwork sizes</h3><p class="mut" style="margin-top:4px">Design each panel to the size below. <b>These sizes are provisional</b> until the carton supplier confirms the final print dimensions.</p></div>
+      <div><h3 style="font-size:24px">Artwork sizes</h3><p class="mut" style="margin-top:4px">Design each panel to the size below. <b>These sizes are provisional</b> until the bottle supplier confirms the final print dimensions.</p></div>
       <div class="tblwrap"><table class="tbl" id="sizeTable"></table></div>
       <ul class="notes" id="sizeNotes"></ul>
     </div>
@@ -641,18 +641,19 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     var t = $('sizeTable'), b = SPEC.bleed * 2;
     var head = h('tr', null, h('th', { text: 'Panel' }), h('th', { text: 'Finished size' }), h('th', { text: 'With ' + SPEC.bleed + ' mm bleed' }), h('th', { text: 'Pixels at ' + SPEC.dpi + ' dpi (with bleed)' }));
     t.replaceChildren(head);
-    PANELS.forEach(function (p) {
+    var rows = MODEL === 'bottle' ? [{ name: 'Whole side (full)', w: 73, h: 170 }, { name: 'Upper or lower panel (each)', w: 73, h: 85 }] : PANELS;
+    rows.forEach(function (p) {
       var s = sizeOf(p);
       t.append(h('tr', null, h('td', { text: p.name }), h('td', { text: s.w + ' × ' + s.h + ' mm' }), h('td', { text: (s.w + b) + ' × ' + (s.h + b) + ' mm' }), h('td', { class: 'res', text: mmToPx(s.w + b) + ' × ' + mmToPx(s.h + b) + ' px' })));
     });
-    if (MODEL === 'bottle') t.append(h('tr', null, h('td', { text: 'Back · lower' }), h('td', { colspan: '3', class: 'res', text: 'Reserved for AquaAd company information (not for sale)' })), h('tr', null, h('td', { text: 'Cap and neck' }), h('td', { colspan: '3', class: 'res', text: 'AquaAd branding (not for sale)' })));
-    else t.append(h('tr', null, h('td', { text: 'Back · lower' }), h('td', { colspan: '3', class: 'res', text: 'Reserved for AquaAd company information (not for sale)' })), h('tr', null, h('td', { text: 'Roof and base' }), h('td', { colspan: '3', class: 'res', text: 'AquaAd branding (not for sale)' })));
+    if (MODEL !== 'bottle') t.append(h('tr', null, h('td', { text: 'Back · lower' }), h('td', { colspan: '3', class: 'res', text: 'Reserved for AquaAd company information (not for sale)' })), h('tr', null, h('td', { text: 'Roof and base' }), h('td', { colspan: '3', class: 'res', text: 'AquaAd branding (not for sale)' })));
     var n = $('sizeNotes'); n.replaceChildren();
     [
       'Send JPG, PNG or WEBP, up to 3 MB per panel. Export at ' + SPEC.dpi + ' dpi or higher.',
       'Extend backgrounds to the bleed edge (' + SPEC.bleed + ' mm). Keep text, logos and QR codes at least ' + SPEC.safe + ' mm inside the finished edge.',
       MODEL === 'bottle' ? 'Each side of the bottle has an upper and a lower panel. Keep important content away from the corners where the label turns and from the line between the two panels.' : 'The border between an upper and a lower panel is a gentle curve. Keep important content away from that middle edge.',
       'Make QR codes at least 15 × 15 mm with a clear border so they scan reliably.',
+      MODEL === 'bottle' ? 'The lower back panel is reserved for AquaAd company information and is not for sale.' : 'The back lower panel is reserved for AquaAd company information.',
       'Final dimensions and print-safe areas are confirmed with the ' + (MODEL === 'bottle' ? 'bottle' : 'carton') + ' supplier before production.'
     ].forEach(function (x) { n.append(h('li', { text: x })); });
   }
