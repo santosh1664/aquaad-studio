@@ -2,8 +2,8 @@
 
 # WaterOnUs
 
-**The billboard people carry.**
-Put your brand on 500 ml water bottles. See it on a real 3D bottle, then send it to the WaterOnUs team.
+**Free water. Paid for by brands.**
+People drink for free. Brands put their artwork on 500 ml bottles, preview it in 3D and send it to the WaterOnUs team.
 
 [**Live site**](https://santosh1664.github.io/aquaad-studio/) &nbsp;·&nbsp;
 [Advertise](https://santosh1664.github.io/aquaad-studio/#sides) &nbsp;·&nbsp;

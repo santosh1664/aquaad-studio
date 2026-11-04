@@ -3,7 +3,7 @@
 Source of truth for the WaterOnUs website and admin. Tokens live at the top of `dist/index.html` (primitive, semantic, component).
 
 ## Positioning
-WaterOnUs turns everyday 500 ml water bottles into a brand surface. Brands pick the panels, partners make and distribute the bottles, people see the message in daily life.
+WaterOnUs gives people free water, paid for by brands. Each 500 ml bottle carries advertising: brands pick the panels, partners make and distribute the bottles, people drink for free.
 
 ## Voice
 - Clear and practical. Say what happens next, in plain words.
@@ -12,7 +12,8 @@ WaterOnUs turns everyday 500 ml water bottles into a brand surface. Brands pick 
 - Always be honest about what is provisional (sizes, dieline).
 
 ## Messaging
-- Headline: The billboard people carry.
+- Headline: Free water. Paid for by brands.
+- Supporting line: The billboard people carry.
 - Statement: You can skip an ad. You can't skip being thirsty.
 - Audiences: brands (advertise), venues (distribute), manufacturers and water partners (partner), investors.
 - Calls to action: Design your bottle, Distribute with us, Become a partner, Request investor information.
