@@ -3,7 +3,7 @@
 Source of truth for the WaterOnUs website and admin. Tokens live at the top of `dist/index.html` (primitive, semantic, component).
 
 ## Positioning
-WaterOnUs gives people free water, paid for by brands. Each 500 ml bottle carries advertising: brands pick the panels, partners make and distribute the bottles, people drink for free.
+WaterOnUs gives people free water, paid for by brands. Each 500 ml bottle carries advertising: brands pick the panels, partners make and distribute the bottles, people drink for free. Venues get the bottles free too.
 
 ## Voice
 - Clear and practical. Say what happens next, in plain words.
@@ -16,7 +16,7 @@ WaterOnUs gives people free water, paid for by brands. Each 500 ml bottle carrie
 - Supporting line: The billboard people carry.
 - Statement: You can skip an ad. You can't skip being thirsty.
 - Audiences: brands (advertise), venues (distribute), manufacturers and water partners (partner), investors.
-- Calls to action: Design your bottle, Distribute with us, Become a partner, Request investor information.
+- Calls to action: Design your bottle, Free for venues, Become a partner, Request investor information.
 
 ## Visual identity
 Deep water, one bright water colour, very large type. It should feel like a media brand, not a software template.
