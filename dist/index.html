@@ -278,7 +278,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
 
 <section id="sides" style="padding-top:72px">
   <div class="wrap" style="display:flex;flex-direction:column;gap:40px">
-    <div style="max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:12px"><h2 class="h2" id="modelTitle">3D bottle preview</h2><p class="mut" id="modelLead">Tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel. 7 of the 8 are for sale (the lower back holds AquaAd company information), or take a whole side.</p></div>
+    <div style="max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:12px"><h2 class="h2" id="modelTitle">3D bottle preview</h2><p class="mut" id="modelLead">Choose the panels you want to advertise on from the list, then upload artwork to each one. Each side has an upper and a lower panel. 7 of the 8 are for sale (the lower back holds AquaAd company information), or take a whole side.</p></div>
     <div class="preview">
       <div class="stage-col">
         <div class="stage" id="stage"><div class="carton" id="carton" hidden></div><div class="carton" id="bottle"></div></div>
@@ -735,26 +735,25 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       else if (MODEL === 'bottle') delete picked[wholeOf(p.id)];
       active = p.id; spin = false; angle = nearest(FACE_ANGLE[p.face]); tilt = -12; refresh();
     }
+    var avail = PANELS.filter(function (p) { return !picked[p.id] && !(MODEL === 'bottle' && !p.whole && picked[wholeOf(p.id)]); });
+    var sel = h('select', { 'aria-label': 'Add an ad panel', style: 'width:100%;min-height:52px;border-radius:14px;border:2px solid #B9CFD8;padding:0 14px;font:inherit;font-weight:600;background:#fff' });
+    sel.append(h('option', { value: '', text: avail.length ? 'Choose a panel to add…' : 'All panels added' }));
+    var singles = avail.filter(function (p) { return !p.whole; }), wholes = avail.filter(function (p) { return p.whole; });
+    function group(label, list) { if (!list.length) return; var g = h('optgroup', { label: label }); list.forEach(function (p) { g.append(h('option', { value: p.id, text: p.name })); }); sel.append(g); }
+    group(MODEL === 'bottle' ? 'Single panels' : 'Panels', singles);
+    group('Whole side (both panels in one design, 73 × 170 mm)', wholes);
+    sel.disabled = !avail.length;
+    sel.onchange = function () { var p = PANELS.filter(function (x) { return x.id === sel.value; })[0]; if (p) pickPanel(p); };
     PANELS.forEach(function (p) {
-      if (p.whole) {
-        if (!picked[p.id]) return;
-        var wb = h('button', { type: 'button', class: 'chip' + (active === p.id ? ' active' : ''), 'aria-pressed': 'true', title: 'Click to remove the whole-side design', text: p.name + ' ✕' });
-        wb.onclick = function () { if (active === p.id) { delete picked[p.id]; delete images[p.id]; active = halvesOf(p.id)[0]; refresh(); } else { active = p.id; spin = false; angle = nearest(FACE_ANGLE[p.face]); refresh(); } };
-        chipsEl.append(wb); return;
-      }
-      if (MODEL === 'bottle' && picked[wholeOf(p.id)]) return;
-      var b = h('button', { type: 'button', class: 'chip' + (active === p.id ? ' active' : ''), 'aria-pressed': picked[p.id] ? 'true' : 'false', text: p.name });
-      b.onclick = function () { if (picked[p.id]) { delete picked[p.id]; active = p.id; refresh(); } else pickPanel(p); };
-      chipsEl.append(b);
+      if (!picked[p.id]) return;
+      var cb = h('button', { type: 'button', class: 'chip' + (active === p.id ? ' active' : ''), 'aria-pressed': 'true', title: active === p.id ? 'Click to remove this panel' : 'Click to select this panel', text: p.name + ' ✕' });
+      cb.onclick = function () {
+        if (active === p.id) { delete picked[p.id]; delete images[p.id]; active = p.whole ? halvesOf(p.id)[0] : (PANELS.filter(function (x) { return picked[x.id]; })[0] || PANELS[0]).id; refresh(); }
+        else { active = p.id; spin = false; angle = nearest(FACE_ANGLE[p.face]); tilt = -12; refresh(); }
+      };
+      chipsEl.append(cb);
     });
-    var wholes = PANELS.filter(function (p) { return p.whole && !picked[p.id]; });
-    if (wholes.length) {
-      var sel = h('select', { 'aria-label': 'Add a whole side', style: 'min-height:48px;border-radius:14px;border:2px solid #B9CFD8;padding:0 14px;font:inherit;font-weight:600;background:#fff' });
-      sel.append(h('option', { value: '', text: 'Add a whole side (both panels, 73 × 170 mm)…' }));
-      wholes.forEach(function (p) { sel.append(h('option', { value: p.id, text: p.name })); });
-      sel.onchange = function () { var p = PANELS.filter(function (x) { return x.id === sel.value; })[0]; if (p) pickPanel(p); };
-      chipsEl.append(h('div', { style: 'flex-basis:100%' }, sel));
-    }
+    chipsEl.append(h('div', { style: 'flex-basis:100%' }, sel));
     var ap = PANELS.filter(function (p) { return p.id === active; })[0];
     $('artSize').textContent = sizeText(ap);
     $('artTitle').textContent = ap.name + ' artwork';
@@ -772,7 +771,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       };
       acts.append(h('label', { class: 'upl' }, images[active] ? 'Replace artwork' : 'Upload artwork', inp));
       if (images[active]) { var rm = h('button', { type: 'button', class: 'btn', text: 'Remove artwork' }); rm.onclick = function () { URL.revokeObjectURL(images[active].url); delete images[active]; refresh(); }; acts.append(rm); }
-    } else { $('artHint').textContent = 'Select this panel above to add artwork. Unselected panels keep AquaAd branding.'; }
+    } else { $('artHint').textContent = 'Add this panel from the list above to upload artwork. Panels you do not add keep AquaAd branding.'; }
     var withArt = n.filter(function (p) { return images[p.id]; }).length;
     $('sendSummary').textContent = n.length ? n.map(function (p) { return p.name; }).join(', ') + ' · ' + withArt + ' artwork file' + (withArt === 1 ? '' : 's') + ' ready to send.' : 'Select at least one panel above, then add your details.';
     $('spinBtn').textContent = spin ? 'Pause rotation' : 'Resume rotation'; $('spinBtn').setAttribute('aria-pressed', spin ? 'true' : 'false');
@@ -815,7 +814,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     bottleEl.hidden = m !== 'bottle'; carton.hidden = m === 'bottle';
     picked = {}; active = PANELS[0].id; picked[active] = true; spin = !reduce; tilt = -14; angle = 25;
     $('modelTitle').textContent = m === 'bottle' ? '3D bottle preview' : '3D carton preview';
-    $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel. 7 of the 8 are for sale (the lower back holds AquaAd company information), or take a whole side.' : 'Tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for AquaAd branding and company information.';
+    $('modelLead').textContent = m === 'bottle' ? 'Choose the panels you want to advertise on from the list, then upload artwork to each one. Each side has an upper and a lower panel. 7 of the 8 are for sale (the lower back holds AquaAd company information), or take a whole side.' : 'Choose the panels you want to advertise on from the list, then upload artwork to each one. The roof and the lower back are reserved for AquaAd branding and company information.';
     $('modelNote').textContent = m === 'bottle' ? 'Illustrative tall PET bottle, 73 mm wide with a 28 mm neck. The label area (73 × 170 mm, two panels per side) is a provisional size.' : 'Illustrative 500 ml gable-top concept, not a manufacturer-approved print dieline.';
     $('rotL').setAttribute('aria-label', 'Rotate left'); $('mockCanvas').hidden = true;
     buildSizeTable(); refresh(); paintPick();
