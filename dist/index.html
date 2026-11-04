@@ -319,7 +319,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
       </div>
       <div class="hero-spec tag">
         <span>For drinkers<b>Always free</b></span>
-        <span>For brands<b>7 ad panels</b></span>
+        <span>For brands<b>7 panels per bottle</b></span>
         <span>Format<b>500 ml bottle</b></span>
       </div>
     </div>
@@ -340,7 +340,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
 
 <section class="anat dark" aria-labelledby="anatH">
   <div class="g">
-    <div class="anat-head rv"><h2 id="anatH">Eight panels.<br>Seven are <em class="s">yours.</em></h2><p>Each side of the sleeve has an upper and a lower panel. Buy one, buy several, or run a single design down a whole side.</p></div>
+    <div class="anat-head rv"><h2 id="anatH">Eight panels.<br>Seven for <em class="s">brands.</em></h2><p>Take one panel, a whole side, or all seven. Want to spend less? Share the bottle with non-competing brands.</p></div>
     <div class="map rv" role="img" aria-label="Sleeve layout. Front, right and left sides each have an upper and a lower panel for sale. The back has an upper panel for sale and a lower panel reserved for WaterOnUs.">
       <div class="col-h tag">Front</div><div class="col-h tag">Right</div><div class="col-h tag">Back</div><div class="col-h tag">Left</div>
       <div class="cell"><small>01</small><div><b>Front upper</b><br><small>73 × 85 mm</small></div></div>
@@ -352,7 +352,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
       <div class="cell res"><small>Reserved</small><div><b>WaterOnUs info</b><br><small>Not for sale</small></div></div>
       <div class="cell"><small>07</small><div><b>Left lower</b><br><small>73 × 85 mm</small></div></div>
     </div>
-    <div class="map-foot"><span class="tag">Or take a whole side · 73 × 170 mm</span><a class="btn" href="#sides">Try it on the bottle</a></div>
+    <div class="map-foot"><span class="tag">Whole side: front, right or left · 73 × 170 mm</span><a class="btn" href="#sides">Try it on the bottle</a></div>
   </div>
 </section>
 
@@ -371,7 +371,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
   <div class="g">
     <div class="studio-head">
       <div class="l rv"><span class="tag" style="color:var(--signal-d)">The studio</span><h2 id="modelTitle">Put it on the bottle.</h2></div>
-      <p class="rv" id="modelLead">Tick the panels you want, then upload artwork to each one. 7 of the 8 panels are for sale. The lower back holds WaterOnUs company information.</p>
+      <p class="rv" id="modelLead">Tick the panels you want, then upload artwork to each one. Take all 7 panels for sale, or share the bottle with non-competing brands. The lower back holds WaterOnUs company information.</p>
     </div>
     <div class="preview">
       <div class="stage-col">
@@ -1006,7 +1006,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
     bottleEl.hidden = m !== 'bottle' || !!gl3d; carton.hidden = m === 'bottle'; glCanvas.hidden = m !== 'bottle' || !gl3d; document.querySelector('.stage-cue').hidden = !(m === 'bottle' && gl3d);
     picked = {}; active = PANELS[0].id; picked[active] = true; spin = !reduce; tilt = -14; angle = 25;
     $('modelTitle').textContent = m === 'bottle' ? 'Put it on the bottle.' : 'Put it on the carton.';
-    $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want, then upload artwork to each one. 7 of the 8 panels are for sale. The lower back holds WaterOnUs company information.' : 'Open the list and tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for WaterOnUs branding and company information.';
+    $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want, then upload artwork to each one. Take all 7 panels for sale, or share the bottle with non-competing brands. The lower back holds WaterOnUs company information.' : 'Open the list and tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for WaterOnUs branding and company information.';
     $('modelNote').textContent = m === 'bottle' ? 'Illustrative tall PET bottle, 73 mm wide with a 28 mm neck. The label area (73 × 170 mm, two panels per side) is a provisional size.' : 'Illustrative 500 ml gable-top concept, not a manufacturer-approved print dieline.';
     $('rotL').setAttribute('aria-label', 'Rotate left'); $('mockCanvas').hidden = true;
     buildSizeTable(); refresh(); paintPick();
@@ -1109,6 +1109,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
   /* ---------- FAQ ---------- */
   var FAQ = [
     ['Is the water really free?', 'Yes. Brands pay for the bottles through their advertising, so the people who drink the water pay nothing.'],
+    ['Can one brand take the whole bottle?', 'Yes. Take all seven panels and the bottle is yours, or share it with non-competing brands to reduce your cost.'],
     ['Do venues pay for the bottles?', 'No. Venues get the bottles free too. Brands cover the cost.'],
     ['Do my images get uploaded anywhere?', 'The 3D preview happens in your browser. Your artwork is only sent when you press “Send my design to WaterOnUs”, and then it goes to our team to review.'],
     ['Which image formats can I use?', 'JPG, PNG and WEBP, up to 3 MB per panel. Each panel can have different artwork.'],
@@ -1184,8 +1185,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
       wordmark(ctx, W / 2, H - 150, 78, '#04141C', '#F2F7F6');
     } else if (side === 'right') {
       ctx.fillStyle = '#04141C'; ctx.fillRect(0, 0, W, H);
-      big(['7'], 900, '#7FD4E6', 120, 820, 0);
-      big(['panels.', 'your', 'call.'], 150, '#F2F7F6', 50, 1140, 140);
+      big(['This', 'could', 'be your', 'ad.'], 196, '#7FD4E6', 46, 400, 196);
       wordmark(ctx, W / 2, H - 150, 78, '#F2F7F6', '#2BD4F0');
     } else if (side === 'back') {
       ctx.fillStyle = '#7FD4E6'; ctx.fillRect(0, 0, W, H / 2);

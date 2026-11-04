@@ -37,4 +37,4 @@ Deep water, one bright water colour, very large type. It should feel like a medi
 - Avoid: stock SaaS icon cards, blue-on-white gradients, emoji icons, invented numbers or customers.
 
 ## Bottle spec (provisional)
-500 ml PET bottle, 73 mm wide. Label area 73 x 170 mm: two panels of 73 x 85 mm per side, or one whole side. Seven panels are for sale; the lower back is reserved for WaterOnUs information. Confirm with the bottle supplier before production.
+500 ml PET bottle, 73 mm wide. Label area 73 x 170 mm: two panels of 73 x 85 mm per side, or one whole side. Seven panels are for sale; the lower back is reserved for WaterOnUs information. One brand can take all seven, or brands that don't compete can share a bottle. Confirm with the bottle supplier before production.
