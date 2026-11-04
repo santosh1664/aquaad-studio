@@ -295,7 +295,6 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
         <div style="display:flex;flex-direction:column;gap:12px">
           <div class="row" style="justify-content:space-between"><h3 style="font-size:20px">Choose ad panels</h3><span class="mut" style="font-size:14px" id="count"></span></div>
           <div class="chips" id="chips" role="group" aria-label="Ad panels"></div>
-          <div class="row"><button class="btn" id="selAll" type="button">Select all</button><button class="btn" id="selNone" type="button">Clear selection</button></div>
         </div>
         <div class="box" aria-live="polite">
           <div class="row" style="justify-content:space-between"><h3 style="font-size:18px" id="artTitle"></h3><span class="mut" style="font-size:13px">JPG · PNG · WEBP · max 3 MB</span></div>
@@ -735,15 +734,29 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       else if (MODEL === 'bottle') delete picked[wholeOf(p.id)];
       active = p.id; spin = false; angle = nearest(FACE_ANGLE[p.face]); tilt = -12; refresh();
     }
-    var avail = PANELS.filter(function (p) { return !picked[p.id] && !(MODEL === 'bottle' && !p.whole && picked[wholeOf(p.id)]); });
-    var sel = h('select', { 'aria-label': 'Add an ad panel', style: 'width:100%;min-height:52px;border-radius:14px;border:2px solid #B9CFD8;padding:0 14px;font:inherit;font-weight:600;background:#fff' });
-    sel.append(h('option', { value: '', text: avail.length ? 'Choose a panel to add…' : 'All panels added' }));
-    var singles = avail.filter(function (p) { return !p.whole; }), wholes = avail.filter(function (p) { return p.whole; });
-    function group(label, list) { if (!list.length) return; var g = h('optgroup', { label: label }); list.forEach(function (p) { g.append(h('option', { value: p.id, text: p.name })); }); sel.append(g); }
-    group(MODEL === 'bottle' ? 'Single panels' : 'Panels', singles);
-    group('Whole side (both panels in one design, 73 × 170 mm)', wholes);
-    sel.disabled = !avail.length;
-    sel.onchange = function () { var p = PANELS.filter(function (x) { return x.id === sel.value; })[0]; if (p) pickPanel(p); };
+    var sel = h('select', { 'aria-label': 'Choose ad panels', style: 'width:100%;min-height:52px;border-radius:14px;border:2px solid #B9CFD8;padding:0 14px;font:inherit;font-weight:600;background:#fff' });
+    var sellable = PANELS.filter(function (p) { return !p.whole; });
+    sel.append(h('option', { value: '', text: 'Choose panels… (' + units + ' of ' + total + ' selected)' }));
+    var qa = h('optgroup', { label: 'Quick actions' });
+    qa.append(h('option', { value: '__all', text: 'Select all ' + total + ' panels' }), h('option', { value: '__none', text: 'Clear selection' }));
+    sel.append(qa);
+    function blocked(p) { return MODEL === 'bottle' && !p.whole && picked[wholeOf(p.id)]; }
+    function group(label, list) {
+      if (!list.length) return;
+      var g = h('optgroup', { label: label });
+      list.forEach(function (p) { var o = h('option', { value: p.id, text: (picked[p.id] ? '✓ ' : '') + p.name + (blocked(p) ? ' (in whole side)' : '') }); if (blocked(p)) o.disabled = true; g.append(o); });
+      sel.append(g);
+    }
+    group(MODEL === 'bottle' ? 'Single panels' : 'Panels', sellable);
+    group('Whole side (both panels in one design, 73 × 170 mm)', PANELS.filter(function (p) { return p.whole; }));
+    sel.onchange = function () {
+      var v = sel.value;
+      if (v === '__all') { sellable.forEach(function (p) { picked[p.id] = true; }); PANELS.forEach(function (p) { if (p.whole) delete picked[p.id]; }); active = sellable[0].id; refresh(); return; }
+      if (v === '__none') { picked = {}; refresh(); return; }
+      var p = PANELS.filter(function (x) { return x.id === v; })[0];
+      if (!p) return;
+      if (picked[p.id]) { active = p.id; spin = false; angle = nearest(FACE_ANGLE[p.face]); tilt = -12; refresh(); } else pickPanel(p);
+    };
     PANELS.forEach(function (p) {
       if (!picked[p.id]) return;
       var cb = h('button', { type: 'button', class: 'chip' + (active === p.id ? ' active' : ''), 'aria-pressed': 'true', title: active === p.id ? 'Click to remove this panel' : 'Click to select this panel', text: p.name + ' ✕' });
@@ -807,8 +820,6 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   $('rotR').onclick = function () { spin = false; angle += 45; refresh(); };
   $('spinBtn').onclick = function () { spin = !spin; refresh(); };
   $('resetBtn').onclick = function () { spin = !reduce; tilt = -14; angle = nearest(25); refresh(); };
-  $('selAll').onclick = function () { PANELS.forEach(function (p) { if (!p.whole) picked[p.id] = true; }); if (MODEL === 'bottle') ['bFront', 'bRight', 'bLeft'].forEach(function (x) { delete picked[x]; }); refresh(); };
-  $('selNone').onclick = function () { picked = {}; refresh(); };
   function setModel(m) {
     MODEL = m; PANELS = m === 'bottle' ? BOTTLE_PANELS : CARTON_PANELS;
     bottleEl.hidden = m !== 'bottle'; carton.hidden = m === 'bottle';
