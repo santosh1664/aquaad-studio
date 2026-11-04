@@ -278,7 +278,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
 
 <section id="sides" style="padding-top:72px">
   <div class="wrap" style="display:flex;flex-direction:column;gap:40px">
-    <div style="max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:12px"><h2 class="h2" id="modelTitle">3D bottle preview</h2><p class="mut" id="modelLead">Tick the panels you want to advertise on, then upload artwork to each one. The back panel is reserved for AquaAd company information.</p></div>
+    <div style="max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:12px"><h2 class="h2" id="modelTitle">3D bottle preview</h2><p class="mut" id="modelLead">Tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel, 8 in total.</p></div>
     <div class="preview">
       <div class="stage-col">
         <div class="stage" id="stage"><div class="carton" id="carton" hidden></div><div class="carton" id="bottle"></div></div>
@@ -482,17 +482,22 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     { id: 'leftUp', name: 'Left · upper', face: 'left', pos: 'top' },
     { id: 'leftLow', name: 'Left · lower', face: 'left', pos: 'bot' }
   ];
-  /* 500 ml PET bottle: 191 mm tall, 73 mm wide, 28 mm neck. Label area size is PROVISIONAL. */
+  /* Tall 500 ml-style PET bottle, 73 mm wide, 28 mm neck, label area 73 x 160 mm split into 2 panels per side. Sizes are PROVISIONAL. */
   var BOTTLE_PANELS = [
-    { id: 'bFront', name: 'Front label', face: 'front', w: 73, h: 110 },
-    { id: 'bRight', name: 'Right label', face: 'right', w: 73, h: 110 },
-    { id: 'bLeft', name: 'Left label', face: 'left', w: 73, h: 110 }
+    { id: 'bFrontUp', name: 'Front · upper', face: 'front', pos: 'top', w: 73, h: 80 },
+    { id: 'bFrontLow', name: 'Front · lower', face: 'front', pos: 'bot', w: 73, h: 80 },
+    { id: 'bRightUp', name: 'Right · upper', face: 'right', pos: 'top', w: 73, h: 80 },
+    { id: 'bRightLow', name: 'Right · lower', face: 'right', pos: 'bot', w: 73, h: 80 },
+    { id: 'bBackUp', name: 'Back · upper', face: 'back', pos: 'top', w: 73, h: 80 },
+    { id: 'bBackLow', name: 'Back · lower', face: 'back', pos: 'bot', w: 73, h: 80 },
+    { id: 'bLeftUp', name: 'Left · upper', face: 'left', pos: 'top', w: 73, h: 80 },
+    { id: 'bLeftLow', name: 'Left · lower', face: 'left', pos: 'bot', w: 73, h: 80 }
   ];
   var MODEL = 'bottle', PANELS = BOTTLE_PANELS;
   var FACE_ANGLE = { front: 0, right: -90, back: 180, left: 90 };
   var WAVE = 'polygon(0% 14%,12% 8%,26% 4%,42% 7%,58% 13%,74% 15%,88% 10%,100% 4%,100% 100%,0% 100%)';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var picked = { bFront: true }, images = {}, active = 'bFront';
+  var picked = { bFrontUp: true }, images = {}, active = 'bFrontUp';
   var spin = !reduce, angle = 25, tilt = -14, animate = false;
   var carton = $('carton'), bottleEl = $('bottle');
 
@@ -519,9 +524,9 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   back.style.background = 'linear-gradient(#EAF6FB,#CFE9F3)'; back.style.color = '#0B2A3C'; back.textContent = 'About AquaAd\nAd enquiries\n+91 9191919191';
 
   /* 3D bottle, 1 mm = 1.4 px */
-  var bz = {}, bBack;
+  var bz = {};
   (function () {
-    var W = 102, BH = 190, SH = 38, NH = 25, CH = 14, NW = 39, CW = 43, top = -(BH + SH + NH + CH) / 2;
+    var W = 102, BH = 260, SH = 38, NH = 25, CH = 14, NW = 39, CW = 43, top = -(BH + SH + NH + CH) / 2;
     var yCap = top + CH / 2, yNeck = top + CH + NH / 2, ySh = top + CH + NH + SH / 2, yBody = top + CH + NH + SH + BH / 2;
     function f(t, w, ht, bg, clip) {
       var e = h('div', { class: 'face' });
@@ -533,20 +538,19 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     [['front', 0], ['right', 90], ['back', 180], ['left', -90]].forEach(function (a) {
       var r = 'rotateY(' + a[1] + 'deg) ';
       var b = f(r + 'translate3d(0,' + yBody + 'px,' + W / 2 + 'px)', W, BH, glass);
-      var z = h('div', { class: 'zone' });
-      z.style.cssText += ';position:absolute;left:0;right:0;top:14px;height:154px;font-size:12px';
-      b.append(z);
-      if (a[0] === 'back') { bBack = z; } else bz[a[0]] = z;
+      var zt = h('div', { class: 'zone' }), zb = h('div', { class: 'zone' });
+      zt.style.cssText += ';position:absolute;left:0;right:0;top:14px;height:111px;font-size:12px';
+      zb.style.cssText += ';position:absolute;left:0;right:0;top:127px;height:111px;font-size:12px';
+      b.append(zt, zb); bz[a[0]] = { top: zt, bot: zb };
       f(r + 'translate3d(0,' + ySh + 'px,' + mid + 'px) rotateX(' + slope.toFixed(2) + 'deg)', W, slant, glass, 'polygon(' + ((W - NW) / 2 / W * 100).toFixed(1) + '% 0,' + ((W + NW) / 2 / W * 100).toFixed(1) + '% 0,100% 100%,0 100%)');
       f(r + 'translate3d(0,' + yNeck + 'px,' + NW / 2 + 'px)', NW, NH, 'linear-gradient(90deg,rgba(143,200,226,.8),rgba(232,246,252,.9) 50%,rgba(143,200,226,.8))');
       f(r + 'translate3d(0,' + yCap + 'px,' + CW / 2 + 'px)', CW, CH, 'linear-gradient(90deg,#1E8FBF,#3EB7E8 50%,#1E8FBF)');
     });
     f('translate3d(0,' + (top) + 'px,0) rotateX(90deg)', CW, CW, '#3EB7E8', 'circle(50%)');
     f('translate3d(0,' + (top + CH + NH + SH + BH) + 'px,0) rotateX(-90deg)', W, W, 'rgba(120,180,205,.9)');
-    bBack.style.background = 'linear-gradient(#EAF6FB,#CFE9F3)'; bBack.style.color = '#0B2A3C'; bBack.textContent = 'About AquaAd\nAd enquiries\n+91 9191919191';
   })();
   function activeEl() { return MODEL === 'bottle' ? bottleEl : carton; }
-  function scaleNow() { return MODEL === 'bottle' ? 1.7 : 1.6; }
+  function scaleNow() { return MODEL === 'bottle' ? Math.min(1.7, $('stage').clientHeight * 0.86 / 337) : 1.6; }
   function paintZone(z, id) {
     var on = !!picked[id], img = on && images[id];
     z.style.boxShadow = 'none'; z.style.color = '#0B6E8A'; z.textContent = 'AquaAd'; z.style.background = '#EAF4F8';
@@ -554,7 +558,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     else if (on) { z.style.background = '#fff'; z.style.color = '#0B2A3C'; z.textContent = 'Upload\nartwork'; z.style.boxShadow = 'inset 0 0 0 2px #0B6E8A'; }
   }
   function paintCarton() {
-    if (MODEL === 'bottle') PANELS.forEach(function (p) { paintZone(bz[p.face], p.id); });
+    if (MODEL === 'bottle') PANELS.forEach(function (p) { paintZone(bz[p.face][p.pos], p.id); });
     else PANELS.forEach(function (p) { paintZone(faces[p.face][p.pos], p.id); });
     var el = activeEl();
     el.style.transition = spin ? 'none' : 'transform .6s ease';
@@ -580,13 +584,13 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       var s = sizeOf(p);
       t.append(h('tr', null, h('td', { text: p.name }), h('td', { text: s.w + ' × ' + s.h + ' mm' }), h('td', { text: (s.w + b) + ' × ' + (s.h + b) + ' mm' }), h('td', { class: 'res', text: mmToPx(s.w + b) + ' × ' + mmToPx(s.h + b) + ' px' })));
     });
-    if (MODEL === 'bottle') t.append(h('tr', null, h('td', { text: 'Back label' }), h('td', { colspan: '3', class: 'res', text: 'Reserved for AquaAd company information (not for sale)' })), h('tr', null, h('td', { text: 'Cap and neck' }), h('td', { colspan: '3', class: 'res', text: 'AquaAd branding, 500 ml bottle 191 mm tall × 73 mm wide' })));
+    if (MODEL === 'bottle') t.append(h('tr', null, h('td', { text: 'Cap and neck' }), h('td', { colspan: '3', class: 'res', text: 'AquaAd branding (not for sale)' })));
     else t.append(h('tr', null, h('td', { text: 'Back · lower' }), h('td', { colspan: '3', class: 'res', text: 'Reserved for AquaAd company information (not for sale)' })), h('tr', null, h('td', { text: 'Roof and base' }), h('td', { colspan: '3', class: 'res', text: 'AquaAd branding (not for sale)' })));
     var n = $('sizeNotes'); n.replaceChildren();
     [
       'Send JPG, PNG or WEBP, up to 3 MB per panel. Export at ' + SPEC.dpi + ' dpi or higher.',
       'Extend backgrounds to the bleed edge (' + SPEC.bleed + ' mm). Keep text, logos and QR codes at least ' + SPEC.safe + ' mm inside the finished edge.',
-      MODEL === 'bottle' ? 'The label wraps a 500 ml PET bottle (191 mm tall, 73 mm wide). Keep important content away from the corners where the label turns.' : 'The border between an upper and a lower panel is a gentle curve. Keep important content away from that middle edge.',
+      MODEL === 'bottle' ? 'Each side of the bottle has an upper and a lower panel. Keep important content away from the corners where the label turns and from the line between the two panels.' : 'The border between an upper and a lower panel is a gentle curve. Keep important content away from that middle edge.',
       'Make QR codes at least 15 × 15 mm with a clear border so they scan reliably.',
       'Final dimensions and print-safe areas are confirmed with the ' + (MODEL === 'bottle' ? 'bottle' : 'carton') + ' supplier before production.'
     ].forEach(function (x) { n.append(h('li', { text: x })); });
@@ -599,7 +603,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   function roundRect(ctx, x, y, w, ht, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + ht, r); ctx.arcTo(x + w, y + ht, x, y + ht, r); ctx.arcTo(x, y + ht, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
   function zoneFill(ctx, id, imgs, x, y, w, ht) {
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    if (id === 'backLow' || id === 'bBack') {
+    if (id === 'backLow') {
       var g = ctx.createLinearGradient(0, y, 0, y + ht); g.addColorStop(0, '#EAF6FB'); g.addColorStop(1, '#CFE9F3'); ctx.fillStyle = g; ctx.fillRect(x, y, w, ht);
       ctx.fillStyle = '#0B2A3C'; ctx.font = '700 22px Montserrat, Arial, sans-serif'; textLines(ctx, 'About AquaAd\nAd enquiries\n+91 9191919191', x + w / 2, y + ht / 2 + 8, 30); return;
     }
@@ -630,16 +634,18 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     ctx.fillStyle = '#111111'; ctx.font = '600 34px Montserrat, Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillText(f[1], cx, 965);
   }
   function drawBottleFace(ctx, f, imgs, cx) {
-    var S = 3.66, bw = 73 * S, bx = cx - bw / 2, bottom = 900, bodyH = 136 * S, bt = bottom - bodyH, shT = bt - 27 * S, nT = shT - 18 * S, cT = nT - 10 * S, nw = 28 * S;
+    var S = 3.0, bw = 73 * S, bx = cx - bw / 2, bottom = 900, bodyH = 178 * S, bt = bottom - bodyH, shT = bt - 27 * S, nT = shT - 18 * S, cT = nT - 10 * S, nw = 28 * S;
     ctx.fillStyle = 'rgba(0,0,0,.16)'; ctx.beginPath(); ctx.ellipse(cx, bottom + 8, bw * 0.6, 12, 0, 0, Math.PI * 2); ctx.fill();
     var g = ctx.createLinearGradient(bx, 0, bx + bw, 0); g.addColorStop(0, '#BFE2F0'); g.addColorStop(0.5, '#F4FAFD'); g.addColorStop(1, '#BFE2F0');
     ctx.lineWidth = 2; ctx.strokeStyle = '#9CC3D4'; ctx.fillStyle = g;
     ctx.beginPath(); ctx.moveTo(cx - nw / 2, nT); ctx.lineTo(cx - nw / 2, shT); ctx.quadraticCurveTo(bx, shT + 6, bx, bt); ctx.lineTo(bx, bottom - 14); ctx.quadraticCurveTo(bx, bottom, bx + 14, bottom);
     ctx.lineTo(bx + bw - 14, bottom); ctx.quadraticCurveTo(bx + bw, bottom, bx + bw, bottom - 14); ctx.lineTo(bx + bw, bt); ctx.quadraticCurveTo(bx + bw, shT + 6, cx + nw / 2, shT); ctx.lineTo(cx + nw / 2, nT); ctx.closePath(); ctx.fill(); ctx.stroke();
     ctx.fillStyle = '#3EB7E8'; roundRect(ctx, cx - nw / 2 - 5, cT, nw + 10, nT - cT, 6); ctx.fill(); ctx.strokeStyle = '#1E8FBF'; ctx.stroke();
-    var lt = bottom - 29 - 110 * S;
-    ctx.save(); ctx.beginPath(); ctx.rect(bx, lt, bw, 110 * S); ctx.clip(); zoneFill(ctx, f[2], imgs, bx, lt, bw, 110 * S); ctx.restore();
-    ctx.strokeStyle = 'rgba(0,0,0,.12)'; ctx.strokeRect(bx, lt, bw, 110 * S);
+    var half = 80 * S, lt = bottom - 8 * S - 2 * half;
+    [[f[2], lt], [f[3], lt + half]].forEach(function (z) {
+      ctx.save(); ctx.beginPath(); ctx.rect(bx, z[1], bw, half); ctx.clip(); zoneFill(ctx, z[0], imgs, bx, z[1], bw, half); ctx.restore();
+      ctx.strokeStyle = 'rgba(0,0,0,.14)'; ctx.lineWidth = 2; ctx.strokeRect(bx, z[1], bw, half);
+    });
     ctx.fillStyle = '#111111'; ctx.font = '600 34px Montserrat, Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillText(f[1], cx, 965);
   }
   function drawMockup(canvas) {
@@ -649,7 +655,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       var imgs = {}; list.forEach(function (x) { if (x[1]) imgs[x[0]] = x[1]; });
       var g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#ECEDEF'); g.addColorStop(1, '#D8DADD'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
       if (MODEL === 'bottle') {
-        [['front', 'Front Side', 'bFront'], ['right', 'Right Side', 'bRight'], ['back', 'Back Side', 'bBack'], ['left', 'Left Side', 'bLeft']].forEach(function (f, i) { drawBottleFace(ctx, f, imgs, 96 + 336 * i + 168); });
+        [['front', 'Front Side', 'bFrontUp', 'bFrontLow'], ['right', 'Right Side', 'bRightUp', 'bRightLow'], ['back', 'Back Side', 'bBackUp', 'bBackLow'], ['left', 'Left Side', 'bLeftUp', 'bLeftLow']].forEach(function (f, i) { drawBottleFace(ctx, f, imgs, 96 + 336 * i + 168); });
         return;
       }
       var faces = [['front', 'Front Side', 'frontUp', 'frontLow'], ['right', 'Right Side', 'rightUp', 'rightLow'], ['back', 'Back Side', 'backUp', 'backLow'], ['left', 'Left Side', 'leftUp', 'leftLow']];
@@ -707,8 +713,8 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     bottleEl.hidden = m !== 'bottle'; carton.hidden = m === 'bottle';
     picked = {}; active = PANELS[0].id; picked[active] = true; spin = !reduce; tilt = -14; angle = 25;
     $('modelTitle').textContent = m === 'bottle' ? '3D bottle preview' : '3D carton preview';
-    $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want to advertise on, then upload artwork to each one. The back panel is reserved for AquaAd company information.' : 'Tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for AquaAd branding and company information.';
-    $('modelNote').textContent = m === 'bottle' ? 'Illustrative 500 ml PET bottle, 191 mm tall × 73 mm wide with a 28 mm neck. The label area is a provisional size.' : 'Illustrative 500 ml gable-top concept, not a manufacturer-approved print dieline.';
+    $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel, 8 in total.' : 'Tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for AquaAd branding and company information.';
+    $('modelNote').textContent = m === 'bottle' ? 'Illustrative tall PET bottle, 73 mm wide with a 28 mm neck. The label area (73 × 160 mm, two panels per side) is a provisional size.' : 'Illustrative 500 ml gable-top concept, not a manufacturer-approved print dieline.';
     $('rotL').setAttribute('aria-label', 'Rotate left'); $('mockCanvas').hidden = true;
     buildSizeTable(); refresh(); paintPick();
   }

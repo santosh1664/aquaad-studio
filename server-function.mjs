@@ -1,6 +1,6 @@
 import { timingSafeEqual, createHash } from 'node:crypto';
 
-const PANELS = ['frontUp', 'frontLow', 'rightUp', 'rightLow', 'backUp', 'leftUp', 'leftLow', 'bFront', 'bRight', 'bLeft'];
+const PANELS = ['frontUp', 'frontLow', 'rightUp', 'rightLow', 'backUp', 'leftUp', 'leftLow', 'bFront', 'bRight', 'bLeft', 'bFrontUp', 'bFrontLow', 'bRightUp', 'bRightLow', 'bBackUp', 'bBackLow', 'bLeftUp', 'bLeftLow'];
 const KINDS = ['advertise', 'partner', 'investor', 'general', 'distribute'];
 const DETAIL_KEYS = {
   advertise: ['business_type', 'advertising', 'budget', 'timeline', 'delivery_city'],
@@ -150,7 +150,7 @@ input,select,textarea{border:1.5px solid var(--line);border-radius:10px;padding:
 const $=(i)=>document.getElementById(i);let pw=sessionStorage.getItem('aq_admin')||'';
 const KIND={advertise:'Advertising',partner:'Manufacturing partner',distribute:'Distributor',investor:'Investor',general:'General'};
 const DL={business_type:'Business type',advertising:'Advertising',budget:'Budget',timeline:'Timeline',delivery_city:'Delivery city',products:'Products',venue_type:'Venue type',address:'Address',daily_traffic:'Daily foot traffic',monthly_volume:'Monthly cartons',event:'For an event',loading_dock:'Loading dock',why:'Why'};
-const PN={mockup:'Mockup preview',frontUp:'Front upper',frontLow:'Front lower',rightUp:'Right upper',rightLow:'Right lower',backUp:'Back upper',leftUp:'Left upper',leftLow:'Left lower',bFront:'Bottle front',bRight:'Bottle right',bLeft:'Bottle left'};
+const PN={mockup:'Mockup preview',frontUp:'Front upper',frontLow:'Front lower',rightUp:'Right upper',rightLow:'Right lower',backUp:'Back upper',leftUp:'Left upper',leftLow:'Left lower',bFront:'Bottle front',bRight:'Bottle right',bLeft:'Bottle left',bFrontUp:'Bottle front upper',bFrontLow:'Bottle front lower',bRightUp:'Bottle right upper',bRightLow:'Bottle right lower',bBackUp:'Bottle back upper',bBackLow:'Bottle back lower',bLeftUp:'Bottle left upper',bLeftLow:'Bottle left lower'};
 async function api(path,body){const r=await fetch(path,{method:'POST',headers:{'content-type':'application/json',authorization:'Bearer '+pw},body:JSON.stringify(body||{})});if(r.status===401)throw new Error('401');if(!r.ok)throw new Error('Request failed');return r.json()}
 function el(t,props,...kids){const e=document.createElement(t);Object.assign(e,props||{});for(const k of kids)e.append(k);return e}
 async function load(){try{const d=await api('/api/admin/list',{status:$('filter').value});$('login').hidden=true;$('tools').hidden=false;$('list').hidden=false;$('settings').hidden=false;loadSettings();render(d.enquiries)}catch(e){if(e.message==='401'){sessionStorage.removeItem('aq_admin');pw='';$('login').hidden=false;$('tools').hidden=true;$('list').hidden=true;$('settings').hidden=true;}else{$('list').hidden=false;$('list').replaceChildren(el('p',{className:'err',textContent:'Could not load enquiries.'}))}}}
