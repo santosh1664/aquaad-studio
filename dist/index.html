@@ -154,6 +154,12 @@ section.split{padding:0}
 .bandtext h2{font-size:42px;font-weight:800;color:#fff}.bandtext p{font-size:19px;color:#CBD5E1}
 .bandform{flex:1 1 440px;min-width:0;background:#fff;color:var(--ink);border-radius:20px;padding:32px}
 .band .btn.dark{background:#fff;border-color:#fff;color:var(--ink)}.band .btn.dark:hover{background:var(--sky)}
+/* dialogs */
+dialog{border:0;border-radius:20px;padding:0;width:calc(100% - 32px);max-width:640px;max-height:90vh;overflow:auto;box-shadow:0 24px 64px rgba(15,23,42,.35);color:var(--ink)}
+dialog::backdrop{background:rgba(15,23,42,.62);backdrop-filter:blur(2px)}
+.dlg{padding:28px;display:flex;flex-direction:column;gap:14px}
+.dlghead{display:flex;align-items:center;justify-content:space-between;gap:16px}.dlghead h3{font-size:24px}
+.dlgx{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:#fff;display:inline-flex;align-items:center;justify-content:center;flex:none}.dlgx:hover{background:var(--bg)}
 /* faq */
 .faq-item{background:#fff;border:1px solid var(--line);border-radius:var(--r)}
 .faq-item button{width:100%;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;background:transparent;border:0;text-align:left;font-size:18px;font-weight:700;border-radius:var(--r)}
@@ -320,7 +326,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     <p>Turn your production into added value. Join a network that helps your bottles do more for the brands and communities around you.</p>
     <div class="seg" id="ptypes" role="group" aria-label="Partner type"></div>
     <div class="note"><h3 id="pName"></h3><p id="pText" style="font-size:16px"></p></div>
-    <div class="panelbox left"><h3>Tell us about your business</h3><div id="partnerFormHost"></div></div>
+    <button type="button" class="btn p lg" id="openPartner" aria-haspopup="dialog">Become a partner</button>
   </div></div>
   <div class="pane white"><div class="inner steps2"><h3>How the network works</h3><div><span class="num">01</span><b>Brands bring the story</b><span>Share a campaign, launch or message you want people to remember.</span></div><div><span class="num">02</span><b>AquaAd places it</b><span>We turn the bottle into an intentional, on-the-go brand surface.</span></div><div><span class="num">03</span><b>Partners make and distribute</b><span>Manufacturers and water partners help put branded inventory into circulation.</span></div><div><span class="num">04</span><b>People see it</b><span>Your message travels through everyday moments, not just a screen.</span></div></div></div>
 </section>
@@ -331,7 +337,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     <span class="eyebrow">For investors</span>
     <h2>Back the next layer of physical media</h2>
     <p>Explore a marketplace built around repeat consumption, repeatable inventory and city-by-city expansion.</p>
-    <div class="panelbox left"><h3>Request investor information</h3><div id="investorFormHost"></div></div>
+    <button type="button" class="btn p lg" id="openInvestor" aria-haspopup="dialog">Request investor information</button>
   </div></div>
 </section>
 
@@ -344,6 +350,18 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   <div class="wrap" style="max-width:800px;display:flex;flex-direction:column;gap:32px"><div class="head" style="margin:0 auto"><span class="eyebrow">FAQ</span><h2 class="h2">Good to know</h2></div><div id="faqList" style="display:flex;flex-direction:column;gap:12px"></div></div>
 </section>
 </main>
+
+
+<dialog id="partnerDialog" aria-labelledby="partnerDlgTitle"><div class="dlg">
+  <div class="dlghead"><h3 id="partnerDlgTitle">Partnership enquiry</h3><button type="button" class="dlgx" data-close aria-label="Close form"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <p class="mut" id="partnerDlgSub"></p>
+  <div id="partnerFormHost"></div>
+</div></dialog>
+<dialog id="investorDialog" aria-labelledby="investorDlgTitle"><div class="dlg">
+  <div class="dlghead"><h3 id="investorDlgTitle">Request investor information</h3><button type="button" class="dlgx" data-close aria-label="Close form"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <p class="mut">Tell us a little about you and what you would like to know. Our team will get back to you.</p>
+  <div id="investorFormHost"></div>
+</div></dialog>
 
 <footer>
   <div class="wrap">
@@ -881,6 +899,21 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   });
 
   /* ---------- partners ---------- */
+  /* ---------- pop-up forms ---------- */
+  function openDlg(id) {
+    var d = $(id);
+    if (!d) return;
+    if (typeof d.showModal === 'function') { if (!d.open) d.showModal(); } else d.setAttribute('open', '');
+    document.body.style.overflow = 'hidden';
+    var first = d.querySelector('input[name=name]'); if (first) setTimeout(function () { first.focus(); }, 30);
+  }
+  ['partnerDialog', 'investorDialog'].forEach(function (id) {
+    var d = $(id);
+    d.addEventListener('click', function (e) { if (e.target === d || e.target.closest('[data-close]')) { if (d.close) d.close(); else d.removeAttribute('open'); } });
+    d.addEventListener('close', function () { document.body.style.overflow = ''; });
+  });
+  $('openPartner').onclick = function () { openDlg('partnerDialog'); };
+  $('openInvestor').onclick = function () { openDlg('investorDialog'); };
   var PT = [
     { id: 'carton', label: 'Bottle manufacturer', text: 'Produce AquaAd bottles to the shape, label area and print-safe specifications we confirm together.' },
     { id: 'water', label: 'Water partner', text: 'Fill and distribute AquaAd bottles in your market and add advertising value to your packaging.' },
@@ -890,8 +923,9 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   function paintPartner() {
     var cur = PT.filter(function (p) { return p.id === ptype; })[0];
     $('pName').textContent = cur.label + ' partnership'; $('pText').textContent = cur.text;
+    $('partnerDlgTitle').textContent = cur.label + ' partnership'; $('partnerDlgSub').textContent = cur.text;
     var box = $('ptypes'); box.replaceChildren();
-    PT.forEach(function (p) { var b = h('button', { type: 'button', 'aria-pressed': p.id === ptype ? 'true' : 'false', text: p.label }); b.onclick = function () { ptype = p.id; paintPartner(); }; box.append(b); });
+    PT.forEach(function (p) { var b = h('button', { type: 'button', 'aria-pressed': p.id === ptype ? 'true' : 'false', text: p.label }); b.onclick = function () { ptype = p.id; paintPartner(); openDlg('partnerDialog'); }; box.append(b); });
   }
   paintPartner();
   buildForm($('partnerFormHost'), { kind: 'partner', button: 'Send partnership enquiry', placeholder: 'Tell us what you make or do, and where you operate.', extra: function () { return { partnerType: ptype }; } });
