@@ -3,294 +3,264 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AquaAd Studio — Advertise on water cartons</title>
-<meta name="description" content="Place your artwork on AquaAd water cartons, preview it in 3D and send it to our team. Partners and investors welcome.">
+<title>AquaAd Studio — Advertise on water bottles</title>
+<meta name="description" content="Put your artwork on AquaAd 500 ml water bottles, preview it in 3D and send it to our team. Distributors, manufacturing partners and investors welcome.">
+<meta name="theme-color" content="#0F172A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0B2A3C;--mut:#35505F;--line:#DCE9EE;--acc:#0B6E8A;--acc-d:#08516A;--bg:#F3F8FA;--sky:#E8F4F8}
+:root{--ink:#0F172A;--sec:#334155;--mut:#475569;--line:#E2E8F0;--bg:#F8FAFC;--acc:#0369A1;--acc-d:#075985;--sky:#E0F2FE;--sky2:#38BDF8;--r:16px;--sh:0 1px 2px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.06)}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:16px}
-body{margin:0;font:17px/1.6 'Inter',system-ui,sans-serif;color:var(--ink);background:#fff}
-h1,h2,h3{font-family:'Montserrat',sans-serif;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;font:400 17px/1.65 'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:inherit;margin:0;line-height:1.15;letter-spacing:-.02em;color:var(--ink)}
 p{margin:0}
-a{color:var(--acc)}a:hover{color:var(--acc-d)}
+a{color:var(--acc);text-underline-offset:3px}a:hover{color:var(--acc-d)}
 button,input,textarea,select{font:inherit;color:inherit}
 button{cursor:pointer}
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,.upl:focus-within{outline:3px solid var(--acc);outline-offset:2px}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible,.upl:focus-within{outline:3px solid var(--acc);outline-offset:3px;border-radius:8px}
+.skip{position:absolute;left:12px;top:-80px;background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;font-weight:700;z-index:100;text-decoration:none}.skip:focus{top:12px;color:#fff}
 .wrap{max-width:1168px;margin:0 auto}
-section{padding:80px 48px}
-.eyebrow{font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--acc)}
-.h2{font-size:40px;font-weight:800;line-height:1.12;letter-spacing:-.02em}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border-radius:999px;border:1.5px solid var(--ink);background:#fff;color:var(--ink);font-weight:600;font-size:15px;text-decoration:none}
-.btn.p{background:var(--acc);border-color:var(--acc);color:#fff}
-.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
-.btn.w{background:#fff;border-color:#fff;color:var(--ink)}
-.btn.ow{background:transparent;border-color:#fff;color:#fff}
+section{padding:96px 40px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--acc)}
+.h2{font-size:40px;font-weight:800;line-height:1.12}
+.lead{font-size:19px;color:var(--sec);max-width:640px}
+.head{max-width:720px;margin:0 auto 48px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border-radius:12px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-weight:700;font-size:15px;text-decoration:none;transition:background-color .18s,border-color .18s,box-shadow .18s,color .18s}
+.btn:hover{border-color:#94A3B8;color:var(--ink);box-shadow:var(--sh)}
+.btn.p,.btn.sky{background:var(--acc);border-color:var(--acc);color:#fff}.btn.p:hover,.btn.sky:hover{background:var(--acc-d);border-color:var(--acc-d);color:#fff}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}.btn.dark:hover{background:#1E293B;color:#fff}
+.btn.lg{min-height:56px;padding:0 30px;font-size:16px}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.banner{background:var(--ink);color:#fff;text-align:center;padding:10px 24px;font-size:14px;font-weight:500}.banner a{color:#fff;font-weight:600}
-header.nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:20px 48px;border-bottom:1px solid var(--line)}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:'Montserrat',sans-serif;font-weight:700;font-size:22px}
-.nav nav{display:flex;flex-wrap:wrap;align-items:center;gap:6px 26px;flex:1;margin-left:32px}.nav nav .btn{margin-left:auto}
-.nav nav a:not(.btn){color:var(--ink);text-decoration:none;font-weight:500;padding:10px 0}
-.hero{background:linear-gradient(160deg,#6FBBD8 0%,#A9D8EA 45%,#E4F3F9 100%);padding:0;position:relative;overflow:hidden}
-.hero .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:40px;padding:80px 48px 28px}
-.hero h1{font-size:76px;font-weight:800;line-height:1.02;letter-spacing:-.025em}
-.hero .copy{flex:1 1 460px;min-width:0;display:flex;flex-direction:column;gap:24px}
-.hero .art{flex:1 1 380px;min-width:0;display:flex;justify-content:center}
-.hero .art div{width:100%;max-width:560px;display:flex;justify-content:center}
-.wave{display:block;width:100%;height:110px}.swave{display:block;width:100%;height:70px}
-.tiles{display:flex;flex-wrap:wrap;gap:20px}
-.tiles>div{flex:1 1 220px;min-width:0;display:flex;flex-direction:column;gap:10px}
-.cards{display:flex;flex-wrap:wrap;gap:24px}
-.card{flex:1 1 280px;min-width:0;background:#fff;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px}
-.num{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:var(--acc)}
+/* header */
+header.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:24px;padding:0 40px;min-height:72px;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;font-size:24px;letter-spacing:-.03em}.logo b{color:var(--acc);font-weight:800}.logo:hover{color:var(--ink)}
+.nav nav{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;flex:1;justify-content:flex-end}
+.nav nav a:not(.btn){color:var(--sec);text-decoration:none;font-weight:600;font-size:15px;padding:10px 12px;border-radius:10px;min-height:44px;display:inline-flex;align-items:center}
+.nav nav a:not(.btn):hover{color:var(--ink);background:var(--bg)}
+.nav nav .btn{margin-left:8px;min-height:44px}
+/* hero */
+.hero{background:radial-gradient(900px 420px at 85% 0%,#E0F2FE 0%,rgba(224,242,254,0) 70%),linear-gradient(180deg,#F8FAFC 0%,#fff 100%);padding:0;border-bottom:1px solid var(--line)}
+.hero .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:56px;padding:88px 40px 96px}
+.hero .copy{flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:24px;align-items:flex-start}
+.hero h1{font-size:60px;font-weight:800;line-height:1.05;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero .sub{font-size:20px;color:var(--sec);max-width:520px}
+.ticks{display:flex;flex-wrap:wrap;gap:10px 24px;list-style:none;margin:6px 0 0;padding:0;color:var(--sec);font-size:15px;font-weight:600}
+.ticks li{display:flex;align-items:center;gap:8px}
+.ticks svg{flex:none}
+.hero .art{flex:1 1 400px;min-width:0}
+.hero .art .card-art{background:#fff;border:1px solid var(--line);border-radius:28px;padding:28px 20px 12px;box-shadow:var(--sh)}
+.hero .art svg{display:block;width:100%;height:auto}
+/* proof */
+.proof{padding:0 40px;background:#fff}
+.proof .wrap{display:flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:20px;margin-top:-1px;transform:translateY(-36px);background:#fff;box-shadow:var(--sh)}
+.proof .stat{flex:1 1 240px;padding:26px 30px;display:flex;flex-direction:column;gap:2px;border-right:1px solid var(--line)}
+.proof .stat:last-child{border-right:0}
+.proof .stat strong{font-size:38px;font-weight:800;letter-spacing:-.03em;color:var(--acc);line-height:1.1}
+.proof .stat span{color:var(--sec);font-size:15px;font-weight:500}
+/* overview */
+.alt{background:var(--bg)}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.fcard{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:12px;transition:box-shadow .2s,transform .2s}
+.fcard:hover{box-shadow:var(--sh);transform:translateY(-2px)}
+.fcard .ic{width:48px;height:48px;border-radius:12px;background:var(--sky);display:flex;align-items:center;justify-content:center}
+.fcard h3{font-size:20px;font-weight:700}.fcard p{color:var(--sec);font-size:16px}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:30px;display:flex;flex-direction:column;gap:10px}
+.step .n{width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.step h3{font-size:20px}.step p{color:var(--sec);font-size:16px}
+.note-line{margin:28px auto 0;max-width:720px;text-align:center;color:var(--mut);font-size:15px}
 /* 3D preview */
 .preview{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
 .stage-col{flex:1 1 460px;min-width:0;display:flex;flex-direction:column;gap:16px}
-.stage{position:relative;height:520px;background:#E3E7EA;border-radius:28px;overflow:hidden;perspective:1100px;display:flex;align-items:center;justify-content:center}
+.stage{position:relative;height:520px;background:linear-gradient(180deg,#E2E8F0 0%,#F1F5F9 100%);border:1px solid var(--line);border-radius:24px;overflow:hidden;perspective:1100px;display:flex;align-items:center;justify-content:center}
 [hidden]{display:none!important}
-.dd{width:100%;border:2px solid #B9CFD8;border-radius:14px;background:#fff}
+.dd{width:100%;border:1.5px solid #CBD5E1;border-radius:12px;background:#fff}
 .dd summary{min-height:52px;display:flex;align-items:center;padding:0 16px;font-weight:700;cursor:pointer;list-style:none}
 .dd summary::-webkit-details-marker{display:none}
-.dd summary::after{content:'';margin-left:auto;width:9px;height:9px;border-right:2px solid #181818;border-bottom:2px solid #181818;transform:rotate(45deg) translateY(-2px)}
+.dd summary::after{content:'';margin-left:auto;width:9px;height:9px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg) translateY(-2px)}
 .dd[open] summary::after{transform:rotate(225deg)}
-.ddlist{border-top:2px solid #E3EDF1;padding:8px 8px 12px;display:flex;flex-direction:column;gap:2px}
+.ddlist{border-top:1px solid var(--line);padding:8px 8px 12px;display:flex;flex-direction:column;gap:2px}
 .ddq{display:flex;gap:18px;padding:6px 10px 10px}
-.ddlink{background:none;border:0;padding:0;font:inherit;font-weight:600;color:#0B6E8A;text-decoration:underline;cursor:pointer}
-.ddg{font-size:13px;font-weight:700;color:#5B6770;padding:10px 10px 4px;text-transform:uppercase;letter-spacing:.04em}
+.ddlink{background:none;border:0;padding:6px 0;font:inherit;font-weight:700;color:var(--acc);text-decoration:underline;cursor:pointer;min-height:32px}
+.ddg{font-size:12px;font-weight:700;color:var(--mut);padding:10px 10px 4px;text-transform:uppercase;letter-spacing:.07em}
 .ddi{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 10px;border-radius:10px;font-weight:600;cursor:pointer}
-.ddi:hover{background:#F1F7FA}.ddi.off{opacity:.45;cursor:not-allowed}
-.ddi input{width:20px;height:20px;accent-color:#0B6E8A}
+.ddi:hover{background:var(--bg)}.ddi.off{opacity:.5;cursor:not-allowed}
+.ddi input{width:20px;height:20px;accent-color:var(--acc)}
 .carton{position:relative;width:0;height:0;transform-style:preserve-3d}
 .face{position:absolute;left:50%;top:50%;box-sizing:border-box;backface-visibility:hidden;display:flex;flex-direction:column;overflow:hidden}
-.zone{min-height:0;display:flex;align-items:center;justify-content:center;text-align:center;white-space:pre-line;font:700 10px/1.3 'Montserrat',sans-serif}
-.round{width:48px;height:48px;padding:0;border-radius:999px}
+.zone{min-height:0;display:flex;align-items:center;justify-content:center;text-align:center;white-space:pre-line;font:700 10px/1.3 'Plus Jakarta Sans',sans-serif}
+.round{width:48px;height:48px;padding:0;border-radius:50%}
 .ctrl-col{flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:24px}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{min-height:48px;padding:0 18px;border-radius:14px;font-size:15px;font-weight:600;background:#fff;color:var(--ink);border:2px solid #B9CFD8}
+.chip{min-height:48px;padding:0 18px;border-radius:12px;font-size:15px;font-weight:700;background:#fff;color:var(--ink);border:1.5px solid #CBD5E1}
 .chip[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff}
 .chip.active{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--ink)}
-.box{background:var(--bg);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:12px}
-.dark-box{background:var(--ink);color:#fff;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px}
-.upl{position:relative;display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border-radius:999px;background:var(--acc);color:#fff;font-weight:600;font-size:15px;cursor:pointer}
+.box{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:12px}
+.upl{position:relative;display:inline-flex;align-items:center;min-height:48px;padding:0 24px;border-radius:12px;background:var(--acc);color:#fff;font-weight:700;font-size:15px;cursor:pointer;transition:background-color .18s}.upl:hover{background:var(--acc-d)}
 .upl input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
-.err{color:#B42318;font-weight:500}.ok{color:#0A6B3D;font-weight:600}
+.err{color:#B42318;font-weight:600}.ok{color:#0A6B3D;font-weight:700}
 .mut{color:var(--mut)}
 /* forms */
 form.f{display:flex;flex-direction:column;gap:14px}
 .f .two{display:flex;flex-wrap:wrap;gap:14px}.f .two>label{flex:1 1 220px;min-width:0}
-.f label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px}
-.f input[type=text],.f input[type=tel],.f input[type=email],.f textarea{width:100%;min-height:48px;padding:10px 14px;border:1.5px solid #B9CFD8;border-radius:12px;background:#fff;font-weight:400}
-.f .consent{flex-direction:row;align-items:flex-start;gap:10px;font-weight:400;font-size:14px}
-.f .consent input{width:22px;height:22px;margin-top:2px;flex:none}
+.f label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:15px;color:var(--ink)}
+.f input[type=text],.f input[type=tel],.f input[type=email],.f textarea,.f select{width:100%;min-height:48px;padding:10px 14px;border:1.5px solid #CBD5E1;border-radius:10px;background:#fff;font-weight:400;transition:border-color .18s,box-shadow .18s}
+.f input:hover,.f textarea:hover,.f select:hover{border-color:#94A3B8}
+.f input:focus,.f textarea:focus,.f select:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(3,105,161,.18);outline:none}
+.f .consent{flex-direction:row;align-items:flex-start;gap:10px;font-weight:400;font-size:14px;color:var(--sec)}
+.f .consent input{width:22px;height:22px;margin-top:2px;flex:none;accent-color:var(--acc)}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.panelbox{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:16px}
-.seg{display:flex;flex-wrap:wrap;gap:10px}
-.seg button{min-height:48px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:600;background:#fff;color:var(--ink);border:2px solid var(--ink)}
-.seg button[aria-pressed=true]{background:var(--ink);color:#fff}
-.steps{display:flex;flex-direction:column;gap:16px}
-.steps>div{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:4px}
-.inv{background:var(--ink);color:#fff}
-.inv .cards .card{background:#12384D;padding:28px;gap:8px;flex-basis:200px}
-.inv .num,.inv .eyebrow{color:#8FD3E6}
-.inv .light{color:#DCEEF4}
-.faq-item{background:#fff;border-radius:16px}
-.faq-item button{width:100%;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;background:transparent;border:0;text-align:left;font-size:18px;font-weight:600}
-.faq-item p{padding:0 24px 24px;color:var(--mut)}
-footer{background:var(--bg);padding:56px 48px 32px;font-size:15px;color:var(--mut)}
-footer a{padding:6px 0;display:inline-block}
-@media (max-width:720px){
-  .nav nav{margin-left:0}.nav nav .btn{margin-left:0}
-  .hero h1{font-size:44px}
-  section{padding:56px 20px}.wave{height:64px}.swave{height:44px}
-  header.nav{padding:16px 20px}
-  .hero .wrap{padding:56px 20px 24px}
-  .hero h1{font-size:42px}
-  .h2{font-size:30px}
-  .stage{height:420px}
-  footer{padding:40px 20px 24px}
-}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-
-/* ---- freewater-style layout system ---- */
-:root{--sky:#6EC6EC;--sky2:#3EB7E8;--pale:#E3F2FA;--gray:#F8F8F8;--ink:#181818}
-body{color:#181818}
-.btn.sky{background:var(--sky2);border-color:var(--sky2);color:#fff;font-weight:700}
-.btn.dark{background:#181818;border-color:#181818;color:#fff}
-.btn.pill{min-height:56px;padding:0 10px 0 30px;font-size:17px}
-.circ{display:inline-flex;width:38px;height:38px;border-radius:50%;background:#fff;color:#181818;align-items:center;justify-content:center}
-header.nav{padding:14px 40px;border-bottom:0;gap:8px;background:#fff;position:relative;z-index:2}
-.logo{font:500 30px 'Montserrat',sans-serif;letter-spacing:-.02em;color:#181818}.logo b{color:var(--sky2);font-weight:700}
-.nav nav{margin-left:28px;gap:4px 24px}.nav nav a:not(.btn){font-weight:500;font-size:16px}
-.hero{background:linear-gradient(100deg,#6EC6EC 0%,#C4E8F7 40%,#fff 82%)}
-.hero .wrap{max-width:1280px;padding:64px 48px 40px;gap:24px}
-.hero .copy{flex:1 1 380px;gap:20px}
-.hero h1{font-size:58px;font-weight:700;line-height:1.1;letter-spacing:-.02em;color:#181818}
-.hero .sub{font-size:18px;max-width:420px;color:#181818}
-.hero .art{flex:1.3 1 460px;display:block}.hero .art svg{max-width:680px;display:block;margin-left:auto}
-.wave{height:100px;margin-top:-30px}
-.feature{padding:72px 48px 40px}
-.two{display:flex;flex-wrap:wrap;align-items:center;gap:40px;max-width:1100px;margin:0 auto}
-.two .fart{flex:1 1 320px;display:flex;justify-content:center}
-.two .big{flex:1 1 380px;font-size:20px;line-height:1.65;max-width:520px}
-.swoosh{display:block;width:100%;height:120px}
-.grey{background:var(--gray)}
-.fcards{display:flex;flex-wrap:wrap;gap:20px;max-width:1240px}
-.fcard{flex:1 1 230px;background:#fff;border-radius:32px;padding:40px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
-.fcard h3{font-size:22px;font-weight:700}.fcard p{font-size:17px}
-.split{display:flex;flex-wrap:wrap}
-.split>.pane{flex:1 1 50%;min-width:min(100%,420px);padding:88px 6%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-section.split.nopad{padding:0}
-.pane.pale{background:var(--pale)}.pane.gray{background:var(--gray)}.pane.white{background:#fff}
-.pane .inner{width:100%;max-width:560px;display:flex;flex-direction:column;gap:20px;align-items:center}
-.pane h2{font-size:36px;font-weight:700;line-height:1.15}.pane p{font-size:18px}.pane .small{font-size:15px}
-.pane .eyebrow{color:#181818;opacity:.7}
-.note{background:#fff;border-radius:24px;padding:20px 24px;width:100%}.note h3{font-size:19px;margin-bottom:4px}
+.panelbox{background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:16px;box-shadow:var(--sh)}
+.panelbox h3{font-size:22px}
 .panelbox.left{text-align:left;width:100%;align-items:stretch}
-.steps2{align-items:stretch!important;text-align:left}
-.steps2>h3{font-size:24px;text-align:center}
-.steps2>div{background:var(--gray);border-radius:24px;padding:22px 26px;display:flex;flex-direction:column;gap:4px}
-.seg{justify-content:center}.seg button{border-color:#181818}.seg button[aria-pressed=true]{background:#181818}
-.band{background:var(--sky);padding:88px 48px}
-.band .two{align-items:flex-start;max-width:1100px}
-.bandtext{flex:1 1 320px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
-.bandtext h2{font-size:44px;font-weight:800;line-height:1.08;color:#181818}.bandtext p{font-size:18px}
-.bandform{flex:1 1 420px;min-width:0}
-.band .f label{font-weight:500}
-.band .f input[type=text],.band .f input[type=tel],.band .f input[type=email]{border:1.5px solid #181818;border-radius:999px;background:transparent;padding:10px 20px}
-.band .f textarea{border:1.5px solid #181818;border-radius:24px;background:transparent;padding:14px 20px}
-.band .btn.p{background:#181818;border-color:#181818}
-.band .mut,.band .consent{color:#181818}
-#faq{background:#fff}
-footer{background:#181818;color:#fff;border-radius:36px 36px 0 0;padding:72px 48px 32px}
-footer a{color:#fff;text-decoration:none;padding:6px 0;display:block}footer a:hover{color:var(--sky)}
-footer .btn{display:inline-flex;padding:0 26px}footer .btn.sky{color:#fff}
-.fcols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between}
-.fabout{flex:1 1 280px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
-.flogo{font:500 28px 'Montserrat',sans-serif;color:#fff}.flogo b{color:var(--sky2);font-weight:700}
-footer h4{margin:0 0 6px;font-weight:500;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:#cfcfcf}
-footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-direction:column}
-.fbot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:48px;padding-top:20px;border-top:1px solid #333;font-size:14px;color:#cfcfcf}
-@media (max-width:720px){
-  .hero h1{font-size:38px}.bandtext h2{font-size:34px}.pane h2{font-size:30px}
-  .split>.pane{padding:56px 24px}.band{padding:56px 20px}.feature{padding:48px 20px 24px}
-  header.nav{padding:12px 20px}.nav nav{margin-left:0}.nav nav .btn{margin-left:0}
-  footer{padding:48px 20px 24px}
-}
-
-.dist{background:var(--gray)}
-.dhead{max-width:720px;margin:0 auto 36px;text-align:center;display:flex;flex-direction:column;gap:12px}
-.vcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1100px;margin:0 auto 40px}
-.vcard{background:#fff;border:2px solid transparent;border-radius:24px;padding:24px;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:120px}
-.vcard strong{font:700 18px 'Montserrat',sans-serif}.vcard span{color:var(--mut);font-size:15px}
-.vcard[aria-pressed=true]{border-color:#181818;box-shadow:0 0 0 3px var(--sky)}
-.dform{max-width:760px;margin:0 auto}
-.f .two{max-width:none;margin:0;gap:14px;align-items:stretch}
-.f select{width:100%;min-height:48px;padding:10px 14px;border:1.5px solid #B9CFD8;border-radius:12px;background:#fff;font-weight:400}
-@media (max-width:900px){.vcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.vcards{grid-template-columns:1fr}}
-
 .tblwrap{overflow-x:auto}
 .tbl{width:100%;border-collapse:collapse;font-size:15px}
-.tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
-.tbl th{font-weight:700;background:var(--gray);white-space:nowrap}
+.tbl th,.tbl td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}
+.tbl th{font-weight:700;background:var(--bg);white-space:nowrap;color:var(--sec);font-size:13px;letter-spacing:.04em;text-transform:uppercase}
 .tbl td.res{color:var(--mut)}
 .notes{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--mut)}
+/* distribute */
+.dhead{max-width:720px;margin:0 auto 40px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.vcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1100px;margin:0 auto 40px}
+.vcard{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:22px 24px;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:120px;transition:border-color .18s,box-shadow .18s}
+.vcard:hover{border-color:#94A3B8;box-shadow:var(--sh)}
+.vcard strong{font-size:18px;font-weight:700}.vcard span{color:var(--mut);font-size:15px}
+.vcard[aria-pressed=true]{border-color:var(--acc);box-shadow:0 0 0 3px rgba(3,105,161,.18);background:#F0F9FF}
+.dform{max-width:760px;margin:0 auto}
+/* split sections */
+.split{display:flex;flex-wrap:wrap}
+.split>.pane{flex:1 1 50%;min-width:min(100%,420px);padding:96px 6%;display:flex;flex-direction:column;justify-content:center;align-items:center}
+section.split{padding:0}
+.pane.pale{background:var(--sky)}.pane.gray{background:var(--bg)}.pane.white{background:#fff}
+.pane .inner{width:100%;max-width:560px;display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.pane h2{font-size:36px;font-weight:800;line-height:1.12}.pane p{font-size:18px;color:var(--sec)}
+.seg{display:flex;flex-wrap:wrap;gap:10px}
+.seg button{min-height:48px;padding:0 20px;border-radius:12px;font-size:15px;font-weight:700;background:#fff;color:var(--ink);border:1.5px solid #CBD5E1}
+.seg button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.note{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px 24px;width:100%}.note h3{font-size:19px;margin-bottom:4px}
+.steps2{align-items:stretch!important}
+.steps2>h3{font-size:26px;margin-bottom:4px}
+.steps2>div{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:22px 26px;display:flex;flex-direction:column;gap:4px}
+.steps2>div span:last-child{color:var(--sec);font-size:16px}
+.num{font-weight:800;font-size:14px;color:var(--acc);letter-spacing:.05em}
+/* contact band */
+.band{background:var(--ink);color:#fff;padding:96px 40px}
+.band>.bandin{display:flex;flex-wrap:wrap;gap:48px;max-width:1168px;margin:0 auto;align-items:flex-start}
+.bandtext{flex:1 1 340px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.bandtext h2{font-size:42px;font-weight:800;color:#fff}.bandtext p{font-size:19px;color:#CBD5E1}
+.bandform{flex:1 1 440px;min-width:0;background:#fff;color:var(--ink);border-radius:20px;padding:32px}
+.band .btn.dark{background:#fff;border-color:#fff;color:var(--ink)}.band .btn.dark:hover{background:var(--sky)}
+/* faq */
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:var(--r)}
+.faq-item button{width:100%;min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 24px;background:transparent;border:0;text-align:left;font-size:18px;font-weight:700;border-radius:var(--r)}
+.faq-item p{padding:0 24px 24px;color:var(--sec)}
+/* footer */
+footer{background:var(--ink);color:#CBD5E1;padding:72px 40px 32px;font-size:15px}
+footer a{color:#E2E8F0;text-decoration:none;padding:8px 0;display:block;min-height:44px}footer a:hover{color:#fff;text-decoration:underline}
+footer .btn{display:inline-flex;padding:0 26px;color:#fff;min-height:48px}footer .btn:hover{text-decoration:none}
+.fcols{display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between}
+.fabout{flex:1 1 300px;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.flogo{font-size:26px;font-weight:800;color:#fff;letter-spacing:-.03em}.flogo b{color:var(--sky2)}
+footer h4{margin:0 0 6px;font-weight:700;font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:#94A3B8}
+footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-direction:column}
+.fbot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:48px;padding-top:22px;border-top:1px solid #1E293B;font-size:14px;color:#94A3B8}
+@media (max-width:1000px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:1fr}.vcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:720px){
+  section{padding:64px 20px}
+  header.nav{position:static;padding:12px 20px;flex-wrap:wrap}
+  .nav nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;width:100%;padding-bottom:4px;scrollbar-width:none}.nav nav::-webkit-scrollbar{display:none}.nav nav a{white-space:nowrap}
+  .hero .wrap{padding:56px 20px 72px;gap:36px}
+  .hero h1{font-size:40px}.hero .sub{font-size:18px}
+  .proof{padding:0 20px}.proof .stat{border-right:0;border-bottom:1px solid var(--line)}.proof .stat:last-child{border-bottom:0}
+  .h2{font-size:30px}.pane h2{font-size:30px}.bandtext h2{font-size:32px}
+  .grid4{grid-template-columns:1fr}
+  .split>.pane{padding:56px 24px}.band{padding:64px 20px}.bandform,.panelbox{padding:22px}
+  .stage{height:420px}
+  footer{padding:48px 20px 24px}
+}
+@media (max-width:560px){.vcards{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}.fcard:hover{transform:none}}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to main content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="bt" viewBox="0 0 120 300">
+<ellipse cx="60" cy="293" rx="46" ry="6" fill="#0F172A" fill-opacity=".10"/>
+<rect x="42" y="2" width="36" height="18" rx="4" fill="#0369A1"/>
+<path d="M46 20h28v26l32 38v196a8 8 0 0 1-8 8H22a8 8 0 0 1-8-8V84l32-38z" fill="#F0F9FF" stroke="#0F172A" stroke-width="2.5" stroke-linejoin="round"/>
+<rect x="18" y="104" width="84" height="84" fill="var(--p1,#0369A1)"/>
+<rect x="18" y="190" width="84" height="84" fill="var(--p2,#E0F2FE)"/>
+</symbol></defs></svg>
+
 <header class="nav">
-  <a class="logo" href="#top"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#3EB7E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg>aqua<b>ad</b></a>
-  <nav aria-label="Main"><a href="#top">Home</a><a href="#sides">Advertise</a><a href="#distribute">Distribute</a><a href="#partners">Partners</a><a href="#investors">Investors</a><a href="#faq">FAQ</a><a class="btn sky" href="#contact">Contact</a></nav>
+  <a class="logo" href="#top"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg><span>aqua<b>ad</b></span></a>
+  <nav aria-label="Main"><a href="#sides">Advertise</a><a href="#distribute">Distribute</a><a href="#partners">Partners</a><a href="#investors">Investors</a><a href="#faq">FAQ</a><a class="btn p" href="#contact">Contact us</a></nav>
 </header>
 
-<main id="top">
-<div class="hero">
+<main id="main">
+<div id="top" class="hero">
   <div class="wrap">
     <div class="copy">
-      <h1>Your brand on every sip of the day.</h1>
-      <p class="sub">Put your artwork on AquaAd water cartons, preview it in 3D and send it to our team.</p>
-      <div class="row"><a class="btn dark pill" href="#sides">Advertise <span class="circ"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+      <span class="eyebrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg>Advertising on 500&nbsp;ml water bottles</span>
+      <h1>Your brand on every bottle, in every hand.</h1>
+      <p class="sub">Choose your panels, preview your artwork in 3D and send it to our team in a few minutes. Brands, distributors and manufacturing partners welcome.</p>
+      <div class="row"><a class="btn p lg" href="#sides">Design your bottle <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn lg" href="#distribute">Distribute with us</a></div>
+      <ul class="ticks">
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>3D preview</li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Artwork size guide</li>
+        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Our team reviews every request</li>
+      </ul>
     </div>
-    <div class="art"><svg viewBox="0 0 680 330" width="100%" role="img" aria-label="Three white water cartons carrying different ad artwork"><g transform="translate(-10 20) scale(1.0)">
-<ellipse cx="110" cy="286" rx="78" ry="9" fill="#0B2A3C" fill-opacity=".12"/>
-<polygon points="40,110 110,90 180,110 110,130" fill="#F4F6F7" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,130 110,280 40,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,130 110,280 180,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,50 110,90" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,50 110,90" fill="#E6EAEC" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<ellipse cx="101" cy="66" rx="13" ry="7" fill="#fff" stroke="#181818" stroke-width="2"/>
-<polygon points="46,128 108,142 108,190 46,176" fill="#F0A04B"/><polygon points="46,184 108,198 108,268 46,248" fill="#181818"/>
-<polygon points="114,142 174,128 174,176 114,190" fill="#CFE9F3"/><polygon points="114,198 174,184 174,248 114,268" fill="#0B6E8A"/></g><g transform="translate(215 -10) scale(1.12)">
-<ellipse cx="110" cy="286" rx="78" ry="9" fill="#0B2A3C" fill-opacity=".12"/>
-<polygon points="40,110 110,90 180,110 110,130" fill="#F4F6F7" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,130 110,280 40,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,130 110,280 180,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,50 110,90" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,50 110,90" fill="#E6EAEC" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<ellipse cx="101" cy="66" rx="13" ry="7" fill="#fff" stroke="#181818" stroke-width="2"/>
-<polygon points="46,128 108,142 108,190 46,176" fill="#181818"/><polygon points="46,184 108,198 108,268 46,248" fill="#3EB7E8"/>
-<polygon points="114,142 174,128 174,176 114,190" fill="#F0A04B"/><polygon points="114,198 174,184 174,248 114,268" fill="#E3F2FA"/></g><g transform="translate(450 20) scale(1.0)">
-<ellipse cx="110" cy="286" rx="78" ry="9" fill="#0B2A3C" fill-opacity=".12"/>
-<polygon points="40,110 110,90 180,110 110,130" fill="#F4F6F7" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,130 110,280 40,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,130 110,280 180,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,50 110,90" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,50 110,90" fill="#E6EAEC" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<ellipse cx="101" cy="66" rx="13" ry="7" fill="#fff" stroke="#181818" stroke-width="2"/>
-<polygon points="46,128 108,142 108,190 46,176" fill="#6B4FA0"/><polygon points="46,184 108,198 108,268 46,248" fill="#CFE9F3"/>
-<polygon points="114,142 174,128 174,176 114,190" fill="#0B6E8A"/><polygon points="114,198 174,184 174,248 114,268" fill="#181818"/></g></svg></div>
+    <div class="art"><div class="card-art">
+      <svg viewBox="0 0 560 330" role="img" aria-label="Three AquaAd water bottles, each carrying different ad artwork on its upper and lower panels">
+        <use href="#bt" x="30" y="40" width="124" height="290" style="--p1:#0F172A;--p2:#38BDF8"/>
+        <use href="#bt" x="196" y="0" width="140" height="330" style="--p1:#0369A1;--p2:#E0F2FE"/>
+        <use href="#bt" x="378" y="40" width="124" height="290" style="--p1:#BAE6FD;--p2:#0F172A"/>
+      </svg>
+    </div></div>
   </div>
-  <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 22 C260 84 520 -6 790 34 S1190 74 1440 6 V90 H0 Z" fill="#fff" fill-opacity=".3"/><path d="M0 52 C240 104 480 14 740 52 S1200 92 1440 40 V90 H0 Z" fill="#fff"/></svg>
 </div>
 
-<section class="feature">
-  <div class="two"><div class="fart"><svg viewBox="0 0 220 300" width="100%" style="max-width:340px" role="img" aria-label="A white water carton with ad panels"><g transform="translate(0 0) scale(1)">
-<ellipse cx="110" cy="286" rx="78" ry="9" fill="#0B2A3C" fill-opacity=".12"/>
-<polygon points="40,110 110,90 180,110 110,130" fill="#F4F6F7" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,130 110,280 40,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,130 110,280 180,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,50 110,90" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,50 110,90" fill="#E6EAEC" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<ellipse cx="101" cy="66" rx="13" ry="7" fill="#fff" stroke="#181818" stroke-width="2"/>
-<polygon points="46,128 108,142 108,190 46,176" fill="#3EB7E8"/><polygon points="46,184 108,198 108,268 46,248" fill="#181818"/>
-<polygon points="114,142 174,128 174,176 114,190" fill="#F0A04B"/><polygon points="114,198 174,184 174,248 114,268" fill="#E3F2FA"/></g></svg></div>
-  <p class="big">AquaAd turns everyday 500&nbsp;ml water cartons into an on-the-go brand surface. Brands pick the panels, partners make and distribute the cartons, and people see the message in daily life.</p></div>
+<section class="proof" aria-label="At a glance">
+  <div class="wrap">
+    <div class="stat"><strong>7</strong><span>ad panels for sale on every bottle</span></div>
+    <div class="stat"><strong>4</strong><span>sides shown in the mockup we receive</span></div>
+    <div class="stat"><strong>3</strong><span>ways to join: advertise, distribute, manufacture</span></div>
+  </div>
 </section>
 
-<svg class="swoosh" viewBox="0 0 1440 140" preserveAspectRatio="none" aria-hidden="true" style="background:#fff"><path d="M0 120 C420 130 900 90 1440 20 V140 H0 Z" fill="#F8F8F8"/></svg>
-<section class="grey" style="padding-top:0">
-  <div class="fcards" style="margin:0 auto"><div class="fcard"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#181818" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="#3EB7E8"/></svg><h3>Seven ad panels</h3><p>Choose any combination across the carton's four sides.</p></div><div class="fcard"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#181818" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5" stroke="#3EB7E8"/></svg><h3>Preview in 3D</h3><p>Rotate your artwork on a carton before you commit.</p></div><div class="fcard"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#181818" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5" stroke="#3EB7E8"/></svg><h3>Send it to us</h3><p>Share your design and details. Our team reviews every request.</p></div><div class="fcard"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#181818" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.5" stroke="#3EB7E8"/><path d="M17 14c2.6 0 4.5 1.7 4.5 4.5" stroke="#3EB7E8"/></svg><h3>Open to partners</h3><p>Manufacturers, water partners and investors are welcome.</p></div></div>
+<section style="padding-top:48px">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">What AquaAd does</span><h2 class="h2">Everyday water bottles, turned into a brand surface</h2><p class="lead">Brands pick the panels, partners make and distribute the bottles, and people see your message in daily life.</p></div>
+    <div class="grid4">
+      <div class="fcard"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><h3>Seven ad panels</h3><p>Upper and lower panels on each side, or a whole side in one design.</p></div>
+      <div class="fcard"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div><h3>Preview in 3D</h3><p>Rotate your artwork on the bottle before you commit.</p></div>
+      <div class="fcard"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 9h8M8 12h5"/></svg></div><h3>Send it to us</h3><p>Share your design and details. Our team reviews every request.</p></div>
+      <div class="fcard"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0369A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.6 0 4.5 1.7 4.5 4.5"/></svg></div><h3>Open to partners</h3><p>Distributors, manufacturers and investors are welcome.</p></div>
+    </div>
+  </div>
 </section>
 
-<div class="split">
-  <div class="pane pale"><div class="inner"><h2>How it works</h2><p><b>1. Pick your panels.</b> Choose any of the seven ad panels: the upper and lower panels on the front, right and left, and the upper back.</p><p><b>2. Upload artwork.</b> Add a JPG, PNG or WEBP for each panel and rotate the carton to check it.</p><p><b>3. Send it to AquaAd.</b> Add your details and send. Our team reviews your design and gets back to you.</p><p class="small">The lower back is reserved for AquaAd company information.</p></div></div>
-  <div class="pane white"><div class="inner"><svg viewBox="0 0 440 300" width="100%" style="max-width:520px" role="img" aria-label="Two cartons showing different ad panels"><g transform="translate(-10 0) scale(1)">
-<ellipse cx="110" cy="286" rx="78" ry="9" fill="#0B2A3C" fill-opacity=".12"/>
-<polygon points="40,110 110,90 180,110 110,130" fill="#F4F6F7" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,130 110,280 40,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,130 110,280 180,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,50 110,90" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,50 110,90" fill="#E6EAEC" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<ellipse cx="101" cy="66" rx="13" ry="7" fill="#fff" stroke="#181818" stroke-width="2"/>
-<polygon points="46,128 108,142 108,190 46,176" fill="#0B6E8A"/><polygon points="46,184 108,198 108,268 46,248" fill="#F0A04B"/>
-<polygon points="114,142 174,128 174,176 114,190" fill="#E3F2FA"/><polygon points="114,198 174,184 174,248 114,268" fill="#181818"/></g><g transform="translate(220 0) scale(1)">
-<ellipse cx="110" cy="286" rx="78" ry="9" fill="#0B2A3C" fill-opacity=".12"/>
-<polygon points="40,110 110,90 180,110 110,130" fill="#F4F6F7" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,130 110,280 40,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,130 110,280 180,255" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="40,110 110,50 110,90" fill="#fff" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<polygon points="180,110 110,50 110,90" fill="#E6EAEC" stroke="#181818" stroke-width="2.5" stroke-linejoin="round"/>
-<ellipse cx="101" cy="66" rx="13" ry="7" fill="#fff" stroke="#181818" stroke-width="2"/>
-<polygon points="46,128 108,142 108,190 46,176" fill="#181818"/><polygon points="46,184 108,198 108,268 46,248" fill="#6B4FA0"/>
-<polygon points="114,142 174,128 174,176 114,190" fill="#3EB7E8"/><polygon points="114,198 174,184 174,248 114,268" fill="#fff"/></g></svg></div></div>
-</div>
+<section class="alt">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">How it works</span><h2 class="h2">From artwork to bottle in three steps</h2></div>
+    <div class="grid3">
+      <div class="step"><span class="n" aria-hidden="true">1</span><h3>Pick your panels</h3><p>Choose any of the seven ad panels: the upper and lower panels on the front, right and left, and the upper back. Or take a whole side.</p></div>
+      <div class="step"><span class="n" aria-hidden="true">2</span><h3>Upload artwork</h3><p>Add a JPG, PNG or WEBP for each panel and rotate the bottle to check it. Our size guide tells you the exact dimensions.</p></div>
+      <div class="step"><span class="n" aria-hidden="true">3</span><h3>Send it to AquaAd</h3><p>Add your details and send. We receive your artwork and a four-sided mockup, review your design and get back to you.</p></div>
+    </div>
+    <p class="note-line">The lower back panel is reserved for AquaAd company information.</p>
+  </div>
+</section>
 
-<section id="sides" style="padding-top:72px">
+<section id="sides">
   <div class="wrap" style="display:flex;flex-direction:column;gap:40px">
-    <div style="max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:12px"><h2 class="h2" id="modelTitle">3D bottle preview</h2><p class="mut" id="modelLead">Open the list and tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel. 7 of the 8 are for sale (the lower back holds AquaAd company information), or take a whole side.</p></div>
+    <div class="head" style="margin:0 auto"><span class="eyebrow">Design studio</span><h2 class="h2" id="modelTitle">3D bottle preview</h2><p class="lead" id="modelLead">Tick the panels you want, then upload artwork to each one. 7 of the 8 panels are for sale. The lower back holds AquaAd company information.</p></div>
     <div class="preview">
       <div class="stage-col">
         <div class="stage" id="stage"><div class="carton" id="carton" hidden></div><div class="carton" id="bottle"></div></div>
@@ -305,12 +275,12 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       </div>
       <div class="ctrl-col">
         <div style="display:flex;flex-direction:column;gap:12px">
-          <div class="row" style="justify-content:space-between"><h3 style="font-size:20px">Choose ad panels</h3><span class="mut" style="font-size:14px" id="count"></span></div>
+          <div class="row" style="justify-content:space-between"><h3 style="font-size:20px">Choose ad panels</h3><span class="mut" style="font-size:14px" id="count" aria-live="polite"></span></div>
           <div class="chips" id="chips" role="group" aria-label="Ad panels"></div>
         </div>
         <div class="box" aria-live="polite">
           <div class="row" style="justify-content:space-between"><h3 style="font-size:18px" id="artTitle"></h3><span class="mut" style="font-size:13px">JPG · PNG · WEBP · max 3 MB</span></div>
-          <label id="artForWrap" style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600">Upload artwork for<select id="artFor" style="min-height:48px;border-radius:14px;border:2px solid #B9CFD8;padding:0 14px;font:inherit;font-weight:600;background:#fff"></select></label>
+          <label id="artForWrap" style="display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600">Upload artwork for<select id="artFor" style="min-height:48px;border-radius:10px;border:1.5px solid #CBD5E1;padding:0 14px;font:inherit;font-weight:600;background:#fff"></select></label>
           <div class="row" id="artActions"></div>
           <p class="mut" id="artHint" style="font-size:15px"></p>
           <p id="artSize" style="font-size:15px;font-weight:600"></p>
@@ -319,46 +289,46 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       </div>
     </div>
     <div class="panelbox" id="sizeBox">
-      <div><h3 style="font-size:24px">Artwork sizes</h3><p class="mut" style="margin-top:4px">Design each panel to the size below. <b>These sizes are provisional</b> until the bottle supplier confirms the final print dimensions.</p></div>
+      <div><h3>Artwork sizes</h3><p class="mut" style="margin-top:4px">Design each panel to the size below. <b>These sizes are provisional</b> until the bottle supplier confirms the final print dimensions.</p></div>
       <div class="tblwrap"><table class="tbl" id="sizeTable"></table></div>
       <ul class="notes" id="sizeNotes"></ul>
     </div>
     <div class="panelbox" id="sendBox">
-      <div><h3 style="font-size:24px">Send your design to AquaAd</h3><p class="mut" id="sendSummary" style="margin-top:4px"></p></div>
+      <div><h3>Send your design to AquaAd</h3><p class="mut" id="sendSummary" style="margin-top:4px"></p></div>
       <div id="mockWrap" style="display:flex;flex-direction:column;gap:10px">
-        <div class="row"><button class="btn" id="mockBtn" type="button">Preview my mockup</button><span class="mut" id="mockNote" style="font-size:14px">We send you a four-sided mockup of your artwork on the carton with your enquiry.</span></div>
-        <canvas id="mockCanvas" width="1536" height="1024" hidden aria-label="Mockup of your artwork on the four sides of the carton" style="width:100%;max-width:900px;border-radius:16px;background:#E5E6E8"></canvas>
+        <div class="row"><button class="btn" id="mockBtn" type="button">Preview my mockup</button><span class="mut" id="mockNote" style="font-size:14px">We receive a four-sided mockup of your artwork on the bottle with your enquiry.</span></div>
+        <canvas id="mockCanvas" width="1536" height="1024" hidden role="img" aria-label="Mockup of your artwork on the four sides of the bottle" style="width:100%;max-width:900px;border-radius:16px;background:#E2E8F0"></canvas>
       </div>
-      <p class="mut" style="font-size:13px">Your design and details are kept in this browser for 24 hours, so a refresh will not lose them. <button type="button" id="clearSaved" style="background:none;border:0;padding:0;font:inherit;color:#0B6E8A;text-decoration:underline;cursor:pointer">Clear saved data</button></p>
+      <p class="mut" style="font-size:13px">Your design and details are kept in this browser for 24 hours, so a refresh will not lose them. <button type="button" id="clearSaved" style="background:none;border:0;padding:6px 0;font:inherit;font-weight:700;color:#0369A1;text-decoration:underline;cursor:pointer;min-height:32px">Clear saved data</button></p>
       <div id="sendFormHost"></div>
     </div>
   </div>
 </section>
 
-<section id="distribute" class="dist">
+<section id="distribute" class="alt">
   <div class="wrap">
-    <div class="dhead"><p class="eyebrow">For venues and event organisers</p><h2 class="h2">Distribute AquaAd cartons</h2><p class="mut">Put cartons in front of your visitors and customers. Pick the kind of place you run, then apply.</p></div>
+    <div class="dhead"><span class="eyebrow">For venues and event organisers</span><h2 class="h2">Distribute AquaAd bottles</h2><p class="lead">Put bottles in front of your visitors and customers. Pick the kind of place you run, then apply.</p></div>
     <div class="vcards" id="vcards" role="group" aria-label="Venue type"></div>
     <div class="panelbox dform"><h3>Apply to distribute</h3><p class="mut" id="vSel">Select your venue type above.</p><div id="distributeFormHost"></div></div>
   </div>
 </section>
 
-<section id="partners" class="split nopad">
+<section id="partners" class="split">
   <div class="pane pale"><div class="inner">
-    <p class="eyebrow">For manufacturers and water partners</p>
-    <h2>Make AquaAd cartons with us</h2>
-    <p>Turn your packaging into added value. Join a network that helps your cartons do more for the brands and communities around you.</p>
+    <span class="eyebrow">For manufacturers and water partners</span>
+    <h2>Make AquaAd bottles with us</h2>
+    <p>Turn your production into added value. Join a network that helps your bottles do more for the brands and communities around you.</p>
     <div class="seg" id="ptypes" role="group" aria-label="Partner type"></div>
-    <div class="note"><h3 id="pName"></h3><p id="pText"></p></div>
+    <div class="note"><h3 id="pName"></h3><p id="pText" style="font-size:16px"></p></div>
     <div class="panelbox left"><h3>Tell us about your business</h3><div id="partnerFormHost"></div></div>
   </div></div>
-  <div class="pane white"><div class="inner steps2"><h3>How the network works</h3><div><span class="num">01</span><b>Brands bring the story</b><span>Share a campaign, launch or message you want people to remember.</span></div><div><span class="num">02</span><b>AquaAd places it</b><span>We turn the carton into an intentional, on-the-go brand surface.</span></div><div><span class="num">03</span><b>Partners make and distribute</b><span>Manufacturers and water partners help put branded inventory into circulation.</span></div><div><span class="num">04</span><b>People see it</b><span>Your message travels through everyday moments, not just a screen.</span></div></div></div>
+  <div class="pane white"><div class="inner steps2"><h3>How the network works</h3><div><span class="num">01</span><b>Brands bring the story</b><span>Share a campaign, launch or message you want people to remember.</span></div><div><span class="num">02</span><b>AquaAd places it</b><span>We turn the bottle into an intentional, on-the-go brand surface.</span></div><div><span class="num">03</span><b>Partners make and distribute</b><span>Manufacturers and water partners help put branded inventory into circulation.</span></div><div><span class="num">04</span><b>People see it</b><span>Your message travels through everyday moments, not just a screen.</span></div></div></div>
 </section>
 
-<section id="investors" class="split nopad">
-  <div class="pane white"><div class="inner steps2"><h3>Why AquaAd</h3><div><span class="num">01</span><b>Repeat consumption</b><span>Water is a familiar product with natural opportunities for recurring visibility.</span></div><div><span class="num">02</span><b>Repeatable inventory</b><span>Standardized carton surfaces make the model easier to explain and reproduce.</span></div><div><span class="num">03</span><b>City-by-city expansion</b><span>Local water partners can create a practical path to growing the network.</span></div><div><span class="num">04</span><b>Network effects</b><span>More partners attract more campaigns; more campaigns create more value for partners.</span></div></div></div>
+<section id="investors" class="split">
+  <div class="pane white"><div class="inner steps2"><h3>Why AquaAd</h3><div><span class="num">01</span><b>Repeat consumption</b><span>Water is a familiar product with natural opportunities for recurring visibility.</span></div><div><span class="num">02</span><b>Repeatable inventory</b><span>Standardised bottle surfaces make the model easier to explain and reproduce.</span></div><div><span class="num">03</span><b>City-by-city expansion</b><span>Local water partners can create a practical path to growing the network.</span></div><div><span class="num">04</span><b>Network effects</b><span>More partners attract more campaigns; more campaigns create more value for partners.</span></div></div></div>
   <div class="pane gray"><div class="inner">
-    <p class="eyebrow">For investors</p>
+    <span class="eyebrow">For investors</span>
     <h2>Back the next layer of physical media</h2>
     <p>Explore a marketplace built around repeat consumption, repeatable inventory and city-by-city expansion.</p>
     <div class="panelbox left"><h3>Request investor information</h3><div id="investorFormHost"></div></div>
@@ -366,27 +336,25 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
 </section>
 
 <section id="contact" class="band">
-  <div class="two"><div class="bandtext"><h2>Join the AquaAd network</h2><p>Brands, partners and investors: tell us what you are looking for and our team will get back to you.</p><a class="btn dark" href="tel:+919191919191">Call +91 9191919191</a></div>
+  <div class="bandin"><div class="bandtext"><span class="eyebrow" style="color:#7DD3FC">Get in touch</span><h2>Join the AquaAd network</h2><p>Brands, partners and investors: tell us what you are looking for and our team will get back to you.</p><a class="btn dark lg" href="tel:+919191919191">Call +91 9191919191</a></div>
   <div class="bandform"><div id="contactFormHost"></div></div></div>
 </section>
 
 <section id="faq">
-  <div class="wrap" style="max-width:800px;display:flex;flex-direction:column;gap:32px"><h2 class="h2">Good to know</h2><div id="faqList" style="display:flex;flex-direction:column;gap:12px"></div></div>
+  <div class="wrap" style="max-width:800px;display:flex;flex-direction:column;gap:32px"><div class="head" style="margin:0 auto"><span class="eyebrow">FAQ</span><h2 class="h2">Good to know</h2></div><div id="faqList" style="display:flex;flex-direction:column;gap:12px"></div></div>
 </section>
 </main>
 
 <footer>
   <div class="wrap">
     <div class="fcols">
-      <div class="fabout"><span class="flogo">aqua<b>ad</b></span><p>Advertising on water cartons, for brands, partners and investors.</p><a class="btn sky" href="tel:+919191919191">Call +91 9191919191</a></div>
+      <div class="fabout"><span class="flogo">aqua<b>ad</b></span><p>Advertising on water bottles, for brands, partners and investors.</p><a class="btn sky" href="tel:+919191919191">Call +91 9191919191</a></div>
       <nav aria-label="Footer"><h4>Quick links</h4><a href="#top">Home</a><a href="#sides">Advertise</a><a href="#distribute">Distribute</a><a href="#partners">Partners</a><a href="#investors">Investors</a><a href="#contact">Contact</a><a href="#faq">FAQ</a></nav>
       <div><h4>Contact</h4><a href="tel:+919191919191">+91 9191919191</a><a href="mailto:hello@aquaad.com">hello@aquaad.com</a></div>
     </div>
-    <div class="fbot"><span>© AquaAd Studio</span><span>Carton shape is an illustrative concept, not a manufacturer-approved dieline.</span></div>
+    <div class="fbot"><span>© AquaAd Studio</span><span>The bottle shape is an illustrative concept, not a manufacturer-approved design.</span></div>
   </div>
 </footer>
-
-
 
 <script>
 (function () {
@@ -630,7 +598,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   function loop() { if (spin) { angle = (angle + 0.35) % 360; activeEl().style.transform = 'scale(' + scaleNow() + ') rotateX(' + tilt + 'deg) rotateY(' + angle.toFixed(2) + 'deg)'; } requestAnimationFrame(loop); }
 
 
-  /* ---------- artwork sizes (PROVISIONAL: confirm with the carton supplier) ---------- */
+  /* ---------- artwork sizes (PROVISIONAL: confirm with the bottle supplier) ---------- */
   var SPEC = { bodyW: 60, bodyH: 100, upper: 0.54, bleed: 3, safe: 3, dpi: 300 };
   function mmToPx(mm) { return Math.round(mm / 25.4 * SPEC.dpi); }
   function sizeOf(p) { if (p.w) return { w: p.w, h: p.h }; return { w: SPEC.bodyW, h: +(p.pos === 'top' ? SPEC.bodyH * SPEC.upper : SPEC.bodyH * (1 - SPEC.upper)).toFixed(1) }; }
@@ -875,7 +843,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     bottleEl.hidden = m !== 'bottle'; carton.hidden = m === 'bottle';
     picked = {}; active = PANELS[0].id; picked[active] = true; spin = !reduce; tilt = -14; angle = 25;
     $('modelTitle').textContent = m === 'bottle' ? '3D bottle preview' : '3D carton preview';
-    $('modelLead').textContent = m === 'bottle' ? 'Open the list and tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel. 7 of the 8 are for sale (the lower back holds AquaAd company information), or take a whole side.' : 'Open the list and tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for AquaAd branding and company information.';
+    $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want, then upload artwork to each one. 7 of the 8 panels are for sale. The lower back holds AquaAd company information.' : 'Open the list and tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for AquaAd branding and company information.';
     $('modelNote').textContent = m === 'bottle' ? 'Illustrative tall PET bottle, 73 mm wide with a 28 mm neck. The label area (73 × 170 mm, two panels per side) is a provisional size.' : 'Illustrative 500 ml gable-top concept, not a manufacturer-approved print dieline.';
     $('rotL').setAttribute('aria-label', 'Rotate left'); $('mockCanvas').hidden = true;
     buildSizeTable(); refresh(); paintPick();
@@ -914,9 +882,9 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
 
   /* ---------- partners ---------- */
   var PT = [
-    { id: 'carton', label: 'Carton manufacturer', text: 'Produce AquaAd gable-top cartons to the dieline, fold, seal and print-safe specifications we confirm together.' },
-    { id: 'water', label: 'Water partner', text: 'Fill and distribute AquaAd cartons in your market and add advertising value to your packaging.' },
-    { id: 'print', label: 'Printing partner', text: 'Print advertiser artwork on the carton panels with consistent colour and quality.' }
+    { id: 'carton', label: 'Bottle manufacturer', text: 'Produce AquaAd bottles to the shape, label area and print-safe specifications we confirm together.' },
+    { id: 'water', label: 'Water partner', text: 'Fill and distribute AquaAd bottles in your market and add advertising value to your packaging.' },
+    { id: 'print', label: 'Printing partner', text: 'Print advertiser artwork on the bottle panels with consistent colour and quality.' }
   ];
   var ptype = 'carton';
   function paintPartner() {
@@ -945,12 +913,12 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   }
   paintVenues();
   buildForm($('distributeFormHost'), {
-    kind: 'distribute', button: 'Apply to distribute', placeholder: 'Tell us about your venue and why you would like to distribute AquaAd cartons.',
+    kind: 'distribute', button: 'Apply to distribute', placeholder: 'Tell us about your venue and why you would like to distribute AquaAd bottles.',
     fields: [
       { key: 'business_type', label: 'Business or organisation type', type: 'text' },
       { key: 'address', label: 'Distribution point address', type: 'text', required: true },
       { key: 'daily_traffic', label: 'Daily foot traffic', type: 'select', required: true, options: ['Under 100', '100–500', '500–2,000', '2,000+'] },
-      { key: 'monthly_volume', label: 'Cartons needed each month', type: 'select', options: ['Under 1,000', '1,000–5,000', '5,000–20,000', '20,000+', 'Not sure'] },
+      { key: 'monthly_volume', label: 'Bottles needed each month', type: 'select', options: ['Under 1,000', '1,000–5,000', '5,000–20,000', '20,000+', 'Not sure'] },
       { key: 'event', label: 'This is for an event.', type: 'checkbox' },
       { key: 'loading_dock', label: 'We have a loading dock to receive deliveries.', type: 'checkbox' }
     ],
@@ -962,14 +930,14 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   var FAQ = [
     ['Do my images get uploaded anywhere?', 'The 3D preview happens in your browser. Your artwork is only sent when you press “Send my design to AquaAd”, and then it goes to our team to review.'],
     ['Which image formats can I use?', 'JPG, PNG and WEBP, up to 3 MB per panel. Each panel can have different artwork.'],
-    ['Is the 3D carton the final print layout?', 'No. It is an illustrative 500 ml gable-top concept. Dimensions, folds, seals, print-safe areas and cap placement must be confirmed with the carton supplier before production.'],
+    ['Is the 3D bottle the final print layout?', 'No. It is an illustrative 500 ml bottle concept. Dimensions, label area, print-safe areas and cap placement must be confirmed with the bottle supplier before production.'],
     ['How do I get a quote?', 'Send us your design, or call +91 9191919191. Online quotes and payment are not available yet.']
   ];
   var openFaq = -1, list = $('faqList');
   function paintFaq() {
     list.replaceChildren();
     FAQ.forEach(function (q, i) {
-      var open = openFaq === i, b = h('button', { type: 'button', 'aria-expanded': open ? 'true' : 'false' }, h('span', { text: q[0] }), h('span', { 'aria-hidden': 'true', style: 'font-size:24px;color:#0B6E8A', text: open ? '−' : '+' }));
+      var open = openFaq === i, b = h('button', { type: 'button', 'aria-expanded': open ? 'true' : 'false' }, h('span', { text: q[0] }), h('span', { 'aria-hidden': 'true', style: 'font-size:24px;color:#0369A1', text: open ? '−' : '+' }));
       b.onclick = function () { openFaq = open ? -1 : i; paintFaq(); };
       list.append(h('div', { class: 'faq-item' }, b, open ? h('p', { text: q[1] }) : null));
     });
