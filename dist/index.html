@@ -278,7 +278,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
 
 <section id="sides" style="padding-top:72px">
   <div class="wrap" style="display:flex;flex-direction:column;gap:40px">
-    <div style="max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:12px"><h2 class="h2" id="modelTitle">3D bottle preview</h2><p class="mut" id="modelLead">Tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel, 8 in total.</p></div>
+    <div style="max-width:720px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:12px"><h2 class="h2" id="modelTitle">3D bottle preview</h2><p class="mut" id="modelLead">Tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel. 7 of the 8 are for sale (the lower back holds AquaAd company information), or take a whole side.</p></div>
     <div class="preview">
       <div class="stage-col">
         <div class="stage" id="stage"><div class="carton" id="carton" hidden></div><div class="carton" id="bottle"></div></div>
@@ -489,10 +489,14 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     { id: 'bRightUp', name: 'Right · upper', face: 'right', pos: 'top', w: 73, h: 80 },
     { id: 'bRightLow', name: 'Right · lower', face: 'right', pos: 'bot', w: 73, h: 80 },
     { id: 'bBackUp', name: 'Back · upper', face: 'back', pos: 'top', w: 73, h: 80 },
-    { id: 'bBackLow', name: 'Back · lower', face: 'back', pos: 'bot', w: 73, h: 80 },
     { id: 'bLeftUp', name: 'Left · upper', face: 'left', pos: 'top', w: 73, h: 80 },
-    { id: 'bLeftLow', name: 'Left · lower', face: 'left', pos: 'bot', w: 73, h: 80 }
+    { id: 'bLeftLow', name: 'Left · lower', face: 'left', pos: 'bot', w: 73, h: 80 },
+    { id: 'bFront', name: 'Front · whole side', face: 'front', pos: 'both', w: 73, h: 160, whole: true },
+    { id: 'bRight', name: 'Right · whole side', face: 'right', pos: 'both', w: 73, h: 160, whole: true },
+    { id: 'bLeft', name: 'Left · whole side', face: 'left', pos: 'both', w: 73, h: 160, whole: true }
   ];
+  function halvesOf(id) { return [id + 'Up', id + 'Low']; }
+  function wholeOf(id) { return id.replace(/(Up|Low)$/, ''); }
   var MODEL = 'bottle', PANELS = BOTTLE_PANELS;
   var FACE_ANGLE = { front: 0, right: -90, back: 180, left: 90 };
   var WAVE = 'polygon(0% 14%,12% 8%,26% 4%,42% 7%,58% 13%,74% 15%,88% 10%,100% 4%,100% 100%,0% 100%)';
@@ -546,6 +550,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       f(r + 'translate3d(0,' + yNeck + 'px,' + NW / 2 + 'px)', NW, NH, 'linear-gradient(90deg,rgba(143,200,226,.8),rgba(232,246,252,.9) 50%,rgba(143,200,226,.8))');
       f(r + 'translate3d(0,' + yCap + 'px,' + CW / 2 + 'px)', CW, CH, 'linear-gradient(90deg,#1E8FBF,#3EB7E8 50%,#1E8FBF)');
     });
+    bz.back.bot.style.background = 'linear-gradient(#EAF6FB,#CFE9F3)'; bz.back.bot.style.color = '#0B2A3C'; bz.back.bot.textContent = 'About AquaAd\nAd enquiries\n+91 9191919191';
     f('translate3d(0,' + (top) + 'px,0) rotateX(90deg)', CW, CW, '#3EB7E8', 'circle(50%)');
     f('translate3d(0,' + (top + CH + NH + SH + BH) + 'px,0) rotateX(-90deg)', W, W, 'rgba(120,180,205,.9)');
   })();
@@ -558,7 +563,18 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     else if (on) { z.style.background = '#fff'; z.style.color = '#0B2A3C'; z.textContent = 'Upload\nartwork'; z.style.boxShadow = 'inset 0 0 0 2px #0B6E8A'; }
   }
   function paintCarton() {
-    if (MODEL === 'bottle') PANELS.forEach(function (p) { paintZone(bz[p.face][p.pos], p.id); });
+    if (MODEL === 'bottle') {
+      PANELS.forEach(function (p) { if (!p.whole) paintZone(bz[p.face][p.pos], p.id); });
+      PANELS.forEach(function (p) {
+        if (!p.whole || !picked[p.id]) return;
+        var t = bz[p.face].top, b = bz[p.face].bot, img = images[p.id];
+        [t, b].forEach(function (z, i) {
+          z.textContent = ''; z.style.boxShadow = 'none';
+          if (img) { z.style.background = 'url(' + img.url + ') ' + (i ? 'bottom' : 'top') + ' center/100% 200% no-repeat'; }
+          else { z.style.background = '#fff'; z.style.color = '#0B2A3C'; z.style.boxShadow = 'inset 0 0 0 2px #0B6E8A'; if (!i) z.textContent = 'Upload whole-side artwork'; }
+        });
+      });
+    }
     else PANELS.forEach(function (p) { paintZone(faces[p.face][p.pos], p.id); });
     var el = activeEl();
     el.style.transition = spin ? 'none' : 'transform .6s ease';
@@ -584,7 +600,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       var s = sizeOf(p);
       t.append(h('tr', null, h('td', { text: p.name }), h('td', { text: s.w + ' × ' + s.h + ' mm' }), h('td', { text: (s.w + b) + ' × ' + (s.h + b) + ' mm' }), h('td', { class: 'res', text: mmToPx(s.w + b) + ' × ' + mmToPx(s.h + b) + ' px' })));
     });
-    if (MODEL === 'bottle') t.append(h('tr', null, h('td', { text: 'Cap and neck' }), h('td', { colspan: '3', class: 'res', text: 'AquaAd branding (not for sale)' })));
+    if (MODEL === 'bottle') t.append(h('tr', null, h('td', { text: 'Back · lower' }), h('td', { colspan: '3', class: 'res', text: 'Reserved for AquaAd company information (not for sale)' })), h('tr', null, h('td', { text: 'Cap and neck' }), h('td', { colspan: '3', class: 'res', text: 'AquaAd branding (not for sale)' })));
     else t.append(h('tr', null, h('td', { text: 'Back · lower' }), h('td', { colspan: '3', class: 'res', text: 'Reserved for AquaAd company information (not for sale)' })), h('tr', null, h('td', { text: 'Roof and base' }), h('td', { colspan: '3', class: 'res', text: 'AquaAd branding (not for sale)' })));
     var n = $('sizeNotes'); n.replaceChildren();
     [
@@ -603,7 +619,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   function roundRect(ctx, x, y, w, ht, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + ht, r); ctx.arcTo(x + w, y + ht, x, y + ht, r); ctx.arcTo(x, y + ht, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
   function zoneFill(ctx, id, imgs, x, y, w, ht) {
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    if (id === 'backLow') {
+    if (id === 'backLow' || id === 'bBackLow') {
       var g = ctx.createLinearGradient(0, y, 0, y + ht); g.addColorStop(0, '#EAF6FB'); g.addColorStop(1, '#CFE9F3'); ctx.fillStyle = g; ctx.fillRect(x, y, w, ht);
       ctx.fillStyle = '#0B2A3C'; ctx.font = '700 22px Montserrat, Arial, sans-serif'; textLines(ctx, 'About AquaAd\nAd enquiries\n+91 9191919191', x + w / 2, y + ht / 2 + 8, 30); return;
     }
@@ -642,10 +658,15 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     ctx.lineTo(bx + bw - 14, bottom); ctx.quadraticCurveTo(bx + bw, bottom, bx + bw, bottom - 14); ctx.lineTo(bx + bw, bt); ctx.quadraticCurveTo(bx + bw, shT + 6, cx + nw / 2, shT); ctx.lineTo(cx + nw / 2, nT); ctx.closePath(); ctx.fill(); ctx.stroke();
     ctx.fillStyle = '#3EB7E8'; roundRect(ctx, cx - nw / 2 - 5, cT, nw + 10, nT - cT, 6); ctx.fill(); ctx.strokeStyle = '#1E8FBF'; ctx.stroke();
     var half = 80 * S, lt = bottom - 8 * S - 2 * half;
-    [[f[2], lt], [f[3], lt + half]].forEach(function (z) {
-      ctx.save(); ctx.beginPath(); ctx.rect(bx, z[1], bw, half); ctx.clip(); zoneFill(ctx, z[0], imgs, bx, z[1], bw, half); ctx.restore();
-      ctx.strokeStyle = 'rgba(0,0,0,.14)'; ctx.lineWidth = 2; ctx.strokeRect(bx, z[1], bw, half);
-    });
+    if (f[4] && picked[f[4]]) {
+      ctx.save(); ctx.beginPath(); ctx.rect(bx, lt, bw, 2 * half); ctx.clip(); zoneFill(ctx, f[4], imgs, bx, lt, bw, 2 * half); ctx.restore();
+      ctx.strokeStyle = 'rgba(0,0,0,.14)'; ctx.lineWidth = 2; ctx.strokeRect(bx, lt, bw, 2 * half);
+    } else {
+      [[f[2], lt], [f[3], lt + half]].forEach(function (z) {
+        ctx.save(); ctx.beginPath(); ctx.rect(bx, z[1], bw, half); ctx.clip(); zoneFill(ctx, z[0], imgs, bx, z[1], bw, half); ctx.restore();
+        ctx.strokeStyle = 'rgba(0,0,0,.14)'; ctx.lineWidth = 2; ctx.strokeRect(bx, z[1], bw, half);
+      });
+    }
     ctx.fillStyle = '#111111'; ctx.font = '600 34px Montserrat, Arial, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillText(f[1], cx, 965);
   }
   function drawMockup(canvas) {
@@ -655,7 +676,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       var imgs = {}; list.forEach(function (x) { if (x[1]) imgs[x[0]] = x[1]; });
       var g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#ECEDEF'); g.addColorStop(1, '#D8DADD'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
       if (MODEL === 'bottle') {
-        [['front', 'Front Side', 'bFrontUp', 'bFrontLow'], ['right', 'Right Side', 'bRightUp', 'bRightLow'], ['back', 'Back Side', 'bBackUp', 'bBackLow'], ['left', 'Left Side', 'bLeftUp', 'bLeftLow']].forEach(function (f, i) { drawBottleFace(ctx, f, imgs, 96 + 336 * i + 168); });
+        [['front', 'Front Side', 'bFrontUp', 'bFrontLow', 'bFront'], ['right', 'Right Side', 'bRightUp', 'bRightLow', 'bRight'], ['back', 'Back Side', 'bBackUp', 'bBackLow'], ['left', 'Left Side', 'bLeftUp', 'bLeftLow', 'bLeft']].forEach(function (f, i) { drawBottleFace(ctx, f, imgs, 96 + 336 * i + 168); });
         return;
       }
       var faces = [['front', 'Front Side', 'frontUp', 'frontLow'], ['right', 'Right Side', 'rightUp', 'rightLow'], ['back', 'Back Side', 'backUp', 'backLow'], ['left', 'Left Side', 'leftUp', 'leftLow']];
@@ -672,11 +693,18 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   var chipsEl = $('chips');
   function paintUI() {
     var n = PANELS.filter(function (p) { return picked[p.id]; });
-    $('count').textContent = n.length + ' of ' + PANELS.length + ' selected';
+    var units = n.reduce(function (a, p) { return a + (p.whole ? 2 : 1); }, 0), total = PANELS.filter(function (p) { return !p.whole; }).length;
+    $('count').textContent = units + ' of ' + total + ' panels selected';
     chipsEl.replaceChildren();
+    var sawWhole = false;
     PANELS.forEach(function (p) {
+      if (p.whole && !sawWhole) { sawWhole = true; chipsEl.append(h('div', { style: 'flex-basis:100%;font-size:14px;color:#5B6770', text: 'Or take a whole side, both panels in one design (73 × 160 mm):' })); }
       var b = h('button', { type: 'button', class: 'chip' + (active === p.id ? ' active' : ''), 'aria-pressed': picked[p.id] ? 'true' : 'false', text: p.name });
-      b.onclick = function () { picked[p.id] = !picked[p.id]; active = p.id; spin = false; angle = nearest(FACE_ANGLE[p.face]); tilt = -12; refresh(); };
+      b.onclick = function () {
+        picked[p.id] = !picked[p.id];
+        if (picked[p.id] && p.whole) halvesOf(p.id).forEach(function (x) { delete picked[x]; });
+        else if (picked[p.id] && MODEL === 'bottle') delete picked[wholeOf(p.id)];
+        active = p.id; spin = false; angle = nearest(FACE_ANGLE[p.face]); tilt = -12; refresh(); };
       chipsEl.append(b);
     });
     var ap = PANELS.filter(function (p) { return p.id === active; })[0];
@@ -706,14 +734,14 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   $('rotR').onclick = function () { spin = false; angle += 45; refresh(); };
   $('spinBtn').onclick = function () { spin = !spin; refresh(); };
   $('resetBtn').onclick = function () { spin = !reduce; tilt = -14; angle = nearest(25); refresh(); };
-  $('selAll').onclick = function () { PANELS.forEach(function (p) { picked[p.id] = true; }); refresh(); };
+  $('selAll').onclick = function () { PANELS.forEach(function (p) { if (!p.whole) picked[p.id] = true; }); if (MODEL === 'bottle') ['bFront', 'bRight', 'bLeft'].forEach(function (x) { delete picked[x]; }); refresh(); };
   $('selNone').onclick = function () { picked = {}; refresh(); };
   function setModel(m) {
     MODEL = m; PANELS = m === 'bottle' ? BOTTLE_PANELS : CARTON_PANELS;
     bottleEl.hidden = m !== 'bottle'; carton.hidden = m === 'bottle';
     picked = {}; active = PANELS[0].id; picked[active] = true; spin = !reduce; tilt = -14; angle = 25;
     $('modelTitle').textContent = m === 'bottle' ? '3D bottle preview' : '3D carton preview';
-    $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel, 8 in total.' : 'Tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for AquaAd branding and company information.';
+    $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel. 7 of the 8 are for sale (the lower back holds AquaAd company information), or take a whole side.' : 'Tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for AquaAd branding and company information.';
     $('modelNote').textContent = m === 'bottle' ? 'Illustrative tall PET bottle, 73 mm wide with a 28 mm neck. The label area (73 × 160 mm, two panels per side) is a provisional size.' : 'Illustrative 500 ml gable-top concept, not a manufacturer-approved print dieline.';
     $('rotL').setAttribute('aria-label', 'Rotate left'); $('mockCanvas').hidden = true;
     buildSizeTable(); refresh(); paintPick();
