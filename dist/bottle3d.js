@@ -96,6 +96,21 @@ function studioEnv(renderer) {
   return rt.texture;
 }
 
+// The water surface height, shared by the water body and the surface sheet.
+const SURF_GLSL = `uniform float uT;uniform vec2 uS;uniform float uA;uniform float uL;
+float surf(vec2 p){float w=sin(p.x*.23+uT*1.7)+.6*sin(p.y*.31-uT*1.25)+.35*sin((p.x+p.y)*.52+uT*2.4);return uL+uS.x*p.x+uS.y*p.y+uA*w;}`;
+
+function shoulderHW(y) { const t = Math.min(1, Math.max(0, (y - 178) / 36)); return 14.2 + 22.3 * (1 - smooth(t)); }
+
+function dotTexture() {
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const x = c.getContext('2d'); x.strokeStyle = 'rgba(255,255,255,.95)'; x.lineWidth = 5;
+  x.beginPath(); x.arc(32, 32, 24, 0, Math.PI * 2); x.stroke();
+  x.fillStyle = 'rgba(255,255,255,.28)'; x.beginPath(); x.arc(32, 32, 22, 0, Math.PI * 2); x.fill();
+  x.fillStyle = '#fff'; x.beginPath(); x.arc(24, 24, 5, 0, Math.PI * 2); x.fill();
+  return new THREE.CanvasTexture(c);
+}
+
 function glowTexture() {
   const c = document.createElement('canvas'); c.width = c.height = 256;
   const x = c.getContext('2d'), g = x.createRadialGradient(128, 128, 8, 128, 128, 128);
@@ -130,8 +145,52 @@ export function createBottle(canvas, opts = {}) {
   });
 
   const shellGeo = loft(profile(0, 999), false);
-  const water = new THREE.Mesh(loft(profile(1.4, 199), true), new THREE.MeshPhysicalMaterial({ color: 0x4fc3dc, roughness: .08, metalness: 0, transparent: true, opacity: .3, envMapIntensity: 1.1, depthWrite: false }));
+  // Moving water: the body is cut off at a live surface, so the waterline really moves.
+  const WATER_LEVEL = 201;
+  const U = { uT: { value: 0 }, uS: { value: new THREE.Vector2() }, uA: { value: .5 }, uL: { value: WATER_LEVEL } };
+  const waterMat = new THREE.MeshPhysicalMaterial({ color: 0x4fc3dc, roughness: .08, metalness: 0, transparent: true, opacity: .34, envMapIntensity: 1.1, depthWrite: false, side: THREE.DoubleSide });
+  waterMat.onBeforeCompile = (sh) => {
+    Object.assign(sh.uniforms, U);
+    sh.vertexShader = 'varying vec3 vL;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\nvL=position;');
+    sh.fragmentShader = 'varying vec3 vL;\n' + SURF_GLSL + '\n' + sh.fragmentShader.replace('#include <clipping_planes_fragment>', '#include <clipping_planes_fragment>\nif(vL.y>surf(vL.xz))discard;');
+  };
+  const water = new THREE.Mesh(loft(profile(1.4, 213), true), waterMat);
   water.renderOrder = 1; model.add(water);
+
+  const surfGeo = new THREE.PlaneGeometry(84, 84, 72, 72); surfGeo.rotateX(-Math.PI / 2);
+  const surface = new THREE.Mesh(surfGeo, new THREE.ShaderMaterial({
+    uniforms: U, transparent: true, depthWrite: false, side: THREE.DoubleSide,
+    vertexShader: SURF_GLSL + 'varying vec3 vP;varying vec3 vV;void main(){vec3 p=position;p.y=surf(p.xz);vP=p;vec4 m=modelViewMatrix*vec4(p,1.);vV=normalize(-m.xyz);gl_Position=projectionMatrix*m;}',
+    fragmentShader: SURF_GLSL + `varying vec3 vP;varying vec3 vV;
+      float hw(float y){float t=clamp((y-178.)/36.,0.,1.);float s=t*t*t*(t*(t*6.-15.)+10.);return 14.2+22.3*(1.-s)-1.4;}
+      void main(){float h=hw(vP.y),t=clamp((vP.y-178.)/36.,0.,1.),r=min(h,10.+4.2*t);vec2 q=abs(vP.xz)-(h-r);float d=length(max(q,0.))+min(max(q.x,q.y),0.)-r;if(d>0.)discard;
+      float e=1.-smoothstep(-2.6,0.,d);float rip=.5+.5*sin(vP.x*.9+uT*2.)*sin(vP.z*.8-uT*1.6);vec3 c=mix(vec3(.75,.96,1.),vec3(.36,.82,.92),e);c+=rip*.1;gl_FragColor=vec4(c,mix(.92,.5,e));}`
+  }));
+  surface.renderOrder = 1; model.add(surface);
+
+  // Bubbles rising through the water you can see.
+  const bubbleTex = dotTexture();
+  const bubbleSets = [[18, 5.2], [8, 8.6]].map(([n, size]) => {
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(n * 3), 3));
+    const pts = new THREE.Points(g, new THREE.PointsMaterial({ map: bubbleTex, size, transparent: true, opacity: .85, depthWrite: false, toneMapped: false }));
+    pts.renderOrder = 1; pts.frustumCulled = false; model.add(pts);
+    const items = []; for (let i = 0; i < n; i++) items.push({ y: 160 + Math.random() * 40, a: Math.random() * 6.28, r: .2 + Math.random() * .6, v: 3 + Math.random() * 5, w: Math.random() * 6.28 });
+    return { g, items };
+  });
+  function moveBubbles(dt, time) {
+    bubbleSets.forEach(({ g, items }) => {
+      const a = g.attributes.position;
+      items.forEach((b, i) => {
+        b.y += b.v * dt;
+        const top = WATER_LEVEL + U.uS.value.x * Math.cos(b.a) * 12 + U.uS.value.y * Math.sin(b.a) * 12 - 1;
+        if (b.y > top) { b.y = 160 + Math.random() * 16; b.a = Math.random() * 6.28; b.r = .2 + Math.random() * .6; }
+        const h = shoulderHW(b.y) - 3, wob = Math.sin(time * 2.1 + b.w) * .08;
+        a.setXYZ(i, Math.cos(b.a + wob) * h * b.r, b.y, Math.sin(b.a + wob) * h * b.r);
+      });
+      a.needsUpdate = true;
+    });
+  }
+  moveBubbles(0, 0);
   const shell = new THREE.Mesh(shellGeo, new THREE.MeshPhysicalMaterial({ color: 0xeaf8fc, roughness: .05, metalness: 0, transparent: true, opacity: .13, clearcoat: 1, clearcoatRoughness: .03, envMapIntensity: 2.4, side: THREE.DoubleSide, depthWrite: false }));
   shell.renderOrder = 2; model.add(shell);
   // Bright edges, the thing that makes clear plastic read as clear plastic.
@@ -165,16 +224,38 @@ export function createBottle(canvas, opts = {}) {
     renderer.setSize(w, h, false); frameCamera(w, h);
   }
   function apply(a, t) { spinG.rotation.y = THREE.MathUtils.degToRad(a); tiltG.rotation.x = THREE.MathUtils.degToRad(-t * .55); }
-  function tick() {
+  // Slosh is a damped spring, kicked when the bottle turns or tips.
+  const sl = { x: 0, z: 0, vx: 0, vz: 0, wA: 0, wT: 0, pA: 0, pT: 0 };
+  let last = 0, time = 0;
+  function setLevelFromSlosh(aDeg, tDeg) {
+    const a = THREE.MathUtils.degToRad(aDeg), c = Math.cos(a), s = Math.sin(a);
+    const sx = sl.x, sz = sl.z + Math.tan(THREE.MathUtils.degToRad(-tDeg * .55));
+    U.uS.value.set(sx * c - sz * s, sx * s + sz * c);
+    U.uA.value = .5 + Math.min(1.5, Math.hypot(sl.x, sl.z) * 7);
+  }
+  function stepWater(now) {
+    let dt = Math.min(.05, (now - last) / 1000 || .016); last = now;
+    const wA = (cA - sl.pA) / dt, wT = (cT - sl.pT) / dt; sl.pA = cA; sl.pT = cT;
+    const k = 30, c = 1.5, kick = .16;
+    sl.vx += (-k * sl.x - c * sl.vx + (wA - sl.wA) / dt * kick * .012) * dt;
+    sl.vz += (-k * sl.z - c * sl.vz + (wT - sl.wT) / dt * kick * .03) * dt;
+    sl.wA = wA; sl.wT = wT;
+    sl.x = Math.max(-.3, Math.min(.3, sl.x + sl.vx * dt)); sl.z = Math.max(-.3, Math.min(.3, sl.z + sl.vz * dt));
+    time += dt; U.uT.value = time;
+    moveBubbles(dt, time);
+  }
+  function tick(now) {
     raf = requestAnimationFrame(tick);
-    if (!visible || document.hidden) return;
+    if (!visible || document.hidden) { last = now; return; }
     resize();
     if (snap) { cA = tA; cT = tT; } else { cA += (tA - cA) * .1; cT += (tT - cT) * .1; }
+    if (!snap && now) stepWater(now);
+    setLevelFromSlosh(cA, cT);
     apply(cA, cT);
     renderer.render(scene, camera);
   }
   const io = new IntersectionObserver((e) => { visible = e[0].isIntersecting; }, { rootMargin: '120px' }); io.observe(canvas);
-  tick();
+  tick(0);
 
   if (opts.onDrag) {
     let down = false, px = 0, py = 0;
@@ -187,7 +268,7 @@ export function createBottle(canvas, opts = {}) {
 
   return {
     setRotation(a, t) { tA = a; tT = t; },
-    jump(a, t) { tA = cA = a; tT = cT = t; },
+    jump(a, t) { tA = cA = sl.pA = a; tT = cT = sl.pT = t; },
     updateLabels(draw) {
       SIDES.forEach((side) => { const f = faces[side]; f.ctx.save(); draw(side, f.ctx, f.canvas.width, f.canvas.height); f.ctx.restore(); f.tex.needsUpdate = true; });
     },
@@ -196,7 +277,7 @@ export function createBottle(canvas, opts = {}) {
       const pr = renderer.getPixelRatio();
       renderer.setPixelRatio(1); renderer.setSize(w * 2, h * 2, false);
       const fov = camera.fov; frameCamera(w, h);
-      apply(deg, 0); shadow.scale.setScalar(.46);
+      apply(deg, 0); shadow.scale.setScalar(.46); U.uS.value.set(0, 0); U.uA.value = .4;
       renderer.render(scene, camera);
       ctx.drawImage(canvas, x, y, w, h);
       shadow.scale.setScalar(shadowSize);
