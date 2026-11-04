@@ -317,6 +317,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
         <div class="row"><button class="btn" id="mockBtn" type="button">Preview my mockup</button><span class="mut" id="mockNote" style="font-size:14px">We send you a four-sided mockup of your artwork on the carton with your enquiry.</span></div>
         <canvas id="mockCanvas" width="1536" height="1024" hidden aria-label="Mockup of your artwork on the four sides of the carton" style="width:100%;max-width:900px;border-radius:16px;background:#E5E6E8"></canvas>
       </div>
+      <p class="mut" style="font-size:13px">Your design and details are kept in this browser for 24 hours, so a refresh will not lose them. <button type="button" id="clearSaved" style="background:none;border:0;padding:0;font:inherit;color:#0B6E8A;text-decoration:underline;cursor:pointer">Clear saved data</button></p>
       <div id="sendFormHost"></div>
     </div>
   </div>
@@ -388,6 +389,25 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     return e;
   }
 
+  /* ---------- keep entries in this browser for a while (24 h) ---------- */
+  var KEEP_MS = 24 * 60 * 60 * 1000, DKEY = 'aquaad.design', FKEY = 'aquaad.form.';
+  function lsGet(k) { try { var v = JSON.parse(localStorage.getItem(k) || 'null'); if (v && Date.now() - v.t < KEEP_MS) return v; if (v) localStorage.removeItem(k); } catch (e) {} return null; }
+  function lsSet(k, o) { try { o.t = Date.now(); localStorage.setItem(k, JSON.stringify(o)); } catch (e) {} }
+  function lsDel(k) { try { localStorage.removeItem(k); } catch (e) {} }
+  var dbp = null;
+  function db() {
+    if (dbp) return dbp;
+    dbp = new Promise(function (res) {
+      try { var r = indexedDB.open('aquaad', 1); r.onupgradeneeded = function () { r.result.createObjectStore('art'); }; r.onsuccess = function () { res(r.result); }; r.onerror = function () { res(null); }; } catch (e) { res(null); }
+    });
+    return dbp;
+  }
+  function idbRun(mode, fn) { return db().then(function (d) { if (!d) return null; return new Promise(function (res) { try { var t = d.transaction('art', mode), out = fn(t.objectStore('art')); t.oncomplete = function () { res(out && out.result !== undefined ? out.result : out); }; t.onerror = t.onabort = function () { res(null); }; } catch (e) { res(null); } }); }); }
+  function idbPut(k, v) { return idbRun('readwrite', function (s) { s.put(v, k); }); }
+  function idbDel(k) { return idbRun('readwrite', function (s) { s.delete(k); }); }
+  function idbClear() { return idbRun('readwrite', function (s) { s.clear(); }); }
+  function idbAll() { return db().then(function (d) { return new Promise(function (res) { if (!d) { res([]); return; } var out = []; try { var rq = d.transaction('art', 'readonly').objectStore('art').openCursor(); rq.onsuccess = function () { var c = rq.result; if (c) { out.push([c.key, c.value]); c.continue(); } else res(out); }; rq.onerror = function () { res([]); }; } catch (e) { res([]); } }); }); }
+
   /* ---------- enquiry forms ---------- */
   function readFile(file) {
     return new Promise(function (res, rej) {
@@ -439,6 +459,19 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     );
     var msgLabel = msg.parentNode; extraEls.forEach(function (el) { f.insertBefore(el, msgLabel); });
     host.replaceChildren(f);
+    var fkey = FKEY + opts.kind;
+    function snapshot() { var o = { name: name.value, company: company.value, phone: phone.value, email: email.value, message: msg.value, fields: {} }; fieldRefs.forEach(function (r) { o.fields[r.key] = r.type === 'checkbox' ? r.el.checked : r.el.value; }); return o; }
+    var saved = lsGet(fkey);
+    if (saved) {
+      name.value = saved.name || ''; company.value = saved.company || ''; phone.value = saved.phone || ''; email.value = saved.email || ''; msg.value = saved.message || '';
+      fieldRefs.forEach(function (r) { var v = saved.fields && saved.fields[r.key]; if (v === undefined) return; if (r.type === 'checkbox') r.el.checked = !!v; else r.el.value = v; });
+    }
+    var tmr = null;
+    function keep() { clearTimeout(tmr); tmr = setTimeout(function () { lsSet(fkey, snapshot()); }, 300); }
+    f.addEventListener('input', keep); f.addEventListener('change', keep);
+    var clr = h('button', { type: 'button', style: 'background:none;border:0;padding:0;font:inherit;color:#0B6E8A;text-decoration:underline;cursor:pointer', text: 'Clear saved details' });
+    clr.onclick = function () { lsDel(fkey); f.reset(); say('Saved details cleared.', 'mut'); };
+    f.insertBefore(h('p', { class: 'mut', style: 'font-size:13px' }, 'What you type is kept in this browser for 24 hours so a refresh will not lose it. ', clr), status.parentNode ? status : null);
     function say(text, cls) { status.className = cls || ''; status.textContent = text; }
     f.addEventListener('submit', function (ev) {
       ev.preventDefault();
@@ -464,7 +497,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
         .then(function (res) {
           if (!res.ok) throw new Error(res.d.error || 'Something went wrong. Please try again or call us.');
-          f.reset();
+          f.reset(); lsDel(fkey); if (opts.onSent) opts.onSent();
           say('Thank you! We have received your ' + (opts.kind === 'advertise' ? 'design' : 'message') + (res.d.reference ? '. Your reference is ' + res.d.reference : '') + '. Our team will get back to you.', 'ok');
         })
         .catch(function (e) { say(e.message && e.message.indexOf('fetch') < 0 ? e.message : 'We could not send this right now. Please check your connection or call +91 9191919191.', 'err'); })
@@ -696,17 +729,32 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     var units = n.reduce(function (a, p) { return a + (p.whole ? 2 : 1); }, 0), total = PANELS.filter(function (p) { return !p.whole; }).length;
     $('count').textContent = units + ' of ' + total + ' panels selected';
     chipsEl.replaceChildren();
-    var sawWhole = false;
+    function pickPanel(p) {
+      picked[p.id] = true;
+      if (p.whole) halvesOf(p.id).forEach(function (x) { delete picked[x]; });
+      else if (MODEL === 'bottle') delete picked[wholeOf(p.id)];
+      active = p.id; spin = false; angle = nearest(FACE_ANGLE[p.face]); tilt = -12; refresh();
+    }
     PANELS.forEach(function (p) {
-      if (p.whole && !sawWhole) { sawWhole = true; chipsEl.append(h('div', { style: 'flex-basis:100%;font-size:14px;color:#5B6770', text: 'Or take a whole side, both panels in one design (73 × 170 mm):' })); }
+      if (p.whole) {
+        if (!picked[p.id]) return;
+        var wb = h('button', { type: 'button', class: 'chip' + (active === p.id ? ' active' : ''), 'aria-pressed': 'true', title: 'Click to remove the whole-side design', text: p.name + ' ✕' });
+        wb.onclick = function () { if (active === p.id) { delete picked[p.id]; delete images[p.id]; active = halvesOf(p.id)[0]; refresh(); } else { active = p.id; spin = false; angle = nearest(FACE_ANGLE[p.face]); refresh(); } };
+        chipsEl.append(wb); return;
+      }
+      if (MODEL === 'bottle' && picked[wholeOf(p.id)]) return;
       var b = h('button', { type: 'button', class: 'chip' + (active === p.id ? ' active' : ''), 'aria-pressed': picked[p.id] ? 'true' : 'false', text: p.name });
-      b.onclick = function () {
-        picked[p.id] = !picked[p.id];
-        if (picked[p.id] && p.whole) halvesOf(p.id).forEach(function (x) { delete picked[x]; });
-        else if (picked[p.id] && MODEL === 'bottle') delete picked[wholeOf(p.id)];
-        active = p.id; spin = false; angle = nearest(FACE_ANGLE[p.face]); tilt = -12; refresh(); };
+      b.onclick = function () { if (picked[p.id]) { delete picked[p.id]; active = p.id; refresh(); } else pickPanel(p); };
       chipsEl.append(b);
     });
+    var wholes = PANELS.filter(function (p) { return p.whole && !picked[p.id]; });
+    if (wholes.length) {
+      var sel = h('select', { 'aria-label': 'Add a whole side', style: 'min-height:48px;border-radius:14px;border:2px solid #B9CFD8;padding:0 14px;font:inherit;font-weight:600;background:#fff' });
+      sel.append(h('option', { value: '', text: 'Add a whole side (both panels, 73 × 170 mm)…' }));
+      wholes.forEach(function (p) { sel.append(h('option', { value: p.id, text: p.name })); });
+      sel.onchange = function () { var p = PANELS.filter(function (x) { return x.id === sel.value; })[0]; if (p) pickPanel(p); };
+      chipsEl.append(h('div', { style: 'flex-basis:100%' }, sel));
+    }
     var ap = PANELS.filter(function (p) { return p.id === active; })[0];
     $('artSize').textContent = sizeText(ap);
     $('artTitle').textContent = ap.name + ' artwork';
@@ -729,7 +777,33 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     $('sendSummary').textContent = n.length ? n.map(function (p) { return p.name; }).join(', ') + ' · ' + withArt + ' artwork file' + (withArt === 1 ? '' : 's') + ' ready to send.' : 'Select at least one panel above, then add your details.';
     $('spinBtn').textContent = spin ? 'Pause rotation' : 'Resume rotation'; $('spinBtn').setAttribute('aria-pressed', spin ? 'true' : 'false');
   }
-  function refresh() { paintCarton(); paintUI(); }
+  var ready = false, persisted = {};
+  function saveDesign() {
+    if (!ready) return;
+    lsSet(DKEY, { model: MODEL, picked: picked, active: active });
+    Object.keys(images).forEach(function (id) { if (persisted[id] !== images[id].file) { persisted[id] = images[id].file; idbPut(id, { file: images[id].file, t: Date.now() }); } });
+    Object.keys(persisted).forEach(function (id) { if (!images[id]) { delete persisted[id]; idbDel(id); } });
+  }
+  function refresh() { paintCarton(); paintUI(); saveDesign(); }
+  function restoreFor(saved) {
+    var ids = {}; PANELS.forEach(function (p) { ids[p.id] = true; });
+    picked = {}; Object.keys(saved.picked || {}).forEach(function (k) { if (ids[k] && saved.picked[k]) picked[k] = true; });
+    if (ids[saved.active]) active = saved.active;
+    if (!Object.keys(picked).length) { picked[PANELS[0].id] = true; active = PANELS[0].id; }
+    return idbAll().then(function (rows) {
+      rows.forEach(function (r) {
+        var id = r[0], v = r[1];
+        if (!v || !v.file || Date.now() - (v.t || 0) > KEEP_MS) { idbDel(id); return; }
+        if (!ids[id] || images[id]) return;
+        images[id] = { file: v.file, url: URL.createObjectURL(v.file) }; persisted[id] = v.file;
+      });
+      refresh();
+    });
+  }
+  function clearDesignState() {
+    Object.keys(images).forEach(function (id) { try { URL.revokeObjectURL(images[id].url); } catch (e) {} });
+    images = {}; persisted = {}; lsDel(DKEY); idbClear(); setModel(MODEL);
+  }
   $('rotL').onclick = function () { spin = false; angle -= 45; refresh(); };
   $('rotR').onclick = function () { spin = false; angle += 45; refresh(); };
   $('spinBtn').onclick = function () { spin = !spin; refresh(); };
@@ -757,7 +831,10 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     });
   }
   bottleEl.hidden = false; carton.hidden = true; setModel('bottle'); requestAnimationFrame(loop);
-  fetch(API + '/api/settings').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.show_carton) { showCarton = true; paintPick(); } }).catch(function () {});
+  var savedDesign = lsGet(DKEY);
+  if (savedDesign && savedDesign.model === 'bottle') restoreFor(savedDesign).then(function () { ready = true; }); else ready = true;
+  $('clearSaved').onclick = function () { lsDel(DKEY); lsDel(FKEY + 'advertise'); idbClear().then(function () { location.reload(); }); };
+  fetch(API + '/api/settings').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.show_carton) { showCarton = true; paintPick(); if (savedDesign && savedDesign.model === 'carton') { ready = false; setModel('carton'); restoreFor(savedDesign).then(function () { ready = true; }); } } }).catch(function () {});
   $('mockBtn').onclick = function () {
     var any = PANELS.some(function (p) { return picked[p.id] && images[p.id]; });
     if (!any) { $('mockNote').textContent = 'Upload artwork to a selected panel first, then preview your mockup.'; return; }
@@ -766,7 +843,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   };
 
   buildForm($('sendFormHost'), {
-    kind: 'advertise', button: 'Send my design to AquaAd', artwork: true, makeMockup: function () { return makeMockupFile(); },
+    kind: 'advertise', button: 'Send my design to AquaAd', artwork: true, onSent: function () { clearDesignState(); }, makeMockup: function () { return makeMockupFile(); },
     fields: [{ key: 'business_type', label: 'Business type', type: 'select', required: true, options: ['Consumer brand','Retail / e-commerce','Restaurant / food service','Real estate','Education','Healthcare','Technology / app','Entertainment / media','Non-profit','Other'] }, { key: 'advertising', label: 'What do you want to advertise?', type: 'text', required: true }, { key: 'budget', label: 'Budget', type: 'select', options: ['Under ₹50,000', '₹50,000 – ₹2,00,000', '₹2,00,000 – ₹10,00,000', 'Over ₹10,00,000', 'Not sure yet'] }, { key: 'timeline', label: 'When do you want to start?', type: 'select', options: ['As soon as possible', 'Within 1 month', '1–3 months', 'Just exploring'] }, { key: 'delivery_city', label: 'City for delivery', type: 'text' }], placeholder: 'Tell us about your campaign, dates or questions.',
     beforeSend: function () {
       var sel = PANELS.filter(function (p) { return picked[p.id]; });
