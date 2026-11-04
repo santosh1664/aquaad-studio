@@ -1,4 +1,4 @@
-// AquaAd bottle: real-time WebGL render. Units are millimetres.
+// WaterOnUs bottle: real-time WebGL render. Units are millimetres.
 // Label area is 73 x 170 mm: y = 7 to 177 on the bottle body.
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 

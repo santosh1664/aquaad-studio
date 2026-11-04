@@ -129,7 +129,7 @@ async function adminList(url) {
   return rows.map((r) => ({ ...r, panels: asJson(r.panels) || [], details: asJson(r.details) || {}, artworks: asJson(r.artworks) || [] }));
 }
 
-const ADMIN_HTML = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>AquaAd Admin</title>
+const ADMIN_HTML = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>WaterOnUs Admin</title>
 <style>
 :root{--ink:#0F172A;--sec:#334155;--mut:#475569;--line:#E2E8F0;--acc:#0369A1;--acc-d:#075985;--bg:#F8FAFC;--sky:#E0F2FE}
 [hidden]{display:none!important}*{box-sizing:border-box}body{margin:0;font:16px/1.55 'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
@@ -146,7 +146,7 @@ input,select,textarea{border:1.5px solid #CBD5E1;border-radius:10px;padding:10px
 .grid figure{margin:0;border:1px solid var(--line);border-radius:12px;padding:8px;background:var(--bg)}.grid img{width:100%;height:140px;object-fit:contain;background:#fff;border-radius:8px}
 .mut{color:var(--mut);font-size:14px}h3{margin:0 0 6px;letter-spacing:-.02em}.err{color:#B42318;font-weight:600}
 </style></head><body>
-<header><strong>aqua<b>ad</b><small>Admin</small></strong><span class="row" id="tools" hidden><select id="filter" aria-label="Filter by status" style="width:auto"><option value="">All</option><option value="new">New</option><option value="reviewed">Reviewed</option><option value="done">Done</option></select><button id="refresh">Refresh</button><button id="logout">Log out</button></span></header>
+<header><strong>Water<b>OnUs</b><small>Admin</small></strong><span class="row" id="tools" hidden><select id="filter" aria-label="Filter by status" style="width:auto"><option value="">All</option><option value="new">New</option><option value="reviewed">Reviewed</option><option value="done">Done</option></select><button id="refresh">Refresh</button><button id="logout">Log out</button></span></header>
 <main><div id="login" class="card"><h3>Admin login</h3><p class="mut">Enter the admin password.</p><form id="lf" class="row"><label style="flex:1 1 240px">Password<input id="pw" type="password" autocomplete="current-password" required></label><button class="p" type="submit">Log in</button></form><p id="lerr" class="err" role="alert"></p></div><div id="settings" class="card" hidden><h3>Website 3D model</h3><p class="mut">The 500 ml bottle is always shown. Turn this on to also show the gable-top carton model on the website.</p><label class="row" style="gap:8px"><input id="showCarton" type="checkbox" style="width:auto"> <span>Show the carton model on the website</span></label><p id="setMsg" class="mut" role="status"></p></div><div id="list" hidden></div></main>
 <script>
 const $=(i)=>document.getElementById(i);let pw=sessionStorage.getItem('aq_admin')||'';

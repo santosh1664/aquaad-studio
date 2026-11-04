@@ -1,9 +1,9 @@
 <div align="center">
 
-# aquaad
+# WaterOnUs
 
 **The billboard people carry.**
-Put your brand on 500 ml water bottles. See it on a real 3D bottle, then send it to the AquaAd team.
+Put your brand on 500 ml water bottles. See it on a real 3D bottle, then send it to the WaterOnUs team.
 
 [**Live site**](https://santosh1664.github.io/aquaad-studio/) &nbsp;·&nbsp;
 [Advertise](https://santosh1664.github.io/aquaad-studio/#sides) &nbsp;·&nbsp;
@@ -29,9 +29,9 @@ Put your brand on 500 ml water bottles. See it on a real 3D bottle, then send it
 
 ## What it does
 
-- **Design studio.** A real-time WebGL bottle you can drag to turn (73 mm wide, label area 73 × 170 mm) with seven ad panels for sale: upper and lower on the front, right and left, plus the upper back. Take a single panel or a whole side. The lower back is reserved for AquaAd company information.
+- **Design studio.** A real-time WebGL bottle you can drag to turn (73 mm wide, label area 73 × 170 mm) with seven ad panels for sale: upper and lower on the front, right and left, plus the upper back. Take a single panel or a whole side. The lower back is reserved for WaterOnUs company information.
 - **Artwork tools.** Upload JPG, PNG or WEBP (max 3 MB), rotate it, see the exact artwork size and bleed for each panel, and preview a four-sided render of the bottle.
-- **Send to AquaAd.** The enquiry, the artwork files and the four-sided render go to the admin inbox.
+- **Send to WaterOnUs.** The enquiry, the artwork files and the four-sided render go to the admin inbox.
 - **Distribute, partner and invest.** Venues, manufacturers, water partners and investors each open a pop-up form.
 - **Kept for 24 hours.** Panels, artwork and typed details stay in the visitor's own browser, so a refresh does not lose them.
 - **Admin switch.** The admin page can bring back the older gable-top carton model for visitors.
