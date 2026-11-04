@@ -827,11 +827,9 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       };
       acts.append(h('label', { class: 'upl' }, images[active] ? 'Replace artwork' : 'Upload artwork', inp));
       if (images[active]) {
-        [['Rotate left', -90, '↺'], ['Rotate right', 90, '↻']].forEach(function (r) {
-          var rb = h('button', { type: 'button', class: 'btn', 'aria-label': r[0] + ' 90 degrees', text: r[2] + ' ' + r[0] });
-          rb.onclick = function () { rotateActive(r[1], rb); };
-          acts.append(rb);
-        });
+        var rb = h('button', { type: 'button', class: 'btn', 'aria-label': 'Rotate artwork 90 degrees', text: '↻ Rotate' });
+        rb.onclick = function () { rotateActive(90, rb); };
+        acts.append(rb);
       }
       if (images[active]) { var rm = h('button', { type: 'button', class: 'btn', text: 'Remove artwork' }); rm.onclick = function () { URL.revokeObjectURL(images[active].url); delete images[active]; refresh(); }; acts.append(rm); }
     } else { $('artHint').textContent = 'Add this panel from the list above to upload artwork. Panels you do not add keep AquaAd branding.'; }
