@@ -18,14 +18,15 @@ AquaAd turns everyday 500 ml water bottles into a brand surface. Brands pick the
 - Calls to action: Design your bottle, Distribute with us, Become a partner, Request investor information.
 
 ## Visual identity
-Deep water, one loud colour, very large type. It should feel like a media brand, not a software template.
+Deep water, one bright water colour, very large type. It should feel like a media brand, not a software template.
 
 | Token | Value | Use |
 |---|---|---|
 | Abyss | #04141C | dark sections, text on light and on orange |
 | Paper / Ice | #F8FAF9 / #EDF3F2 | light sections |
-| Signal | #FF5A1F | primary actions, the cap, the "ad" in the wordmark. Always dark text on it |
-| Sea | #7FD4E6 | accent on dark only |
+| Aqua | #2BD4F0 | primary actions, the cap, the "ad" in the wordmark. Always dark text on it |
+| Deep aqua | #0A7A96 | accent text and focus rings on light backgrounds |
+| Sea | #A4ECF8 | italic accent on dark only |
 
 - Display: Bricolage Grotesque 700, tight tracking, very large. One italic word in Instrument Serif for emphasis.
 - Body: Geist. Specs and labels: Geist Mono, uppercase.

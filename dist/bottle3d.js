@@ -142,7 +142,7 @@ export function createBottle(canvas, opts = {}) {
   }));
   rim.renderOrder = 3; model.add(rim);
 
-  const cap = new THREE.Mesh(capGeometry(), new THREE.MeshPhysicalMaterial({ color: opts.capColor || 0xff5a1f, emissive: opts.capColor || 0xff5a1f, emissiveIntensity: .42, roughness: .34, metalness: 0, clearcoat: .6, clearcoatRoughness: .25, envMapIntensity: .8 }));
+  const cap = new THREE.Mesh(capGeometry(), new THREE.MeshPhysicalMaterial({ color: opts.capColor || 0x2bd4f0, emissive: opts.capColor || 0x2bd4f0, emissiveIntensity: .42, roughness: .34, metalness: 0, clearcoat: .6, clearcoatRoughness: .25, envMapIntensity: .8 }));
   cap.position.y = 221; model.add(cap);
 
   const shadow = new THREE.Mesh(new THREE.PlaneGeometry(210, 210), new THREE.MeshBasicMaterial({ map: glowTexture(), transparent: true, depthWrite: false, toneMapped: false }));

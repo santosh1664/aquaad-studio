@@ -93,7 +93,7 @@ A new deployment replaces the environment, so always pass `ADMIN_PASSWORD` again
 
 ## Design
 
-Palette, type and voice are written down in [`docs/brand-guidelines.md`](docs/brand-guidelines.md): abyss `#04141C`, signal orange `#FF5A1F`, Bricolage Grotesque with Instrument Serif and Geist. 44 px touch targets, visible focus rings, reduced-motion support.
+Palette, type and voice are written down in [`docs/brand-guidelines.md`](docs/brand-guidelines.md): abyss `#04141C`, aqua `#2BD4F0`, Bricolage Grotesque with Instrument Serif and Geist. 44 px touch targets, visible focus rings, reduced-motion support.
 
 ## Status and open items
 
