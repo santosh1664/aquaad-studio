@@ -170,7 +170,10 @@ button{cursor:pointer}
 .tbl td.res{color:var(--mut);font-family:var(--mono);font-size:13px}
 .notes{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15px;color:var(--mut)}
 .studio-low{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:20px;margin-top:20px;align-items:start}
-#mockCanvas{width:100%;border-radius:16px;background:var(--abyss)}
+.mockframe{position:relative;aspect-ratio:3/2;border-radius:16px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:radial-gradient(60% 70% at 50% 55%,#17566A 0%,rgba(23,86,106,0) 80%),var(--abyss);--ink:var(--on-dark)}
+#mockCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#mockWrap{position:sticky;top:96px}
+@media (max-width:1040px){#mockWrap{position:static}}
 
 /* forms */
 form.f{display:flex;flex-direction:column;gap:14px}
@@ -413,10 +416,13 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
     </div>
     <div class="studio-low">
       <div class="card" id="mockWrap">
-        <h3>Your four-sided render</h3>
-        <p class="mut" id="mockNote" style="font-size:15px">We receive this render of your bottle with your enquiry.</p>
-        <canvas id="mockCanvas" width="1536" height="1024" hidden role="img" aria-label="Render of your artwork on the four sides of the bottle"></canvas>
-        <div class="row"><button class="btn" id="mockBtn" type="button">Preview my render</button></div>
+        <h3>See all four sides</h3>
+        <div class="mockframe dark">
+          <canvas id="mockCanvas" width="1536" height="1024" hidden role="img" aria-label="Render of your artwork on the four sides of the bottle"></canvas>
+          <button class="btn p lg" id="mockBtn" type="button">Preview my bottle</button>
+        </div>
+        <p class="mut" id="mockNote" style="font-size:15px">A four-sided render of your bottle is sent to us with your enquiry.</p>
+        <button class="lnk" id="mockClose" type="button" hidden style="align-self:flex-start">Close preview</button>
       </div>
       <div class="card" id="sendBox">
         <h3 style="font-size:clamp(28px,3vw,42px);letter-spacing:-.04em;line-height:1">Send your design to WaterOnUs</h3>
@@ -977,7 +983,18 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
     Object.keys(images).forEach(function (id) { if (persisted[id] !== images[id].file) { persisted[id] = images[id].file; idbPut(id, { file: images[id].file, t: Date.now() }); } });
     Object.keys(persisted).forEach(function (id) { if (!images[id]) { delete persisted[id]; idbDel(id); } });
   }
-  function refresh() { paintCarton(); paintUI(); saveDesign(); }
+  var previewOpen = false, previewTimer = null;
+  function drawPreview() {
+    var has = PANELS.some(function (p) { return picked[p.id] && images[p.id]; });
+    $('mockNote').textContent = (has ? 'This updates as you change panels and artwork.' : 'Dashed panels show where your artwork will go.') + ' We receive this render with your enquiry.';
+    return drawMockup($('mockCanvas'));
+  }
+  function setPreview(open) {
+    previewOpen = open; clearTimeout(previewTimer);
+    $('mockCanvas').hidden = !open; $('mockBtn').hidden = open; $('mockClose').hidden = !open;
+    if (open) drawPreview(); else $('mockNote').textContent = 'A four-sided render of your bottle is sent to us with your enquiry.';
+  }
+  function refresh() { paintCarton(); paintUI(); saveDesign(); if (previewOpen) { clearTimeout(previewTimer); previewTimer = setTimeout(drawPreview, 250); } }
   function restoreFor(saved) {
     var ids = {}; PANELS.forEach(function (p) { ids[p.id] = true; });
     picked = {}; Object.keys(saved.picked || {}).forEach(function (k) { if (ids[k] && saved.picked[k]) picked[k] = true; });
@@ -1009,7 +1026,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
     $('modelTitle').textContent = m === 'bottle' ? 'Put it on the bottle.' : 'Put it on the carton.';
     $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want, then upload artwork to each one. Take all 7 panels for sale, or share the bottle with non-competing brands. The lower back holds WaterOnUs company information.' : 'Open the list and tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for WaterOnUs branding and company information.';
     $('modelNote').textContent = m === 'bottle' ? 'Illustrative tall PET bottle, 73 mm wide with a 28 mm neck. The label area (73 × 170 mm, two panels per side) is a provisional size.' : 'Illustrative 500 ml gable-top concept, not a manufacturer-approved print dieline.';
-    $('rotL').setAttribute('aria-label', 'Rotate left'); $('mockCanvas').hidden = true;
+    $('rotL').setAttribute('aria-label', 'Rotate left'); setPreview(false);
     buildSizeTable(); refresh(); paintPick();
   }
   var showCarton = false;
@@ -1027,12 +1044,8 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
   if (savedDesign && savedDesign.model === 'bottle') restoreFor(savedDesign).then(function () { ready = true; }); else ready = true;
   $('clearSaved').onclick = function () { lsDel(DKEY); lsDel(FKEY + 'advertise'); idbClear().then(function () { location.reload(); }); };
   fetch(API + '/api/settings').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { if (d && d.show_carton) { showCarton = true; paintPick(); if (savedDesign && savedDesign.model === 'carton') { ready = false; setModel('carton'); restoreFor(savedDesign).then(function () { ready = true; }); } } }).catch(function () {});
-  $('mockBtn').onclick = function () {
-    var any = PANELS.some(function (p) { return picked[p.id] && images[p.id]; });
-    if (!any) { $('mockNote').textContent = 'Upload artwork to a selected panel first, then preview your render.'; return; }
-    var c = $('mockCanvas'); c.hidden = false; $('mockNote').textContent = 'Rendering your bottle…';
-    drawMockup(c).then(function () { $('mockNote').textContent = 'This render is sent to us with your enquiry.'; });
-  };
+  $('mockBtn').onclick = function () { setPreview(true); $('mockClose').focus(); };
+  $('mockClose').onclick = function () { setPreview(false); $('mockBtn').focus(); };
 
   buildForm($('sendFormHost'), {
     kind: 'advertise', button: 'Send my design to WaterOnUs', artwork: true, onSent: function () { clearDesignState(); }, makeMockup: function () { return makeMockupFile(); },
