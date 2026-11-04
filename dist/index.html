@@ -482,18 +482,18 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     { id: 'leftUp', name: 'Left · upper', face: 'left', pos: 'top' },
     { id: 'leftLow', name: 'Left · lower', face: 'left', pos: 'bot' }
   ];
-  /* Tall 500 ml-style PET bottle, 73 mm wide, 28 mm neck, label area 73 x 160 mm split into 2 panels per side. Sizes are PROVISIONAL. */
+  /* Tall 500 ml-style PET bottle, 73 mm wide, 28 mm neck, label area 73 x 170 mm split into 2 panels per side. Sizes are PROVISIONAL. */
   var BOTTLE_PANELS = [
-    { id: 'bFrontUp', name: 'Front · upper', face: 'front', pos: 'top', w: 73, h: 80 },
-    { id: 'bFrontLow', name: 'Front · lower', face: 'front', pos: 'bot', w: 73, h: 80 },
-    { id: 'bRightUp', name: 'Right · upper', face: 'right', pos: 'top', w: 73, h: 80 },
-    { id: 'bRightLow', name: 'Right · lower', face: 'right', pos: 'bot', w: 73, h: 80 },
-    { id: 'bBackUp', name: 'Back · upper', face: 'back', pos: 'top', w: 73, h: 80 },
-    { id: 'bLeftUp', name: 'Left · upper', face: 'left', pos: 'top', w: 73, h: 80 },
-    { id: 'bLeftLow', name: 'Left · lower', face: 'left', pos: 'bot', w: 73, h: 80 },
-    { id: 'bFront', name: 'Front · whole side', face: 'front', pos: 'both', w: 73, h: 160, whole: true },
-    { id: 'bRight', name: 'Right · whole side', face: 'right', pos: 'both', w: 73, h: 160, whole: true },
-    { id: 'bLeft', name: 'Left · whole side', face: 'left', pos: 'both', w: 73, h: 160, whole: true }
+    { id: 'bFrontUp', name: 'Front · upper', face: 'front', pos: 'top', w: 73, h: 85 },
+    { id: 'bFrontLow', name: 'Front · lower', face: 'front', pos: 'bot', w: 73, h: 85 },
+    { id: 'bRightUp', name: 'Right · upper', face: 'right', pos: 'top', w: 73, h: 85 },
+    { id: 'bRightLow', name: 'Right · lower', face: 'right', pos: 'bot', w: 73, h: 85 },
+    { id: 'bBackUp', name: 'Back · upper', face: 'back', pos: 'top', w: 73, h: 85 },
+    { id: 'bLeftUp', name: 'Left · upper', face: 'left', pos: 'top', w: 73, h: 85 },
+    { id: 'bLeftLow', name: 'Left · lower', face: 'left', pos: 'bot', w: 73, h: 85 },
+    { id: 'bFront', name: 'Front · whole side', face: 'front', pos: 'both', w: 73, h: 170, whole: true },
+    { id: 'bRight', name: 'Right · whole side', face: 'right', pos: 'both', w: 73, h: 170, whole: true },
+    { id: 'bLeft', name: 'Left · whole side', face: 'left', pos: 'both', w: 73, h: 170, whole: true }
   ];
   function halvesOf(id) { return [id + 'Up', id + 'Low']; }
   function wholeOf(id) { return id.replace(/(Up|Low)$/, ''); }
@@ -543,8 +543,8 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
       var r = 'rotateY(' + a[1] + 'deg) ';
       var b = f(r + 'translate3d(0,' + yBody + 'px,' + W / 2 + 'px)', W, BH, glass);
       var zt = h('div', { class: 'zone' }), zb = h('div', { class: 'zone' });
-      zt.style.cssText += ';position:absolute;left:0;right:0;top:14px;height:111px;font-size:12px';
-      zb.style.cssText += ';position:absolute;left:0;right:0;top:127px;height:111px;font-size:12px';
+      zt.style.cssText += ';position:absolute;left:0;right:0;top:8px;height:124px;font-size:12px';
+      zb.style.cssText += ';position:absolute;left:0;right:0;top:134px;height:124px;font-size:12px';
       b.append(zt, zb); bz[a[0]] = { top: zt, bot: zb };
       f(r + 'translate3d(0,' + ySh + 'px,' + mid + 'px) rotateX(' + slope.toFixed(2) + 'deg)', W, slant, glass, 'polygon(' + ((W - NW) / 2 / W * 100).toFixed(1) + '% 0,' + ((W + NW) / 2 / W * 100).toFixed(1) + '% 0,100% 100%,0 100%)');
       f(r + 'translate3d(0,' + yNeck + 'px,' + NW / 2 + 'px)', NW, NH, 'linear-gradient(90deg,rgba(143,200,226,.8),rgba(232,246,252,.9) 50%,rgba(143,200,226,.8))');
@@ -657,7 +657,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     ctx.beginPath(); ctx.moveTo(cx - nw / 2, nT); ctx.lineTo(cx - nw / 2, shT); ctx.quadraticCurveTo(bx, shT + 6, bx, bt); ctx.lineTo(bx, bottom - 14); ctx.quadraticCurveTo(bx, bottom, bx + 14, bottom);
     ctx.lineTo(bx + bw - 14, bottom); ctx.quadraticCurveTo(bx + bw, bottom, bx + bw, bottom - 14); ctx.lineTo(bx + bw, bt); ctx.quadraticCurveTo(bx + bw, shT + 6, cx + nw / 2, shT); ctx.lineTo(cx + nw / 2, nT); ctx.closePath(); ctx.fill(); ctx.stroke();
     ctx.fillStyle = '#3EB7E8'; roundRect(ctx, cx - nw / 2 - 5, cT, nw + 10, nT - cT, 6); ctx.fill(); ctx.strokeStyle = '#1E8FBF'; ctx.stroke();
-    var half = 80 * S, lt = bottom - 8 * S - 2 * half;
+    var half = 85 * S, lt = bottom - 2 * S - 2 * half;
     if (f[4] && picked[f[4]]) {
       ctx.save(); ctx.beginPath(); ctx.rect(bx, lt, bw, 2 * half); ctx.clip(); zoneFill(ctx, f[4], imgs, bx, lt, bw, 2 * half); ctx.restore();
       ctx.strokeStyle = 'rgba(0,0,0,.14)'; ctx.lineWidth = 2; ctx.strokeRect(bx, lt, bw, 2 * half);
@@ -698,7 +698,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     chipsEl.replaceChildren();
     var sawWhole = false;
     PANELS.forEach(function (p) {
-      if (p.whole && !sawWhole) { sawWhole = true; chipsEl.append(h('div', { style: 'flex-basis:100%;font-size:14px;color:#5B6770', text: 'Or take a whole side, both panels in one design (73 × 160 mm):' })); }
+      if (p.whole && !sawWhole) { sawWhole = true; chipsEl.append(h('div', { style: 'flex-basis:100%;font-size:14px;color:#5B6770', text: 'Or take a whole side, both panels in one design (73 × 170 mm):' })); }
       var b = h('button', { type: 'button', class: 'chip' + (active === p.id ? ' active' : ''), 'aria-pressed': picked[p.id] ? 'true' : 'false', text: p.name });
       b.onclick = function () {
         picked[p.id] = !picked[p.id];
@@ -742,7 +742,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     picked = {}; active = PANELS[0].id; picked[active] = true; spin = !reduce; tilt = -14; angle = 25;
     $('modelTitle').textContent = m === 'bottle' ? '3D bottle preview' : '3D carton preview';
     $('modelLead').textContent = m === 'bottle' ? 'Tick the panels you want to advertise on, then upload artwork to each one. Each side has an upper and a lower panel. 7 of the 8 are for sale (the lower back holds AquaAd company information), or take a whole side.' : 'Tick the panels you want to advertise on, then upload artwork to each one. The roof and the lower back are reserved for AquaAd branding and company information.';
-    $('modelNote').textContent = m === 'bottle' ? 'Illustrative tall PET bottle, 73 mm wide with a 28 mm neck. The label area (73 × 160 mm, two panels per side) is a provisional size.' : 'Illustrative 500 ml gable-top concept, not a manufacturer-approved print dieline.';
+    $('modelNote').textContent = m === 'bottle' ? 'Illustrative tall PET bottle, 73 mm wide with a 28 mm neck. The label area (73 × 170 mm, two panels per side) is a provisional size.' : 'Illustrative 500 ml gable-top concept, not a manufacturer-approved print dieline.';
     $('rotL').setAttribute('aria-label', 'Rotate left'); $('mockCanvas').hidden = true;
     buildSizeTable(); refresh(); paintPick();
   }
