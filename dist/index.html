@@ -410,7 +410,8 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
   function db() {
     if (dbp) return dbp;
     dbp = new Promise(function (res) {
-      try { var r = indexedDB.open('aquaad', 1); r.onupgradeneeded = function () { r.result.createObjectStore('art'); }; r.onsuccess = function () { res(r.result); }; r.onerror = function () { res(null); }; } catch (e) { res(null); }
+      var tm = setTimeout(function () { res(null); }, 2500);
+      try { var r = indexedDB.open('aquaad', 1); r.onupgradeneeded = function () { r.result.createObjectStore('art'); }; r.onsuccess = function () { clearTimeout(tm); res(r.result); }; r.onerror = function () { clearTimeout(tm); res(null); }; r.onblocked = function () { clearTimeout(tm); res(null); }; } catch (e) { clearTimeout(tm); res(null); }
     });
     return dbp;
   }
@@ -850,6 +851,7 @@ footer nav,footer .fcols>div:last-child{flex:0 1 200px;display:flex;flex-directi
     picked = {}; Object.keys(saved.picked || {}).forEach(function (k) { if (ids[k] && saved.picked[k]) picked[k] = true; });
     if (ids[saved.active]) active = saved.active;
     if (!Object.keys(picked).length) { picked[PANELS[0].id] = true; active = PANELS[0].id; }
+    refresh();
     return idbAll().then(function (rows) {
       rows.forEach(function (r) {
         var id = r[0], v = r[1];
