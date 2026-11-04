@@ -25,7 +25,7 @@ Free water, paid for by brands. People drink for free. Brands put their artwork 
 | Admin inbox (password protected) | https://br-long-brook-a1u6whfv-enquiries.compute.c-1.ap-southeast-1.aws.neon.tech/admin |
 | Brand guidelines | [`docs/brand-guidelines.md`](docs/brand-guidelines.md) |
 | Original design notes | [`docs/superpowers/specs`](docs/superpowers/specs) · [`plans`](docs/superpowers/plans) |
-| Contact | [+91 9191919191](tel:+919191919191) · [hello@aquaad.com](mailto:hello@aquaad.com) |
+| Contact | [+91 9191919191](tel:+919191919191) · [WhatsApp](https://wa.me/919191919191) · [hello@aquaad.com](mailto:hello@aquaad.com) |
 
 ## What it does
 
