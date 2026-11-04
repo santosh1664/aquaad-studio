@@ -374,7 +374,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
 <section id="sides" class="studio" aria-labelledby="modelTitle">
   <div class="g">
     <div class="studio-head">
-      <div class="l rv"><span class="tag" style="color:var(--signal-d)">The studio</span><h2 id="modelTitle">Put it on the bottle.</h2></div>
+      <div class="l rv"><h2 id="modelTitle">Put it on the bottle.</h2></div>
       <p class="rv" id="modelLead">Tick the panels you want, then upload artwork to each one. Take all 7 panels for sale, or share the bottle with non-competing brands. The lower back holds WaterOnUs company information.</p>
     </div>
     <div class="preview">
@@ -608,9 +608,6 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
     var tmr = null;
     function keep() { clearTimeout(tmr); tmr = setTimeout(function () { lsSet(fkey, snapshot()); }, 300); }
     f.addEventListener('input', keep); f.addEventListener('change', keep);
-    var clr = h('button', { type: 'button', class: 'lnk', text: 'Clear saved details' });
-    clr.onclick = function () { lsDel(fkey); f.reset(); say('Saved details cleared.', 'mut'); };
-    f.insertBefore(h('p', { class: 'mut', style: 'font-size:13px' }, 'What you type is kept in this browser for 24 hours so a refresh will not lose it. ', clr), status.parentNode ? status : null);
     function say(text, cls) { status.className = cls || ''; status.textContent = text; }
     f.addEventListener('submit', function (ev) {
       ev.preventDefault();
