@@ -1149,7 +1149,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
     return null;
   }
   function wordmark(ctx, cx, cy, size, c1, c2) {
-    ctx.font = '700 ' + size + 'px ' + F_D; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+    ctx.font = '700 ' + size + 'px ' + F_D; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
     try { ctx.letterSpacing = (-size * .045) + 'px'; } catch (e) {}
     ctx.fillStyle = c2; ctx.fillText('Free2Drink', cx, cy);
     try { ctx.letterSpacing = '0px'; } catch (e) {}
