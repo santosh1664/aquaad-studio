@@ -129,6 +129,69 @@ async function adminList(url) {
   return rows.map((r) => ({ ...r, panels: asJson(r.panels) || [], details: asJson(r.details) || {}, artworks: asJson(r.artworks) || [] }));
 }
 
+// Admin records: rates, invoices and quotes, manual sales, expenses and number counters.
+const KV_KEYS = ['rates', 'quote_expenses'];
+const RECORD_KINDS = ['docs', 'manual_sales', 'ledger'];
+const SERIES = { Invoice: 'INV', Quote: 'Q' };
+const MAX_RECORD = 64 * 1024;
+let accountsReady;
+function ensureAccounts() {
+  accountsReady ||= (async () => {
+    await sql('CREATE TABLE IF NOT EXISTS admin_kv (key text PRIMARY KEY, value jsonb NOT NULL, updated_at timestamptz NOT NULL DEFAULT now())');
+    await sql('CREATE TABLE IF NOT EXISTS admin_records (kind text NOT NULL, id text NOT NULL, data jsonb NOT NULL, updated_at timestamptz NOT NULL DEFAULT now(), PRIMARY KEY (kind, id))');
+    await sql('CREATE TABLE IF NOT EXISTS doc_counters (series text PRIMARY KEY, next integer NOT NULL)');
+  })().catch((err) => { accountsReady = null; throw err; });
+  return accountsReady;
+}
+const smallObject = (v) => v && typeof v === 'object' && !Array.isArray(v) && JSON.stringify(v).length <= MAX_RECORD;
+
+async function loadAccounts() {
+  const [kv, records, counters] = await Promise.all([
+    sql('SELECT key, value FROM admin_kv'),
+    sql('SELECT kind, id, data FROM admin_records ORDER BY updated_at'),
+    sql('SELECT series, next FROM doc_counters'),
+  ]);
+  const out = { kv: {}, numbers: { Invoice: 1, Quote: 1 }, docs: [], manual_sales: [], ledger: [] };
+  for (const r of kv) out.kv[r.key] = asJson(r.value);
+  for (const r of records) if (RECORD_KINDS.includes(r.kind)) out[r.kind].push({ ...asJson(r.data), id: r.id });
+  for (const r of counters) out.numbers[r.series] = Number(r.next);
+  return out;
+}
+
+// Numbers can only move forward, and an existing document is only replaced when asked,
+// so two people pressing send at once cannot both issue the same number.
+async function saveDoc({ doc, replace }) {
+  const number = clean(doc && doc.number, 40);
+  if (!smallObject(doc) || !SERIES[doc.type] || !number) return json({ error: 'Bad document.' }, 400);
+  const id = `${doc.type}:${number.toLowerCase()}`;
+  const match = number.match(new RegExp(`^${SERIES[doc.type]}-(\\d{1,9})$`, 'i'));
+  if (match) await sql('INSERT INTO doc_counters (series, next) VALUES ($1, $2) ON CONFLICT (series) DO UPDATE SET next = GREATEST(doc_counters.next, EXCLUDED.next)', [doc.type, Number(match[1]) + 1]);
+  const stored = JSON.stringify({ ...doc, number });
+  const rows = replace === true
+    ? await sql("INSERT INTO admin_records (kind, id, data) VALUES ('docs', $1, $2::jsonb) ON CONFLICT (kind, id) DO UPDATE SET data = EXCLUDED.data, updated_at = now() RETURNING id", [id, stored])
+    : await sql("INSERT INTO admin_records (kind, id, data) VALUES ('docs', $1, $2::jsonb) ON CONFLICT (kind, id) DO NOTHING RETURNING id", [id, stored]);
+  const numbers = (await loadAccounts()).numbers;
+  return rows.length ? json({ ok: true, id, numbers }) : json({ error: 'exists', numbers }, 409);
+}
+
+async function saveRecord({ kind, id, data, remove }) {
+  const key = clean(id, 200);
+  if (!RECORD_KINDS.includes(kind) || !key) return json({ error: 'Bad record.' }, 400);
+  if (remove === true) {
+    await sql('DELETE FROM admin_records WHERE kind = $1 AND id = $2', [kind, key]);
+    return json({ ok: true });
+  }
+  if (!smallObject(data)) return json({ error: 'Bad record.' }, 400);
+  await sql('INSERT INTO admin_records (kind, id, data) VALUES ($1, $2, $3::jsonb) ON CONFLICT (kind, id) DO UPDATE SET data = EXCLUDED.data, updated_at = now()', [kind, key, JSON.stringify(data)]);
+  return json({ ok: true });
+}
+
+async function saveKv({ key, value }) {
+  if (!KV_KEYS.includes(key) || value === undefined || JSON.stringify(value).length > MAX_RECORD) return json({ error: 'Bad setting.' }, 400);
+  await sql('INSERT INTO admin_kv (key, value) VALUES ($1, $2::jsonb) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()', [key, JSON.stringify(value)]);
+  return json({ ok: true });
+}
+
 const ADMIN_URL = 'https://santosh1664.github.io/free2drink/admin/';
 
 export default async function handler(request) {
@@ -145,6 +208,13 @@ export default async function handler(request) {
       let b = {};
       try { b = JSON.parse((await request.text()) || '{}'); } catch { return json({ error: 'Invalid request.' }, 400); }
       if (path === '/api/admin/list') return json({ enquiries: await adminList(b) });
+      if (path.startsWith('/api/admin/accounts/')) {
+        await ensureAccounts();
+        if (path === '/api/admin/accounts/load') return json(await loadAccounts());
+        if (path === '/api/admin/accounts/doc') return await saveDoc(b);
+        if (path === '/api/admin/accounts/record') return await saveRecord(b);
+        if (path === '/api/admin/accounts/kv') return await saveKv(b);
+      }
       if (path === '/api/admin/settings') {
         if (typeof b.show_carton === 'boolean') {
           await getSettings();

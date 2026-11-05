@@ -56,6 +56,7 @@ flowchart LR
 ├── dist/
 │   ├── index.html          the website (deployed to GitHub Pages)
 │   ├── admin/index.html    admin inbox page, calls the backend API
+│   ├── admin/quote.js      quote calculator maths (test: node test/quote.test.mjs)
 │   └── bottle3d.js         the WebGL bottle: geometry, materials, render snapshots
 ├── server-function.mjs     backend API (Neon Function source)
 ├── docs/                   brand guidelines
@@ -102,6 +103,7 @@ Palette, type and voice are written down in [`docs/brand-guidelines.md`](docs/br
 ## Security and privacy
 
 - Customer enquiries and artwork are stored in Neon Postgres and shown only on the password-protected admin page.
+- Rates, invoices, quotes, sales, expenses and invoice numbers are also stored in Neon, behind the admin password. Never put them in the page source, because `dist/` is public.
 - Uploads are checked by file signature, limited to 3 MB per file, and the form has a spam trap and a consent box.
 - The repository is public. Secrets live only in the function's environment and in `.env.local`, which is git-ignored.
 - The backend currently accepts requests from any website origin. Restricting it to the live site is a good next step.
