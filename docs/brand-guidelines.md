@@ -1,9 +1,9 @@
-# WaterOnUs brand guidelines
+# Free2Drink brand guidelines
 
-Source of truth for the WaterOnUs website and admin. Tokens live at the top of `dist/index.html` (primitive, semantic, component).
+Source of truth for the Free2Drink website and admin. Tokens live at the top of `dist/index.html` (primitive, semantic, component).
 
 ## Positioning
-WaterOnUs gives people free water, paid for by brands. Each 500 ml bottle carries advertising: brands pick the panels, partners make and distribute the bottles, people drink for free. Venues get the bottles free too.
+Free2Drink gives people free water, paid for by brands. Each 500 ml bottle carries advertising: brands pick the panels, partners make and distribute the bottles, people drink for free. Venues get the bottles free too.
 
 ## Voice
 - Clear and practical. Say what happens next, in plain words.
@@ -25,7 +25,7 @@ Deep water, one bright water colour, very large type. It should feel like a medi
 |---|---|---|
 | Abyss | #04141C | dark sections, text on light and on orange |
 | Paper / Ice | #F8FAF9 / #EDF3F2 | light sections |
-| Aqua | #2BD4F0 | primary actions, the cap, the "OnUs" in the wordmark. Always dark text on it |
+| Aqua | #2BD4F0 | primary actions, the cap, the "Free2Drink" in the wordmark. Always dark text on it |
 | Deep aqua | #0A7A96 | accent text and focus rings on light backgrounds |
 | Sea | #A4ECF8 | italic accent on dark only |
 
@@ -37,4 +37,4 @@ Deep water, one bright water colour, very large type. It should feel like a medi
 - Avoid: stock SaaS icon cards, blue-on-white gradients, emoji icons, invented numbers or customers.
 
 ## Bottle spec (provisional)
-500 ml PET bottle, 73 mm wide. Label area 73 x 170 mm: two panels of 73 x 85 mm per side, or one whole side. Seven panels are for sale; the lower back is reserved for WaterOnUs information. One brand can take all seven, or brands that don't compete can share a bottle. Confirm with the bottle supplier before production.
+500 ml PET bottle, 73 mm wide. Label area 73 x 170 mm: two panels of 73 x 85 mm per side, or one whole side. Seven panels are for sale; the lower back is reserved for Free2Drink information. One brand can take all seven, or brands that don't compete can share a bottle. Confirm with the bottle supplier before production.

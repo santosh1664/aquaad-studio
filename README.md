@@ -1,16 +1,16 @@
 <div align="center">
 
-# WaterOnUs
+# Free2Drink
 
 **The billboard in your hand.**
-Free water, paid for by brands. People drink for free. Brands put their artwork on 500 ml bottles, preview it in 3D and send it to the WaterOnUs team.
+Free water, paid for by brands. People drink for free. Brands put their artwork on 500 ml bottles, preview it in 3D and send it to the Free2Drink team.
 
-[**Live site**](https://santosh1664.github.io/aquaad-studio/) &nbsp;·&nbsp;
-[Advertise](https://santosh1664.github.io/aquaad-studio/#sides) &nbsp;·&nbsp;
-[Distribute](https://santosh1664.github.io/aquaad-studio/#distribute) &nbsp;·&nbsp;
-[Partners](https://santosh1664.github.io/aquaad-studio/#partners) &nbsp;·&nbsp;
-[Investors](https://santosh1664.github.io/aquaad-studio/#investors) &nbsp;·&nbsp;
-[Admin](https://santosh1664.github.io/aquaad-studio/admin/)
+[**Live site**](https://santosh1664.github.io/free2drink/) &nbsp;·&nbsp;
+[Advertise](https://santosh1664.github.io/free2drink/#sides) &nbsp;·&nbsp;
+[Distribute](https://santosh1664.github.io/free2drink/#distribute) &nbsp;·&nbsp;
+[Partners](https://santosh1664.github.io/free2drink/#partners) &nbsp;·&nbsp;
+[Investors](https://santosh1664.github.io/free2drink/#investors) &nbsp;·&nbsp;
+[Admin](https://santosh1664.github.io/free2drink/admin/)
 
 </div>
 
@@ -20,18 +20,18 @@ Free water, paid for by brands. People drink for free. Brands put their artwork 
 
 | | |
 |---|---|
-| Website | https://santosh1664.github.io/aquaad-studio/ |
-| Repository | https://github.com/santosh1664/aquaad-studio |
-| Admin inbox (password protected) | https://santosh1664.github.io/aquaad-studio/admin/ |
+| Website | https://santosh1664.github.io/free2drink/ |
+| Repository | https://github.com/santosh1664/free2drink |
+| Admin inbox (password protected) | https://santosh1664.github.io/free2drink/admin/ |
 | Brand guidelines | [`docs/brand-guidelines.md`](docs/brand-guidelines.md) |
 | Original design notes | [`docs/superpowers/specs`](docs/superpowers/specs) · [`plans`](docs/superpowers/plans) |
-| Contact | [+91 9191919191](tel:+919191919191) · [WhatsApp](https://wa.me/919191919191) · [hello@aquaad.com](mailto:hello@aquaad.com) |
+| Contact | [+91 9191919191](tel:+919191919191) · [WhatsApp](https://wa.me/919191919191) · [hello@free2drink.com](mailto:hello@free2drink.com) |
 
 ## What it does
 
-- **Design studio.** A real-time WebGL bottle you can drag to turn (73 mm wide, label area 73 × 170 mm) with seven ad panels for sale: upper and lower on the front, right and left, plus the upper back. Take a single panel or a whole side. The lower back is reserved for WaterOnUs company information.
+- **Design studio.** A real-time WebGL bottle you can drag to turn (73 mm wide, label area 73 × 170 mm) with seven ad panels for sale: upper and lower on the front, right and left, plus the upper back. Take a single panel or a whole side. The lower back is reserved for Free2Drink company information.
 - **Artwork tools.** Upload JPG, PNG or WEBP (max 3 MB), rotate it, see the exact artwork size and bleed for each panel, and preview a four-sided render of the bottle.
-- **Send to WaterOnUs.** The enquiry, the artwork files and the four-sided render go to the admin inbox.
+- **Send to Free2Drink.** The enquiry, the artwork files and the four-sided render go to the admin inbox.
 - **Distribute, partner and invest.** Venues, manufacturers, water partners and investors each open a pop-up form.
 - **Kept for 24 hours.** Panels, artwork and typed details stay in the visitor's own browser, so a refresh does not lose them.
 - **Admin switch.** The admin page can bring back the older gable-top carton model for visitors.
