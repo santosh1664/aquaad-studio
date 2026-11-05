@@ -25,7 +25,7 @@ Deep water, one bright water colour, very large type. It should feel like a medi
 |---|---|---|
 | Abyss | #04141C | dark sections, text on light and on orange |
 | Paper / Ice | #F8FAF9 / #EDF3F2 | light sections |
-| Aqua | #2BD4F0 | primary actions, the cap, the "Free2Drink" in the wordmark. Always dark text on it |
+| Aqua | #2BD4F0 | primary actions, the cap, and the `2` in the Free2Drink wordmark. Always dark text on it |
 | Deep aqua | #0A7A96 | accent text and focus rings on light backgrounds |
 | Sea | #A4ECF8 | italic accent on dark only |
 
