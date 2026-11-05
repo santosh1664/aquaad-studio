@@ -24,7 +24,6 @@ Free water, paid for by brands. People drink for free. Brands put their artwork 
 | Repository | https://github.com/santosh1664/free2drink |
 | Admin inbox (password protected) | https://santosh1664.github.io/free2drink/admin/ |
 | Brand guidelines | [`docs/brand-guidelines.md`](docs/brand-guidelines.md) |
-| Original design notes | [`docs/superpowers/specs`](docs/superpowers/specs) · [`plans`](docs/superpowers/plans) |
 | Contact | [+91 9191919191](tel:+919191919191) · [WhatsApp](https://wa.me/919191919191) · [hello@free2drink.com](mailto:hello@free2drink.com) |
 
 ## What it does
@@ -57,11 +56,10 @@ flowchart LR
 ├── dist/
 │   ├── index.html          the website (deployed to GitHub Pages)
 │   ├── admin/index.html    admin inbox page, calls the backend API
-│   ├── bottle3d.js         the WebGL bottle: geometry, materials, render snapshots
+│   └── bottle3d.js         the WebGL bottle: geometry, materials, render snapshots
 ├── server-function.mjs     backend API (Neon Function source)
-├── docs/                   brand guidelines and design notes
-├── .github/workflows/      GitHub Pages deploy
-├── .openai/hosting.json    static hosting config (dist/)
+├── docs/                   brand guidelines
+└── .github/workflows/      GitHub Pages deploy
 ```
 
 ## Run it locally
