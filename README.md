@@ -10,7 +10,7 @@ Free water, paid for by brands. People drink for free. Brands put their artwork 
 [Distribute](https://santosh1664.github.io/aquaad-studio/#distribute) &nbsp;·&nbsp;
 [Partners](https://santosh1664.github.io/aquaad-studio/#partners) &nbsp;·&nbsp;
 [Investors](https://santosh1664.github.io/aquaad-studio/#investors) &nbsp;·&nbsp;
-[Admin](https://br-long-brook-a1u6whfv-enquiries.compute.c-1.ap-southeast-1.aws.neon.tech/admin)
+[Admin](https://santosh1664.github.io/aquaad-studio/admin/)
 
 </div>
 
@@ -22,7 +22,7 @@ Free water, paid for by brands. People drink for free. Brands put their artwork 
 |---|---|
 | Website | https://santosh1664.github.io/aquaad-studio/ |
 | Repository | https://github.com/santosh1664/aquaad-studio |
-| Admin inbox (password protected) | https://br-long-brook-a1u6whfv-enquiries.compute.c-1.ap-southeast-1.aws.neon.tech/admin |
+| Admin inbox (password protected) | https://santosh1664.github.io/aquaad-studio/admin/ |
 | Brand guidelines | [`docs/brand-guidelines.md`](docs/brand-guidelines.md) |
 | Original design notes | [`docs/superpowers/specs`](docs/superpowers/specs) · [`plans`](docs/superpowers/plans) |
 | Contact | [+91 9191919191](tel:+919191919191) · [WhatsApp](https://wa.me/919191919191) · [hello@aquaad.com](mailto:hello@aquaad.com) |
@@ -43,7 +43,7 @@ flowchart LR
   V[Visitor] --> S["Static site<br/>GitHub Pages<br/>dist/index.html"]
   S -->|POST /api/enquiry| F["Neon Function<br/>server-function.mjs"]
   F --> D[("Neon Postgres<br/>enquiries, artworks, settings")]
-  A[Admin] -->|"/admin + password"| F
+  A[Admin] -->|"/admin page + password"| F
   S -->|GET /api/settings| F
 ```
 
@@ -56,9 +56,10 @@ flowchart LR
 .
 ├── dist/
 │   ├── index.html          the website (deployed to GitHub Pages)
+│   ├── admin/index.html    admin inbox page, calls the backend API
 │   ├── bottle3d.js         the WebGL bottle: geometry, materials, render snapshots
 │   └── prototype.html      the original Three.js carton prototype
-├── server-function.mjs     backend + admin page (Neon Function source)
+├── server-function.mjs     backend API (Neon Function source)
 ├── docs/                   brand guidelines and design notes
 ├── .github/workflows/      GitHub Pages deploy
 ├── .openai/hosting.json    static hosting config (dist/)
