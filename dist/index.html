@@ -1151,8 +1151,7 @@ footer .fcols a{display:flex;align-items:center;min-height:36px;color:var(--on-d
   function wordmark(ctx, cx, cy, size, c1, c2) {
     ctx.font = '700 ' + size + 'px ' + F_D; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
     try { ctx.letterSpacing = (-size * .045) + 'px'; } catch (e) {}
-    var a = ctx.measureText('Water').width, b = ctx.measureText('Free2Drink').width, x = cx - (a + b) / 2;
-    ctx.fillStyle = c1; ctx.fillText('Water', x, cy); ctx.fillStyle = c2; ctx.fillText('Free2Drink', x + a, cy);
+    ctx.fillStyle = c2; ctx.fillText('Free2Drink', cx, cy);
     try { ctx.letterSpacing = '0px'; } catch (e) {}
   }
   function drawZone(ctx, id, x, y, w, ht, sz) {
