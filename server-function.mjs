@@ -129,7 +129,7 @@ async function adminList(url) {
   return rows.map((r) => ({ ...r, panels: asJson(r.panels) || [], details: asJson(r.details) || {}, artworks: asJson(r.artworks) || [] }));
 }
 
-const ADMIN_URL = 'https://santosh1664.github.io/aquaad-studio/admin/';
+const ADMIN_URL = 'https://santosh1664.github.io/free2drink/admin/';
 
 export default async function handler(request) {
   const url = new URL(request.url);
