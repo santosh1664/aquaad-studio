@@ -58,12 +58,10 @@ flowchart LR
 │   ├── index.html          the website (deployed to GitHub Pages)
 │   ├── admin/index.html    admin inbox page, calls the backend API
 │   ├── bottle3d.js         the WebGL bottle: geometry, materials, render snapshots
-│   └── prototype.html      the original Three.js carton prototype
 ├── server-function.mjs     backend API (Neon Function source)
 ├── docs/                   brand guidelines and design notes
 ├── .github/workflows/      GitHub Pages deploy
 ├── .openai/hosting.json    static hosting config (dist/)
-└── index.html              earliest prototype, kept for reference
 ```
 
 ## Run it locally
